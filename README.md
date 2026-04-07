@@ -77,7 +77,7 @@ sequenceDiagram
     F-->>S: done
     S-->>P: ws transcode:complete
     V->>S: GET /api/videos
-    V->>S: GET /hls/vod/{id}/master.m3u8
+    V->>S: GET /hls/vod/id/master.m3u8
     Note over V: hls.js adaptive bitrate playback
 ```
 
@@ -103,7 +103,7 @@ sequenceDiagram
         WS->>F: pipe to stdin
         F->>F: output HLS segments
     end
-    V->>V: hls.js plays /hls/live/{id}/master.m3u8
+    V->>V: hls.js plays /hls/live/id/master.m3u8
     P->>WS: camera:stop
     WS->>F: close stdin
 ```
@@ -243,14 +243,14 @@ graph TB
 
     subgraph Output["HLS Output (/data/hls/)"]
         direction TB
-        VM[vod/{id}/master.m3u8]
-        V4[vod/{id}/480p/]
-        V7[vod/{id}/720p/]
-        V1[vod/{id}/1080p/]
-        LM[live/{id}/master.m3u8]
-        L4[live/{id}/480p/]
-        L7[live/{id}/720p/]
-        L1[live/{id}/1080p/]
+        VM["vod/#lt;id#gt;/master.m3u8"]
+        V4["vod/#lt;id#gt;/480p/"]
+        V7["vod/#lt;id#gt;/720p/"]
+        V1["vod/#lt;id#gt;/1080p/"]
+        LM["live/#lt;id#gt;/master.m3u8"]
+        L4["live/#lt;id#gt;/480p/"]
+        L7["live/#lt;id#gt;/720p/"]
+        L1["live/#lt;id#gt;/1080p/"]
     end
 
     subgraph Playback
