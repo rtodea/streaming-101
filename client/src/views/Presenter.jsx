@@ -3,6 +3,7 @@ import VideoUploader from '../containers/VideoUploader.jsx'
 import LiveCamera from '../containers/LiveCamera.jsx'
 import StatsPanel from '../containers/StatsPanel.jsx'
 import CatalogList from '../containers/CatalogList.jsx'
+import ByteInspector from '../containers/ByteInspector.jsx'
 import QRDisplay from '../components/QRDisplay.jsx'
 
 export default function Presenter() {
@@ -71,6 +72,13 @@ export default function Presenter() {
               Videos
             </h2>
             <CatalogList allowDelete />
+          </section>
+
+          <section>
+            <h2 style={{ fontSize: 'var(--font-size-lg)', marginBottom: 'var(--space-sm)' }}>
+              Byte Inspector
+            </h2>
+            <ByteInspector />
           </section>
 
           <section>

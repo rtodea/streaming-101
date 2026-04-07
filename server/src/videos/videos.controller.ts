@@ -1,5 +1,5 @@
 import {
-  Controller, Get, Post, Delete, Param,
+  Controller, Get, Post, Delete, Param, Query,
   NotFoundException, BadRequestException,
   UseInterceptors, UploadedFile,
 } from '@nestjs/common';
@@ -78,6 +78,69 @@ export class VideosController {
     const video = this.videosService.findById(id);
     if (!video) throw new NotFoundException('Video not found');
     return video;
+  }
+
+  @Get(':id/bytes')
+  getBytes(
+    @Param('id') id: string,
+    @Query('file') file: string = 'original',
+    @Query('offset') offset: string = '0',
+    @Query('length') length: string = '512',
+  ) {
+    const video = this.videosService.findById(id);
+    if (!video) throw new NotFoundException('Video not found');
+
+    const vodDir = path.join(HLS_OUTPUT_DIR, 'vod', id);
+    let filePath: string;
+    let label: string;
+
+    if (file === 'original') {
+      filePath = video.originalPath;
+      label = `Original upload (${video.format})`;
+    } else if (file === 'manifest') {
+      filePath = path.join(vodDir, 'master.m3u8');
+      label = 'HLS Master Manifest';
+    } else if (file.match(/^\d+p\/segment-\d+\.ts$/)) {
+      filePath = path.join(vodDir, file);
+      label = `HLS Segment (${file})`;
+    } else if (file.match(/^\d+p\/stream\.m3u8$/)) {
+      filePath = path.join(vodDir, file);
+      label = `Variant Manifest (${file})`;
+    } else {
+      throw new BadRequestException('Invalid file path');
+    }
+
+    if (!filePath || !fs.existsSync(filePath)) {
+      throw new NotFoundException('File not found');
+    }
+
+    const off = Math.max(0, parseInt(offset, 10) || 0);
+    const len = Math.min(2048, Math.max(1, parseInt(length, 10) || 512));
+    const stat = fs.statSync(filePath);
+    const fd = fs.openSync(filePath, 'r');
+    const buf = Buffer.alloc(Math.min(len, stat.size - off));
+    fs.readSync(fd, buf, 0, buf.length, off);
+    fs.closeSync(fd);
+
+    const rows: { offset: string; hex: string; ascii: string }[] = [];
+    for (let i = 0; i < buf.length; i += 16) {
+      const slice = buf.subarray(i, Math.min(i + 16, buf.length));
+      rows.push({
+        offset: (off + i).toString(16).padStart(8, '0'),
+        hex: [...slice].map(b => b.toString(16).padStart(2, '0')).join(' '),
+        ascii: [...slice].map(b => (b >= 0x20 && b <= 0x7e) ? String.fromCharCode(b) : '.').join(''),
+      });
+    }
+
+    return {
+      videoId: id,
+      file: label,
+      filePath: file,
+      fileSize: stat.size,
+      offset: off,
+      length: buf.length,
+      rows,
+    };
   }
 
   @Delete(':id')
