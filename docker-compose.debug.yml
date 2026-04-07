@@ -1,0 +1,12 @@
+services:
+  server:
+    command: npm run start:debug
+    ports:
+      - "9229:9229"
+    environment:
+      - INSPECT_HOST=0.0.0.0
+      - INSPECT_PORT=9229
+
+  client:
+    environment:
+      - VITE_SERVER_HOST=${SERVER_HOST:-server}
