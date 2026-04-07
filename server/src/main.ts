@@ -11,7 +11,7 @@ async function bootstrap() {
   app.use(requestLogger);
 
   const port = process.env.PORT || 3000;
-  await app.listen(port);
+  await app.listen(port, '0.0.0.0');
   console.log(JSON.stringify({
     service: 'streaming-101-server',
     timestamp: new Date().toISOString(),
