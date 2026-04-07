@@ -66,6 +66,9 @@ For a streaming platform involving video ingestion, transcoding, and live websoc
     *   It then "Transmuxes" (repackages) these streams into HLS/DASH chunks on the fly so viewers can watch them.
 
 ### Use Case: Wow Factor #1 (Live Stats & Tweaks)
+*   **What to show for Server Load?**
+    *   **Recommendation: Prometheus + Grafana.**
+    *   *Why?* Instead of building custom dashboards for backend CPU/Network, deploy `kube-prometheus-stack` on your k3s cluster. Show a live Grafana dashboard tracking **Network Egress (Bandwidth Out)**. This perfectly visualizes the server strain as 50+ viewers connect and pull video chunks simultaneously, delivering a highly professional look with zero custom code.
 *   **What to tweak live to observe delay?**
     *   **HLS Segment Size:** Change the chunk size from 6 seconds to 2 seconds or 1 second.
     *   *Why?* HLS typically requires 3 chunks to be buffered before playback starts. If chunks are 6s, latency is ~18 seconds. If chunks are 1s, latency drops to ~3 seconds. Tweaking this live (and restarting the stream) is a massive "Aha!" moment for the audience.

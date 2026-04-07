@@ -224,6 +224,7 @@ graph TB
             FE[NextJS Pod<br/>replicas: 1]
             BE[NestJS Pod<br/>replicas: 1]
             TC[FFmpeg Pod<br/>replicas: 1-3]
+            Obs[Prometheus + Grafana<br/>replicas: 1]
         end
 
         subgraph Volumes
@@ -235,6 +236,7 @@ graph TB
     Internet((Internet)) --> Ingress
     Ingress -->|"/api/*"| BE
     Ingress -->|"/hls/*"| PV2
+    Ingress -->|"/grafana"| Obs
     Ingress -->|"/*"| FE
 
     BE --> TC
@@ -242,4 +244,5 @@ graph TB
     TC --> PV2
 
     style TC fill:#f90,color:#fff
+    style Obs fill:#2361b1,color:#fff
 ```

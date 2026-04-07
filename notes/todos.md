@@ -11,6 +11,7 @@
 3. Server side: pick a framework that supports all of this (NextJS or NestJS)
 4. We will need some infrastructure, so use k8s (actually k3s)
 5. We will want to deploy this on my server (tadeo.ro, todea.eu)
+6. Setup observability stack (Prometheus & Grafana) to visualize server load during live streams.
 
 ## Use cases
 
