@@ -1,10 +1,13 @@
 <!--
 Sync Impact Report
 ===================
-Version change: 1.4.1 → 1.5.0 (MINOR — new principle added)
-Modified principles: none
-Added sections:
-  - Principle IX. Component-Driven UI & Typography
+Version change: 1.6.0 → 1.6.1 (PATCH — fix stale references)
+Modified principles:
+  - II. Streaming Correctness — RTMP replaced with WebRTC/MediaRecorder
+  - VII. Container-Per-Service — NextJS → React/Vite, clarified FFmpeg
+Modified sections:
+  - Presentation Constraints — NextJS → React+Vite, RTMP → WebRTC,
+    Socket.io → raw ws
 Removed sections: none
 Templates requiring updates:
   - .specify/templates/plan-template.md — ✅ no updates needed
@@ -35,7 +38,9 @@ production system. The audience learns by seeing things work
 
 All video pipeline stages (ingest, transcode, chunk, manifest,
 playback) MUST use industry-standard protocols and formats:
-HLS for delivery, RTMP for ingest, FFmpeg for transcoding.
+HLS for delivery, WebRTC APIs (getUserMedia + MediaRecorder)
+with WebSocket binary transport for live ingest, FFmpeg for
+transcoding.
 Shortcuts that produce technically incorrect streaming behavior
 (e.g., missing keyframe alignment, broken manifests) are
 forbidden even in demo code.
@@ -138,9 +143,9 @@ MUST be composable via a root `docker-compose.yml` that
 brings the full stack up locally without requiring k3s or
 any Kubernetes tooling.
 
-- **Own Dockerfile**: Each service (NextJS frontend, NestJS
-  backend, FFmpeg transcoder) MUST have a dedicated Dockerfile
-  at its own directory root.
+- **Own Dockerfile**: Each service (React/Vite frontend, NestJS
+  backend with FFmpeg) MUST have a dedicated Dockerfile at its
+  own directory root.
 - **Docker Compose as dev baseline**: A `docker-compose.yml`
   at the repo root MUST define all services, volumes, and
   networks needed to run the complete demo stack. Running
@@ -242,13 +247,69 @@ you can show a presentational component in isolation without
 explaining data plumbing. CSS variables make last-minute
 visual tweaks trivial.
 
+### X. Debuggability & Hybrid Dev Mode
+
+Every layer of the stack MUST be debuggable with standard
+tooling. The Docker Compose setup MUST support a hybrid mode
+where some services run inside containers and others run
+locally, so developers can attach breakpoints to any layer.
+
+- **Hybrid mode**: The `docker-compose.yml` MUST allow
+  selectively disabling services (e.g., run the NestJS
+  backend locally with `--inspect` while the frontend runs
+  in Docker, or vice versa). Each service MUST be
+  configurable to point at a local or containerized
+  counterpart via environment variables (host/port).
+- **Node.js inspect support**: The NestJS backend MUST
+  expose `--inspect` or `--inspect-brk` flags via an
+  environment variable or a dedicated `docker-compose`
+  override file (`docker-compose.debug.yml`). The inspect
+  port (default 9229) MUST be mapped out of the container.
+- **IDE launch configs**: The `notes/` directory MUST
+  contain a debugging guide (`notes/debugging.md`) with
+  ready-to-paste launch configurations for:
+  - **VS Code**: `.vscode/launch.json` attach config for
+    Node.js inspect and Chrome DevTools
+  - **WebStorm**: Run/Debug configuration for Node.js
+    remote attach and JavaScript debug
+  - **Chrome DevTools**: `chrome://inspect` instructions
+    for connecting to the Node.js inspect port
+- **Health checks**: Every service MUST expose a health
+  check endpoint or signal. The NestJS backend MUST have
+  a `GET /api/health` endpoint returning service status
+  and sub-process health. Docker Compose services MUST
+  define `healthcheck` directives so `docker compose ps`
+  shows container health at a glance.
+- **Sub-process visibility**: Spawned FFmpeg processes
+  MUST be tracked and their status (running, exit code,
+  pid, stderr tail) MUST be queryable via the health
+  endpoint and visible on the presenter dashboard. If a
+  transcoding worker crashes, the dashboard MUST show the
+  failure immediately — no silent failures.
+- **Structured logging**: All services MUST log to stdout
+  in a parseable format (JSON or key=value). Logs MUST
+  include a service identifier, timestamp, and correlation
+  ID (e.g., video ID or stream session ID) so that logs
+  from multiple services can be correlated when running
+  via `docker compose logs -f`.
+
+**Rationale**: A streaming stack has many moving parts
+(frontend, backend, FFmpeg sub-processes, WebSocket
+connections). When something breaks during development or
+on stage, the developer MUST be able to attach a debugger
+to the exact layer that is failing — without rebuilding
+containers or restarting the entire stack. Health checks
+and sub-process visibility prevent the "it silently died
+10 minutes ago" debugging nightmare.
+
 ## Presentation Constraints
 
-- **Stack**: NextJS (frontend), NestJS (backend API +
-  WebSockets), FFmpeg (transcoding), k3s (deployment on
-  tadeo.ro / todea.eu).
-- **Protocols**: HLS for delivery, RTMP for live ingest,
-  WebSockets (Socket.io) for real-time stats.
+- **Stack**: React 19 + Vite 6 (frontend SPA), NestJS (backend
+  API + WebSockets), FFmpeg (transcoding, inside server
+  container), k3s (deployment on tadeo.ro / todea.eu).
+- **Protocols**: HLS for delivery, WebRTC APIs + WebSocket
+  binary for live ingest, WebSockets (raw ws) for real-time
+  stats.
 - **Player**: hls.js in the browser for ABR playback.
 - **Audience access**: QR code to a mobile-friendly viewer page.
 - **Local dev**: Docker Compose at the repo root for iteration
@@ -291,4 +352,4 @@ doubt, refer back to these principles.
 - **Compliance** is checked during plan creation via the
   Constitution Check gate in plan-template.md.
 
-**Version**: 1.5.0 | **Ratified**: 2026-04-06 | **Last Amended**: 2026-04-07
+**Version**: 1.6.1 | **Ratified**: 2026-04-06 | **Last Amended**: 2026-04-07
