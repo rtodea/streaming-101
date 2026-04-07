@@ -177,33 +177,27 @@ FFmpeg has built-in test pattern generators. No external tools needed.
 
 ### Static Checkerboard (10 seconds, 30fps, 1080p)
 
+Uses the `geq` (generic equation) filter to generate true alternating black and white squares. Each square is 135×135 pixels (8×8 grid on a 1080×1080 canvas):
+
 ```bash
-ffmpeg -f lavfi -i "color=c=white:s=1080x1080:d=10,drawgrid=w=iw/8:h=ih/8:t=2:c=black@1" \
+# True checkerboard: alternating filled black/white squares
+ffmpeg -f lavfi -i "color=white:s=1080x1080:d=10:rate=30" \
+  -vf "geq=lum='if(eq(mod(floor(X/135)+floor(Y/135),2),0),255,0)':cr=128:cb=128" \
   -c:v libx264 -pix_fmt yuv420p checkerboard_static.mp4
 ```
 
-### Better: Use the `testsrc2` Pattern
-
-```bash
-# Built-in test source with checkerboard-like patterns
-ffmpeg -f lavfi -i "testsrc2=size=1080x1080:rate=30:duration=10" \
-  -c:v libx264 -pix_fmt yuv420p testsrc2.mp4
-```
+How `geq` works here:
+- `X` and `Y` are the pixel coordinates
+- `floor(X/135)` gives the column index, `floor(Y/135)` gives the row index
+- `mod(col + row, 2)` alternates between 0 and 1
+- If even → white (255), if odd → black (0)
 
 ### Rotating Checkerboard (this is the good one)
 
 ```bash
-# Generate a checkerboard and rotate it continuously
-ffmpeg -f lavfi -i "smptebars=size=1080x1080:rate=30:duration=10" \
-  -vf "rotate=t*PI/4:fillcolor=black:ow=1080:oh=1080" \
-  -c:v libx264 -pix_fmt yuv420p checkerboard_rotating.mp4
-```
-
-Or a true pixel-level checkerboard with rotation:
-
-```bash
 # Step 1: Generate a static checkerboard PNG
-ffmpeg -f lavfi -i "color=white:s=1080x1080,drawgrid=w=iw/8:h=ih/8:t=2:c=black@1" \
+ffmpeg -f lavfi -i "color=white:s=1080x1080" \
+  -vf "geq=lum='if(eq(mod(floor(X/135)+floor(Y/135),2),0),255,0)':cr=128:cb=128" \
   -frames:v 1 checkerboard.png
 
 # Step 2: Animate it with rotation (full 360° over 10 seconds)
