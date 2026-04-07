@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 
-const WS_URL = `ws://${window.location.host}/ws`
+const wsProto = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
+const WS_URL = `${wsProto}//${window.location.host}/ws`
 const RECONNECT_DELAY = 2000
 
 export default function useWebSocket() {
