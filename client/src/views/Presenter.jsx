@@ -2,6 +2,7 @@ import { useState } from 'react'
 import VideoUploader from '../containers/VideoUploader.jsx'
 import LiveCamera from '../containers/LiveCamera.jsx'
 import StatsPanel from '../containers/StatsPanel.jsx'
+import CatalogList from '../containers/CatalogList.jsx'
 import QRDisplay from '../components/QRDisplay.jsx'
 
 export default function Presenter() {
@@ -65,6 +66,13 @@ export default function Presenter() {
         </div>
 
         <div className="stack">
+          <section>
+            <h2 style={{ fontSize: 'var(--font-size-lg)', marginBottom: 'var(--space-sm)' }}>
+              Videos
+            </h2>
+            <CatalogList allowDelete />
+          </section>
+
           <section>
             <h2 style={{ fontSize: 'var(--font-size-lg)', marginBottom: 'var(--space-sm)' }}>
               Live Stats

@@ -99,6 +99,44 @@ export class VideosService implements OnModuleInit {
     Object.assign(video, updates);
   }
 
+  delete(id: string): boolean {
+    const video = this.videos.get(id);
+    if (!video) return false;
+
+    // Kill active FFmpeg process if transcoding
+    if (video.status === 'transcoding') {
+      const processes = ProcessRegistry.list();
+      for (const proc of processes) {
+        if (proc.label.startsWith(id) && proc.status === 'running') {
+          try { process.kill(proc.pid); } catch {}
+        }
+      }
+    }
+
+    // Remove entity from store
+    this.videos.delete(id);
+
+    // Remove HLS output directory
+    const vodDir = path.join(HLS_OUTPUT_DIR, 'vod', id);
+    if (fs.existsSync(vodDir)) {
+      fs.rmSync(vodDir, { recursive: true, force: true });
+    }
+
+    // Remove original upload file
+    if (video.originalPath && fs.existsSync(video.originalPath)) {
+      fs.unlinkSync(video.originalPath);
+    }
+
+    console.log(JSON.stringify({
+      service: 'streaming-101-server',
+      timestamp: new Date().toISOString(),
+      level: 'info',
+      message: `Deleted video ${id} (was ${video.status}), files removed`,
+    }));
+
+    return true;
+  }
+
   startTranscoding(videoId: string) {
     const video = this.videos.get(videoId);
     if (!video) return;

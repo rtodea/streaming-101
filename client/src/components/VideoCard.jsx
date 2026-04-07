@@ -1,4 +1,4 @@
-export default function VideoCard({ video, onClick }) {
+export default function VideoCard({ video, onClick, onDelete }) {
   const statusColors = {
     ready: 'var(--color-success)',
     transcoding: 'var(--color-warning)',
@@ -10,6 +10,15 @@ export default function VideoCard({ video, onClick }) {
     <div className="video-card" onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default' }}>
       <div className="video-card__thumb">
         <span className="video-card__format">{video.format}</span>
+        {onDelete && (
+          <button
+            className="video-card__delete"
+            onClick={(e) => { e.stopPropagation(); onDelete(video); }}
+            title="Delete video"
+          >
+            x
+          </button>
+        )}
       </div>
       <div className="video-card__info">
         <h3 className="video-card__title">{video.title}</h3>
@@ -53,6 +62,27 @@ export default function VideoCard({ video, onClick }) {
           color: var(--color-muted);
           text-transform: uppercase;
         }
+        .video-card__thumb { position: relative; }
+        .video-card__delete {
+          position: absolute;
+          top: var(--space-xs);
+          right: var(--space-xs);
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          border: none;
+          background: rgba(0,0,0,0.6);
+          color: white;
+          font-size: var(--font-size-sm);
+          font-weight: 700;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          line-height: 1;
+          transition: background 0.15s;
+        }
+        .video-card__delete:hover { background: var(--color-error); }
         .video-card__info { padding: var(--space-sm); }
         .video-card__title {
           font-size: var(--font-size-md);

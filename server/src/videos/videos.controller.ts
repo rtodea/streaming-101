@@ -1,5 +1,5 @@
 import {
-  Controller, Get, Post, Param,
+  Controller, Get, Post, Delete, Param,
   NotFoundException, BadRequestException,
   UseInterceptors, UploadedFile,
 } from '@nestjs/common';
@@ -8,6 +8,7 @@ import { diskStorage } from 'multer';
 import * as path from 'path';
 import * as fs from 'fs';
 import { VideosService } from './videos.service';
+import { WsService } from '../ws/ws.service';
 
 const HLS_OUTPUT_DIR = process.env.HLS_OUTPUT_DIR || '/data/hls';
 const MAX_UPLOAD_SIZE = parseInt(process.env.MAX_UPLOAD_SIZE || '524288000', 10);
@@ -20,7 +21,10 @@ const FORMAT_MAP: Record<string, string> = {
 
 @Controller('api/videos')
 export class VideosController {
-  constructor(private readonly videosService: VideosService) {}
+  constructor(
+    private readonly videosService: VideosService,
+    private readonly wsService: WsService,
+  ) {}
 
   @Post('upload')
   @UseInterceptors(FileInterceptor('file', {
@@ -74,5 +78,13 @@ export class VideosController {
     const video = this.videosService.findById(id);
     if (!video) throw new NotFoundException('Video not found');
     return video;
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    const deleted = this.videosService.delete(id);
+    if (!deleted) throw new NotFoundException('Video not found');
+    this.wsService.broadcast({ type: 'video:deleted', videoId: id });
+    return { id, deleted: true };
   }
 }
