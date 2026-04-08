@@ -39,6 +39,7 @@ export class WsService {
       ws, viewerId, watchingId,
       currentQuality: null, bandwidth: 0, bufferLevel: 0,
     });
+    this.scheduleStatsBroadcast();
   }
 
   updateViewerStats(viewerId: string, stats: Record<string, unknown>) {
@@ -96,6 +97,7 @@ export class WsService {
 
   removeViewer(viewerId: string) {
     this.viewers.delete(viewerId);
+    this.scheduleStatsBroadcast();
   }
 
   getViewerCount(): number {
