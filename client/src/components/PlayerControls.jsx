@@ -1,11 +1,26 @@
-export default function PlayerControls({ quality, bandwidth, bufferLevel }) {
+export default function PlayerControls({ quality, bandwidth, bufferLevel, levels, selectedLevel, onLevelChange }) {
   const bufferPercent = Math.min(100, (bufferLevel || 0) * 10)
 
   return (
     <div className="player-controls">
       <div className="player-controls__stat">
         <span className="player-controls__label">Quality</span>
-        <span className="player-controls__value">{quality || '—'}</span>
+        {levels && levels.length > 0 ? (
+          <select
+            className="player-controls__select"
+            value={selectedLevel ?? -1}
+            onChange={(e) => onLevelChange?.(Number(e.target.value))}
+          >
+            <option value={-1}>Auto{selectedLevel === -1 && quality ? ` (${quality})` : ''}</option>
+            {levels
+              .sort((a, b) => b.height - a.height)
+              .map(l => (
+                <option key={l.index} value={l.index}>{l.height}p</option>
+              ))}
+          </select>
+        ) : (
+          <span className="player-controls__value">{quality || '—'}</span>
+        )}
       </div>
       <div className="player-controls__stat">
         <span className="player-controls__label">Bandwidth</span>
@@ -46,6 +61,17 @@ export default function PlayerControls({ quality, bandwidth, bufferLevel }) {
           letter-spacing: 0.05em;
         }
         .player-controls__value { font-weight: 600; }
+        .player-controls__select {
+          font-family: inherit;
+          font-size: var(--font-size-sm);
+          font-weight: 600;
+          background: var(--color-surface);
+          color: var(--color-text);
+          border: 1px solid var(--color-border);
+          border-radius: var(--radius-sm);
+          padding: 2px 6px;
+          cursor: pointer;
+        }
         .player-controls__buffer {
           width: 60px;
           height: 6px;

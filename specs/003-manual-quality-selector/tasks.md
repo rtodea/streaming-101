@@ -17,8 +17,8 @@
 
 **Purpose**: Extend the useHls hook to expose quality level control — required by both user stories.
 
-- [ ] T001 Add `setLevel` callback and `selectedLevel` state to `useHls` hook, using `hls.currentLevel` API for locking and `-1` for Auto (ABR) in `client/src/hooks/useHls.js`
-- [ ] T002 Expose available levels as `{height, index}` array and selected level from `useHls` return value in `client/src/hooks/useHls.js`
+- [X] T001 Add `setLevel` callback and `selectedLevel` state to `useHls` hook, using `hls.currentLevel` API for locking and `-1` for Auto (ABR) in `client/src/hooks/useHls.js`
+- [X] T002 Expose available levels as `{height, index}` array and selected level from `useHls` return value in `client/src/hooks/useHls.js`
 
 **Checkpoint**: Hook API ready — `setLevel(index)` locks quality, `setLevel(-1)` restores ABR, `stats.levels` lists available variants with indices.
 
@@ -32,9 +32,9 @@
 
 ### Implementation for User Story 1
 
-- [ ] T003 [US1] Add quality dropdown to `PlayerControls` component with `levels`, `selectedLevel`, and `onLevelChange` props; render a `<select>` with "Auto" option (value `-1`) plus one option per available level showing `{height}p` in `client/src/components/PlayerControls.jsx`
-- [ ] T004 [US1] Style the quality dropdown to match existing black-and-white design system using CSS custom properties in `client/src/components/PlayerControls.jsx`
-- [ ] T005 [US1] Wire `useHls` level control to `PlayerControls` in the `HlsPlayer` container: pass `stats.levels`, `stats.selectedLevel`, and `setLevel` as props in `client/src/containers/HlsPlayer.jsx`
+- [X] T003 [US1] Add quality dropdown to `PlayerControls` component with `levels`, `selectedLevel`, and `onLevelChange` props; render a `<select>` with "Auto" option (value `-1`) plus one option per available level showing `{height}p` in `client/src/components/PlayerControls.jsx`
+- [X] T004 [US1] Style the quality dropdown to match existing black-and-white design system using CSS custom properties in `client/src/components/PlayerControls.jsx`
+- [X] T005 [US1] Wire `useHls` level control to `PlayerControls` in the `HlsPlayer` container: pass `stats.levels`, `stats.selectedLevel`, and `setLevel` as props in `client/src/containers/HlsPlayer.jsx`
 
 **Checkpoint**: VOD player has a working quality dropdown. Selecting a level locks playback; selecting Auto resumes ABR.
 
@@ -48,8 +48,8 @@
 
 ### Implementation for User Story 2
 
-- [ ] T006 [US2] Verify the live player route (`/player/:id?live=1`) uses the same `HlsPlayer` container and confirm quality dropdown appears for live HLS streams in `client/src/views/Player.jsx`
-- [ ] T007 [US2] Handle dynamic level availability for live streams — update dropdown when new quality levels appear in the manifest (levels may arrive progressively) in `client/src/hooks/useHls.js`
+- [X] T006 [US2] Verify the live player route (`/player/:id?live=1`) uses the same `HlsPlayer` container and confirm quality dropdown appears for live HLS streams in `client/src/views/Player.jsx`
+- [X] T007 [US2] Handle dynamic level availability for live streams — update dropdown when new quality levels appear in the manifest (levels may arrive progressively) in `client/src/hooks/useHls.js`
 
 **Checkpoint**: Live player has the same quality dropdown as VOD. Quality switching works during active live streams.
 
@@ -59,8 +59,8 @@
 
 **Purpose**: Edge cases, UX refinements, and verification.
 
-- [ ] T008 Show only available quality levels in the dropdown by filtering out levels not yet present in the HLS manifest in `client/src/components/PlayerControls.jsx`
-- [ ] T009 Ensure quality selection persists across segment boundaries (no automatic reset when new segments load) by verifying `hls.currentLevel` stays locked in `client/src/hooks/useHls.js`
+- [X] T008 Show only available quality levels in the dropdown by filtering out levels not yet present in the HLS manifest in `client/src/components/PlayerControls.jsx`
+- [X] T009 Ensure quality selection persists across segment boundaries (no automatic reset when new segments load) by verifying `hls.currentLevel` stays locked in `client/src/hooks/useHls.js`
 
 ---
 

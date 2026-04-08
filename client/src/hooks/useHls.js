@@ -9,6 +9,7 @@ export default function useHls(src) {
     bandwidth: 0,
     bufferLevel: 0,
     levels: [],
+    selectedLevel: -1,
   })
 
   const attach = useCallback((videoEl) => {
@@ -27,8 +28,18 @@ export default function useHls(src) {
       hls.on(Hls.Events.MANIFEST_PARSED, (_event, data) => {
         setStats(prev => ({
           ...prev,
-          levels: data.levels.map(l => `${l.height}p`),
+          levels: data.levels.map((l, i) => ({ height: l.height, index: i })),
         }))
+      })
+
+      hls.on(Hls.Events.LEVEL_UPDATED, () => {
+        const currentLevels = hls.levels
+        if (currentLevels) {
+          setStats(prev => ({
+            ...prev,
+            levels: currentLevels.map((l, i) => ({ height: l.height, index: i })),
+          }))
+        }
       })
 
       hls.on(Hls.Events.LEVEL_SWITCHED, (_event, data) => {
@@ -73,5 +84,12 @@ export default function useHls(src) {
     }
   }, [src])
 
-  return { attach, stats }
+  const setLevel = useCallback((index) => {
+    const hls = hlsRef.current
+    if (!hls) return
+    hls.currentLevel = index
+    setStats(prev => ({ ...prev, selectedLevel: index }))
+  }, [])
+
+  return { attach, stats, setLevel }
 }

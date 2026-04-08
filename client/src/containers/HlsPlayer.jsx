@@ -4,7 +4,7 @@ import useWebSocket from '../hooks/useWebSocket.js'
 import PlayerControls from '../components/PlayerControls.jsx'
 
 export default function HlsPlayer({ src, viewerId, watchingId }) {
-  const { attach, stats } = useHls(src)
+  const { attach, stats, setLevel } = useHls(src)
   const ws = useWebSocket()
   const statsIntervalRef = useRef(null)
 
@@ -52,6 +52,9 @@ export default function HlsPlayer({ src, viewerId, watchingId }) {
         quality={stats.quality}
         bandwidth={stats.bandwidth}
         bufferLevel={stats.bufferLevel}
+        levels={stats.levels}
+        selectedLevel={stats.selectedLevel}
+        onLevelChange={setLevel}
       />
     </div>
   )
