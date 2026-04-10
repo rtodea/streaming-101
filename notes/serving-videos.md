@@ -12,6 +12,13 @@ A video is just a series of still images (frames). Our brain creates the "illusi
 In the early days of cinema, 24 frames per second (fps) became the standard. 
 *   **Trivia:** 24 fps wasn't chosen for "smoothness" alone—it was the minimum speed required for the optical sound-on-film tracks to be intelligible. Silent films often ran at 16–18 fps, which looked "choppy" but saved expensive film stock.
 
+### The Biological Buffer: Why We Don't "Blink" Out of Existence
+The human brain is the ultimate video player. Even though we blink roughly 15–20 times per minute (about 10% of our waking hours), we never perceive the world as "buffering" or turning black.
+
+1.  **Saccadic Masking (The "Internal Mute"):** When your eyes move rapidly from one point to another (a saccade), the brain temporarily shuts off the visual feed to prevent motion blur. You are effectively "blind" for about 50ms during every eye movement, yet you perceive a steady, stable world.
+2.  **Predictive Processing (Biological P-Frames):** Just like a video codec, the brain doesn't redraw the entire world every millisecond. It builds an internal model and only updates the "deltas" (changes). When you blink, the brain simply "holds" the last known good frame in **Iconic Memory** and predicts what should be there until the eyes open.
+3.  **The "Live Stream" Feeling:** This neural interpolation creates a sense of **Subjective Continuity**. We aren't seeing a raw stream of photons; we are seeing a rendered "composite" produced by the brain's GPU (the Visual Cortex).
+
 ### The Continuity Equation
 To maintain this illusion in a digital stream, the browser must ensure that the "consumption rate" never exceeds the "delivery rate."
 
