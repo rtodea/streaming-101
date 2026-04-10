@@ -121,7 +121,67 @@ This is the engine of modern streaming. The browser monitors $R_{in}$ and says: 
 
 ---
 
-## 5. The Relativity of the Stream: Einstein’s Frame of Reference
+## 5. The Temporal Tug-of-War: Why Rates Diverge
+
+To understand "Rate," we need a **Time Reference**. Imagine two clocks:
+1.  **The Producer Clock ($T_{prod}$):** Located at the camera/encoder. It ticks every time a frame is captured.
+2.  **The Consumer Clock ($T_{cons}$):** Located in your browser. It ticks every time the GPU draws a frame.
+
+In a perfect universe, $T_{prod}$ and $T_{cons}$ are perfectly synchronized. In the real world, the **Network** is a "Time Stretcher."
+
+### The Concept of Rate Mismatch
+Think of the video as a conveyor belt. 
+*   **The Source (Rate A):** The encoder puts 30 boxes (frames) on the belt every second.
+*   **The Sink (Rate B):** The player takes 30 boxes off the belt every second.
+
+If the belt speed is constant, everything is fine. But the Internet isn't a conveyor belt; it's a series of **unreliable couriers**.
+
+### Latency vs. Jitter: The Convergence Killers
+1.  **Latency (Fixed Delay):** The time it takes for a single box to travel from the Source to the Sink. If latency is 500ms, the Sink just starts 500ms later. Continuity is preserved.
+2.  **Jitter (Variable Delay):** This is the killer. Box 1 takes 100ms, Box 2 takes 900ms, Box 3 takes 50ms. 
+    *   To the player, it looks like the **Source Rate** is fluctuating wildly, even if the encoder is perfectly steady.
+    *   The player "sees" a mismatch: "I need a box every 33ms, but I haven't seen one for 800ms!"
+
+### Visualizing the Timeline (The Birth to Death of a Packet)
+
+The following Gantt chart shows how "wall clock time" (the absolute reference) relates to the different stages of a single second of video.
+
+```mermaid
+gantt
+    title The Life of 1 Second of Video (30 Frames)
+    dateFormat  X
+    axisFormat %s
+    
+    section Production (Encoder)
+    Capture Frame 1-30    :0, 1
+    Encode & Segment      :1, 1.5
+    
+    section Network (The Stretch)
+    Transit (Latency)     :1.5, 2.5
+    Network Jitter (Delay):2.5, 3
+    
+    section Consumption (Browser)
+    Buffer in RAM         :3, 4
+    Decode & Playback     :4, 5
+```
+
+### The Divergence Formula
+The mismatch between the **Arrival Time** ($A$) and the **Expected Playback Time** ($P$) for frame $i$ is:
+
+$$
+Divergence_i = A_i - (P_0 + i \times \Delta t)
+$$
+
+Where:
+*   $P_0$ is the start time.
+*   $\Delta t$ is the frame interval (e.g., 33.3ms for 30fps).
+*   If $Divergence_i > 0$, the frame arrived **late**. If the buffer is empty, the video freezes.
+
+> **Intuition for a Lifetime:** Continuity is not about the speed of the data, but the **consistency of the arrival**. A slow, steady stream is always better than a fast, stuttering one.
+
+---
+
+## 6. The Relativity of the Stream: Einstein’s Frame of Reference
 
 In 1895, a 16-year-old Albert Einstein wondered: *"What would happen if I could chase a beam of light at the speed of light?"* He realized that if he could catch up to it, the light wave would appear frozen in space, like a stationary oscillation.
 
