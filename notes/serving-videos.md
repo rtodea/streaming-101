@@ -19,6 +19,16 @@ The human brain is the ultimate video player. Even though we blink roughly 15–
 2.  **Predictive Processing (Biological P-Frames):** Just like a video codec, the brain doesn't redraw the entire world every millisecond. It builds an internal model and only updates the "deltas" (changes). When you blink, the brain simply "holds" the last known good frame in **Iconic Memory** and predicts what should be there until the eyes open.
 3.  **The "Live Stream" Feeling:** This neural interpolation creates a sense of **Subjective Continuity**. We aren't seeing a raw stream of photons; we are seeing a rendered "composite" produced by the brain's GPU (the Visual Cortex).
 
+### The 100ms Gap: Human Ingest Delay
+Just like an HLS stream has an "Ingest Delay," the human brain has a processing lag. We do not live in the "Now"; we live in a **reconstructed past**.
+
+*   **The Biological Pipeline:** It takes about **13–20ms** for light to trigger a chemical reaction in the retina, another **40–60ms** for the signal to reach the visual cortex, and roughly **100–150ms** for the brain to integrate that signal into conscious awareness.
+*   **Latency Comparison:** 
+    *   **Human Brain:** ~100ms.
+    *   **WebRTC (Video Call):** ~200ms.
+    *   **Ultra-Low Latency HLS:** ~1,000ms.
+*   **Trivia (The Flash-Lag Effect):** Because of this delay, the brain actually *predicts* the future position of moving objects. If you see a moving ball and a flash of light occurs exactly when they are aligned, you will perceive the ball as being *ahead* of the flash. Your brain is "running ahead" of the stream to compensate for its own internal latency.
+
 ### The Continuity Equation
 To maintain this illusion in a digital stream, the browser must ensure that the "consumption rate" never exceeds the "delivery rate."
 
