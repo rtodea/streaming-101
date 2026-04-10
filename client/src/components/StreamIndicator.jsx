@@ -16,8 +16,9 @@ export default function StreamIndicator({ type = 'offline' }) {
           display: inline-flex;
           align-items: center;
           gap: var(--space-xs);
+          font-family: var(--font-family-sans);
           font-size: var(--font-size-sm);
-          font-weight: 600;
+          font-weight: var(--font-weight-semibold);
           text-transform: uppercase;
           letter-spacing: 0.05em;
         }
@@ -32,6 +33,9 @@ export default function StreamIndicator({ type = 'offline' }) {
         @keyframes pulse {
           0%, 100% { opacity: 1; }
           50% { opacity: 0.4; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .stream-indicator--pulse .stream-indicator__dot { animation: none; }
         }
       `}</style>
     </span>

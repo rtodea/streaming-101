@@ -44,10 +44,21 @@ export default function Presenter() {
             </h2>
             <LiveCamera />
             <div className="row" style={{ marginTop: 'var(--space-sm)' }}>
-              <label style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-muted)' }}>
+              <label
+                htmlFor="segment-duration"
+                style={{
+                  fontSize: 'var(--font-size-xs)',
+                  fontWeight: 'var(--font-weight-medium)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em',
+                  color: 'var(--color-muted)',
+                }}
+              >
                 Segment Duration: {segmentDuration}s
               </label>
               <input
+                id="segment-duration"
+                className="form-control"
                 type="range"
                 min="2"
                 max="10"

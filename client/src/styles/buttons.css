@@ -1,0 +1,131 @@
+/* ============================================================================
+   Button and form control design system
+   Consumed via BEM classes: .btn + one variant modifier
+   See specs/004-typography-design-system/contracts/design-tokens.md
+   ========================================================================= */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background-color var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+  user-select: none;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+  .btn:hover:not(:disabled) { transform: none; }
+}
+
+/* Primary — filled black, main actions */
+.btn--primary {
+  background: var(--color-text);
+  color: var(--color-bg);
+  border-color: var(--color-text);
+}
+.btn--primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+/* Ghost — outlined, secondary actions */
+.btn--ghost {
+  background: transparent;
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+.btn--ghost:hover:not(:disabled) {
+  background: var(--color-surface);
+  border-color: var(--color-text);
+}
+
+/* Danger — outlined red, destructive */
+.btn--danger {
+  background: transparent;
+  color: var(--color-error);
+  border-color: var(--color-error);
+}
+.btn--danger:hover:not(:disabled) {
+  background: var(--color-error);
+  color: var(--color-bg);
+}
+
+/* Icon — compact square */
+.btn--icon {
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--font-size-xs);
+}
+
+/* ============================================================================
+   Form controls — selects, file inputs, range sliders, text inputs
+   ========================================================================= */
+
+.form-control {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+  cursor: pointer;
+}
+
+.form-control:hover:not(:disabled) {
+  border-color: var(--color-text);
+}
+
+.form-control:focus-visible {
+  outline: none;
+  border-color: var(--color-text);
+  box-shadow: var(--shadow-focus);
+}
+
+.form-control:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .form-control { transition: none; }
+}
+
+/* Range slider — minimal, consistent across browsers */
+input[type="range"].form-control {
+  padding: var(--space-sm);
+  cursor: pointer;
+}
+
+/* File input — strip default button, keep our frame */
+input[type="file"].form-control {
+  padding: var(--space-xs) var(--space-sm);
+}

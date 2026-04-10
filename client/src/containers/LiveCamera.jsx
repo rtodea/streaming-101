@@ -82,9 +82,11 @@ export default function LiveCamera() {
       <div className="row">
         <StreamIndicator type={streaming ? 'live' : 'offline'} />
         {!streaming ? (
-          <button onClick={startStream}>Start Live Stream</button>
+          <button className="btn btn--primary" onClick={startStream}>
+            Start Live Stream
+          </button>
         ) : (
-          <button onClick={stopStream} style={{ color: 'var(--color-error)' }}>
+          <button className="btn btn--danger" onClick={stopStream}>
             Stop Stream
           </button>
         )}

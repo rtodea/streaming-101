@@ -4,15 +4,21 @@
   --color-text: #111111;
   --color-muted: #666666;
   --color-border: #dddddd;
+  --color-surface: #f7f7f7;
   --color-accent: #0066ff;
   --color-success: #22aa44;
   --color-error: #dd3333;
   --color-live: #dd3333;
   --color-bar-bg: #eeeeee;
 
-  /* Typography */
-  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Helvetica, Arial, sans-serif;
+  /* Typography — self-hosted variable fonts with system fallback stack */
+  --font-family-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-family-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo,
+    Consolas, 'Liberation Mono', monospace;
+  /* Legacy alias kept for any consumer that still references --font-family */
+  --font-family: var(--font-family-sans);
+
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
@@ -20,9 +26,19 @@
   --font-size-xl: 1.75rem;
   --font-size-2xl: 2.5rem;
   --font-size-hero: 4rem;
-  --font-weight-normal: 400;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
   --font-weight-bold: 700;
-  --line-height: 1.5;
+  /* Legacy alias */
+  --font-weight-normal: var(--font-weight-regular);
+
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
+  /* Legacy alias */
+  --line-height: var(--line-height-normal);
 
   /* Spacing */
   --space-xs: 0.25rem;
@@ -40,4 +56,7 @@
   /* Transitions */
   --transition-fast: 150ms ease;
   --transition-normal: 300ms ease;
+
+  /* Focus ring */
+  --shadow-focus: 0 0 0 3px rgba(0, 0, 0, 0.15);
 }

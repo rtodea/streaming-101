@@ -9,6 +9,7 @@ import Presenter from './views/Presenter.jsx'
 import './styles/variables.css'
 import './styles/reset.css'
 import './styles/layout.css'
+import './styles/buttons.css'
 
 function App() {
   return (

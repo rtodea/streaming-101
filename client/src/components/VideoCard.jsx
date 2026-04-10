@@ -1,7 +1,7 @@
 export default function VideoCard({ video, onClick, onDelete }) {
   const statusColors = {
     ready: 'var(--color-success)',
-    transcoding: 'var(--color-warning)',
+    transcoding: 'var(--color-muted)',
     error: 'var(--color-error)',
     upload_pending: 'var(--color-muted)',
   }
@@ -12,11 +12,12 @@ export default function VideoCard({ video, onClick, onDelete }) {
         <span className="video-card__format">{video.format}</span>
         {onDelete && (
           <button
-            className="video-card__delete"
+            className="btn btn--danger btn--icon video-card__delete"
             onClick={(e) => { e.stopPropagation(); onDelete(video); }}
             title="Delete video"
+            aria-label="Delete video"
           >
-            x
+            ×
           </button>
         )}
       </div>
@@ -49,7 +50,8 @@ export default function VideoCard({ video, onClick, onDelete }) {
           border: 1px solid var(--color-border);
           border-radius: var(--radius-md);
           overflow: hidden;
-          transition: var(--transition-fast);
+          transition: box-shadow var(--transition-fast);
+          font-family: var(--font-family-sans);
         }
         .video-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
         .video-card__thumb {
@@ -59,39 +61,38 @@ export default function VideoCard({ video, onClick, onDelete }) {
           align-items: center;
           justify-content: center;
           font-size: var(--font-size-sm);
+          font-weight: var(--font-weight-semibold);
           color: var(--color-muted);
           text-transform: uppercase;
+          letter-spacing: 0.05em;
+          position: relative;
         }
-        .video-card__thumb { position: relative; }
         .video-card__delete {
           position: absolute;
           top: var(--space-xs);
           right: var(--space-xs);
           width: 28px;
           height: 28px;
+          padding: 0;
           border-radius: 50%;
-          border: none;
-          background: rgba(0,0,0,0.6);
-          color: white;
-          font-size: var(--font-size-sm);
-          font-weight: 700;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          font-size: var(--font-size-base);
           line-height: 1;
-          transition: background 0.15s;
         }
-        .video-card__delete:hover { background: var(--color-error); }
         .video-card__info { padding: var(--space-sm); }
         .video-card__title {
-          font-size: var(--font-size-md);
+          font-size: var(--font-size-base);
+          font-weight: var(--font-weight-semibold);
           margin: 0 0 var(--space-xs);
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
         }
-        .video-card__status { font-size: var(--font-size-sm); font-weight: 600; }
+        .video-card__status {
+          font-size: var(--font-size-sm);
+          font-weight: var(--font-weight-semibold);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
         .video-card__progress {
           height: 4px;
           background: var(--color-surface);
@@ -101,8 +102,12 @@ export default function VideoCard({ video, onClick, onDelete }) {
         }
         .video-card__progress-bar {
           height: 100%;
-          background: var(--color-warning);
+          background: var(--color-text);
           transition: width 0.3s ease;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .video-card { transition: none; }
+          .video-card__progress-bar { transition: none; }
         }
         .video-card__qualities {
           display: flex;
@@ -110,7 +115,9 @@ export default function VideoCard({ video, onClick, onDelete }) {
           margin-top: var(--space-xs);
         }
         .video-card__quality-badge {
+          font-family: var(--font-family-mono);
           font-size: var(--font-size-xs);
+          font-weight: var(--font-weight-medium);
           padding: 1px 6px;
           border: 1px solid var(--color-border);
           border-radius: var(--radius-sm);

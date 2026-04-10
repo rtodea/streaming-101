@@ -36,12 +36,14 @@ export default function HexViewer({ data, onNavigate }) {
       {onNavigate && (
         <div className="hex-viewer__nav">
           <button
+            className="btn btn--ghost btn--icon"
             disabled={offset === 0}
             onClick={() => onNavigate(Math.max(0, offset - 512))}
           >
             Prev
           </button>
           <button
+            className="btn btn--ghost btn--icon"
             disabled={offset + length >= fileSize}
             onClick={() => onNavigate(offset + 512)}
           >
@@ -55,8 +57,8 @@ export default function HexViewer({ data, onNavigate }) {
           border: 1px solid var(--color-border);
           border-radius: var(--radius-md);
           overflow: hidden;
-          font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
-          font-size: 12px;
+          font-family: var(--font-family-mono);
+          font-size: var(--font-size-xs);
         }
         .hex-viewer__header {
           display: flex;
@@ -66,9 +68,16 @@ export default function HexViewer({ data, onNavigate }) {
           background: var(--color-surface);
           border-bottom: 1px solid var(--color-border);
           gap: var(--space-sm);
+          font-family: var(--font-family-sans);
         }
-        .hex-viewer__file { font-weight: 600; font-size: var(--font-size-sm); }
-        .hex-viewer__meta { color: var(--color-muted); font-size: 11px; }
+        .hex-viewer__file {
+          font-weight: var(--font-weight-semibold);
+          font-size: var(--font-size-sm);
+        }
+        .hex-viewer__meta {
+          color: var(--color-muted);
+          font-size: var(--font-size-xs);
+        }
         .hex-viewer__table-wrap {
           overflow-x: auto;
           max-height: 320px;
@@ -78,14 +87,17 @@ export default function HexViewer({ data, onNavigate }) {
           width: 100%;
           border-collapse: collapse;
           white-space: pre;
+          font-family: var(--font-family-mono);
         }
         .hex-viewer__table th {
           position: sticky;
           top: 0;
-          background: var(--color-bg, #fff);
+          background: var(--color-bg);
           text-align: left;
           padding: 2px var(--space-sm);
-          font-size: 10px;
+          font-family: var(--font-family-sans);
+          font-size: var(--font-size-xs);
+          font-weight: var(--font-weight-medium);
           text-transform: uppercase;
           letter-spacing: 0.1em;
           color: var(--color-muted);
@@ -98,7 +110,10 @@ export default function HexViewer({ data, onNavigate }) {
         .hex-viewer__table tr:hover td { background: var(--color-surface); }
         .hex-viewer__offset { color: var(--color-muted); user-select: none; }
         .hex-viewer__hex { letter-spacing: 0.5px; }
-        .hex-viewer__ascii { color: var(--color-primary); border-left: 1px solid var(--color-border); }
+        .hex-viewer__ascii {
+          color: var(--color-text);
+          border-left: 1px solid var(--color-border);
+        }
         .hex-viewer__nav {
           display: flex;
           gap: var(--space-xs);
@@ -106,16 +121,6 @@ export default function HexViewer({ data, onNavigate }) {
           border-top: 1px solid var(--color-border);
           background: var(--color-surface);
         }
-        .hex-viewer__nav button {
-          font-size: 11px;
-          padding: 2px 12px;
-          border: 1px solid var(--color-border);
-          border-radius: var(--radius-sm);
-          background: var(--color-bg, #fff);
-          cursor: pointer;
-        }
-        .hex-viewer__nav button:disabled { opacity: 0.4; cursor: default; }
-        .hex-viewer__nav button:hover:not(:disabled) { background: var(--color-surface); }
       `}</style>
     </div>
   )
