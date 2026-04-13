@@ -69,7 +69,13 @@ export default function StatsPanel() {
       )}
 
       {stats.viewers.length > 0 && (
-        <div style={{ overflowX: 'auto' }}>
+        <div
+          style={{
+            maxWidth: '100%',
+            overflowX: 'auto',
+            WebkitOverflowScrolling: 'touch',
+          }}
+        >
           <table className="stats-table">
             <thead>
               <tr>

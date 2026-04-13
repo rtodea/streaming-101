@@ -152,3 +152,52 @@ To swap the primary font:
 
 Every page picks it up automatically without touching any component file. Same
 for colors, spacing, or radii.
+
+## Breakpoints
+
+The responsive layer (feature 005) adds four named breakpoint tokens plus a
+small set of mobile-first layout rules. The full consumer contract lives in
+[specs/005-responsive-design/contracts/breakpoints.md](../specs/005-responsive-design/contracts/breakpoints.md).
+
+### Token set
+
+| Token     | Value   | Typical device                          |
+|-----------|---------|-----------------------------------------|
+| `--bp-sm` | 640 px  | Large phone / small tablet portrait     |
+| `--bp-md` | 768 px  | Tablet portrait (iPad, iPad mini)       |
+| `--bp-lg` | 1024 px | Tablet landscape / small laptop         |
+| `--bp-xl` | 1280 px | Desktop                                 |
+
+Values are **Tailwind-aligned** so anyone in the audience reading the code
+recognizes them immediately. All layout rules are written **mobile-first**
+with `@media (min-width: …)`; the base stylesheet targets a 320 px phone
+and desktop is the progressive enhancement.
+
+### The `@media` + custom-property limitation
+
+CSS `@media (min-width: var(--bp-md))` **does not work** — the CSSWG spec
+does not allow custom-property interpolation inside media query conditions.
+As a result the breakpoint tokens are defined once in `variables.css` as the
+canonical source of truth, and the raw pixel values are **duplicated** into
+`@media` rules inside `layout.css` plus any component-local `<style>` block
+that ships its own media queries.
+
+Every file that duplicates the values **MUST** include the comment header
+from `breakpoints.md` §Appendix A pointing back to `variables.css`. This is
+the enforcement mechanism for "breakpoints defined in a single central file"
+in the absence of a working token-interpolation mechanism.
+
+### What the tokens actually do
+
+- `.grid-3` (catalog) reflows 1 → 2 → 3 columns at 0 / 640 / 1024 px
+- `.grid-2` (presenter dashboard) reflows 1 → 2 columns at 0 / 768 px
+- `.container` horizontal padding grows at 768 px
+- `.row` wraps below 768 px and becomes single-line at/above 768 px
+- `.btn` and `.form-control` enforce a 44×44 minimum on `@media (pointer: coarse)` — `.btn--icon` is an intentional exception (stays 28×28 because it only lives inside larger interactive parents)
+- `--font-size-2xl-fluid` / `--font-size-hero-fluid` use `clamp()` and are the ONLY fluid typography tokens — body text stays fixed at 16 px to avoid the "everything jitters on resize" anti-pattern
+
+### Rule for new components
+
+1. Reference layout via the shared classes (`.container`, `.row`, `.stack`, `.grid-2`, `.grid-3`) and the responsive behavior comes for free.
+2. If a component ships its own `<style>` block and needs a media query, copy the comment header from `layout.css` into the component file and use the raw px values — never invent a new breakpoint value.
+3. Use `--font-size-*-fluid` only on display-sized headings and large stat values. Body text stays fixed.

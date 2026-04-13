@@ -76,10 +76,38 @@
   color: var(--color-bg);
 }
 
-/* Icon — compact square */
+/* Icon — compact square.
+   INTENTIONAL EXCEPTION to the 44×44 touch-target rule below: icon buttons
+   are only used inside larger interactive parents (hex-viewer nav bar,
+   video-card delete overlay) where the tap target is the parent, not the
+   icon itself. See specs/005-responsive-design/data-model.md Rule 2.5. */
 .btn--icon {
   padding: var(--space-xs) var(--space-sm);
   font-size: var(--font-size-xs);
+  min-height: 28px;
+  min-width: 28px;
+}
+
+/* ============================================================================
+   Touch-target enforcement (WCAG 2.1 AA — 44×44 CSS pixels).
+
+   Scoped to touch devices only so the desktop presenter dashboard stays
+   compact when driven with a mouse. `.btn--icon` explicitly overrides this
+   rule back to 28×28 above.
+   ========================================================================= */
+
+@media (pointer: coarse) {
+  .btn,
+  .form-control {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  /* Re-assert the icon-button exception inside the touch query so the
+     media query does not override the 28×28 rule via source order. */
+  .btn.btn--icon {
+    min-height: 28px;
+    min-width: 28px;
+  }
 }
 
 /* ============================================================================

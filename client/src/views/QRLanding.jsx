@@ -10,7 +10,7 @@ export default function QRLanding() {
     >
       <h1
         style={{
-          fontSize: 'var(--font-size-2xl)',
+          fontSize: 'var(--font-size-hero-fluid)',
           fontWeight: 'var(--font-weight-bold)',
           lineHeight: 'var(--line-height-tight)',
           textAlign: 'center',

@@ -1,22 +1,52 @@
+/*
+ * Breakpoint values MUST match the --bp-* tokens in
+ * client/src/styles/variables.css. CSS @media queries cannot
+ * interpolate custom properties, so the raw px values are
+ * duplicated here by design. If you change one, change the other.
+ *
+ *   --bp-sm: 640px
+ *   --bp-md: 768px
+ *   --bp-lg: 1024px
+ *   --bp-xl: 1280px
+ *
+ * See specs/005-responsive-design/contracts/breakpoints.md for the
+ * full consumer contract.
+ */
+
 .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-lg); }
 .stack { display: flex; flex-direction: column; gap: var(--space-md); }
-.row { display: flex; gap: var(--space-md); align-items: center; }
+.row { display: flex; flex-wrap: wrap; gap: var(--space-md); align-items: center; }
 .grid { display: grid; gap: var(--space-md); }
-.grid-2 { grid-template-columns: repeat(2, 1fr); }
-.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-2 { grid-template-columns: 1fr; }
+.grid-3 { grid-template-columns: 1fr; }
 .center { display: flex; justify-content: center; align-items: center; }
 .between { display: flex; justify-content: space-between; align-items: center; }
 .page { padding: var(--space-xl) 0; }
 .page h1 {
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-tight);
   margin-bottom: var(--space-lg);
 }
 
-@media (max-width: 768px) {
-  .container { padding: 0 var(--space-md); }
-  .grid-2, .grid-3 { grid-template-columns: 1fr; }
-  .page h1 { font-size: var(--font-size-lg); }
-  .row { flex-wrap: wrap; }
+/* sm (640px) — catalog grid goes from 1 → 2 columns */
+@media (min-width: 640px) {
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* md (768px) — tablet portrait boundary:
+   - container gets wider gutters
+   - .row stops wrapping
+   - .grid-2 (presenter dashboard) goes from 1 → 2 columns
+   - page h1 grows to full xl size */
+@media (min-width: 768px) {
+  .container { padding: 0 var(--space-xl); }
+  .row { flex-wrap: nowrap; }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .page h1 { font-size: var(--font-size-xl); }
+}
+
+/* lg (1024px) — catalog grid goes from 2 → 3 columns */
+@media (min-width: 1024px) {
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
 }

@@ -43,6 +43,7 @@ export default function PlayerControls({ quality, bandwidth, bufferLevel, levels
       <style>{`
         .player-controls {
           display: flex;
+          flex-wrap: wrap;
           gap: var(--space-lg);
           padding: var(--space-sm) var(--space-md);
           background: var(--color-surface);

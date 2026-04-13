@@ -27,6 +27,12 @@
   --font-size-2xl: 2.5rem;
   --font-size-hero: 4rem;
 
+  /* Fluid display-size tokens — use ONLY for hero headings and large gauges.
+     Applying clamp() to body text causes the "everything jitters on resize"
+     anti-pattern. See specs/005-responsive-design/contracts/breakpoints.md §4. */
+  --font-size-2xl-fluid: clamp(1.75rem, 5vw, 2.5rem);
+  --font-size-hero-fluid: clamp(2.5rem, 10vw, 4rem);
+
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
@@ -59,4 +65,14 @@
 
   /* Focus ring */
   --shadow-focus: 0 0 0 3px rgba(0, 0, 0, 0.15);
+
+  /* Responsive breakpoints — Tailwind-aligned, mobile-first.
+     NOTE: CSS @media queries cannot interpolate custom properties, so the
+     raw px values below are also duplicated inside layout.css and any
+     component-local <style> blocks with an explicit comment header pointing
+     back here. See specs/005-responsive-design/contracts/breakpoints.md. */
+  --bp-sm: 640px;   /* Large phone / small tablet portrait */
+  --bp-md: 768px;   /* Tablet portrait */
+  --bp-lg: 1024px;  /* Tablet landscape / small laptop */
+  --bp-xl: 1280px;  /* Desktop */
 }

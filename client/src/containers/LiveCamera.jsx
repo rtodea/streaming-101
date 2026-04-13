@@ -99,6 +99,8 @@ export default function LiveCamera() {
         playsInline
         style={{
           width: '100%',
+          maxWidth: '100%',
+          height: 'auto',
           maxHeight: 400,
           borderRadius: 'var(--radius-md)',
           background: '#000',

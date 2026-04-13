@@ -62,6 +62,7 @@ export default function HexViewer({ data, onNavigate }) {
         }
         .hex-viewer__header {
           display: flex;
+          flex-wrap: wrap;
           justify-content: space-between;
           align-items: center;
           padding: var(--space-xs) var(--space-sm);
@@ -79,9 +80,11 @@ export default function HexViewer({ data, onNavigate }) {
           font-size: var(--font-size-xs);
         }
         .hex-viewer__table-wrap {
+          max-width: 100%;
           overflow-x: auto;
-          max-height: 320px;
           overflow-y: auto;
+          max-height: 320px;
+          -webkit-overflow-scrolling: touch;
         }
         .hex-viewer__table {
           width: 100%;
