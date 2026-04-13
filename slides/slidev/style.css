@@ -1,0 +1,94 @@
+/*
+ * Streaming 101 — Slidev global styles
+ *
+ * Typography: Inter (body) + JetBrains Mono (code)
+ * Palette: monochrome (black text on white background)
+ *
+ * To change fonts:
+ *   1. Replace the WOFF2 files in public/fonts/
+ *   2. Update the @font-face family names below
+ *   3. Update the fonts config in slides.md headmatter
+ */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMono-Variable.woff2') format('woff2');
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Monochrome palette overrides */
+:root {
+  --slidev-theme-primary: #000;
+  --slidev-theme-text: #111;
+  --slidev-theme-background: #fff;
+  --slidev-theme-code-background: #f5f5f5;
+  --slidev-theme-border: #ddd;
+  --slidev-theme-accents-1: #666;
+  --slidev-theme-accents-2: #999;
+}
+
+/* Global typography */
+.slidev-layout {
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  color: var(--slidev-theme-text);
+}
+
+.slidev-layout code,
+.slidev-layout pre {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* Strong typographic hierarchy */
+.slidev-layout h1 {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.slidev-layout h2 {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.slidev-layout h3 {
+  font-weight: 600;
+}
+
+/* Table styling — clean, minimal */
+.slidev-layout table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.85em;
+}
+
+.slidev-layout th,
+.slidev-layout td {
+  border: 1px solid var(--slidev-theme-border);
+  padding: 0.4em 0.8em;
+  text-align: left;
+}
+
+.slidev-layout th {
+  background: var(--slidev-theme-code-background);
+  font-weight: 600;
+}
+
+/* Code blocks */
+.slidev-layout pre {
+  border-radius: 6px;
+  font-size: 0.85em;
+}
+
+/* Muted helper */
+.muted {
+  color: var(--slidev-theme-accents-2);
+}

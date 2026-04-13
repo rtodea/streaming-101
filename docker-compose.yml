@@ -27,8 +27,10 @@ services:
       - ./server:/app
       - /app/node_modules
       - hls-data:/data/hls
+      - ./slides/slidev/dist:/slides/slidev/dist:ro
     environment:
       - PORT=3000
+      - SLIDES_DIR=/slides/slidev/dist
       - HLS_OUTPUT_DIR=/data/hls
       - HLS_SEGMENT_DURATION=4
       - MAX_UPLOAD_SIZE=524288000

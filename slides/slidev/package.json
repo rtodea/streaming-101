@@ -1,0 +1,14 @@
+{
+  "name": "streaming-101-slides",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "slidev",
+    "build": "slidev build --base /slides/ --out dist",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "^52.0.0",
+    "@slidev/theme-default": "latest"
+  }
+}

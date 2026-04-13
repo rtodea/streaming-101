@@ -13,6 +13,7 @@ export default defineConfig({
     proxy: {
       '/api': backendUrl,
       '/hls': backendUrl,
+      '/slides': backendUrl,
       '/ws': {
         target: backendWs,
         ws: true,

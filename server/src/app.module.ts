@@ -5,6 +5,7 @@ import { VideosModule } from './videos/videos.module';
 import { StreamsModule } from './streams/streams.module';
 import { WsModule } from './ws/ws.module';
 import { StatsModule } from './stats/stats.module';
+import { SlidesModule } from './slides/slides.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { StatsModule } from './stats/stats.module';
     StreamsModule,
     WsModule,
     StatsModule,
+    SlidesModule,
   ],
   controllers: [HealthController],
 })
