@@ -14,15 +14,27 @@ export default function StatBar({ label, value, max = 100, unit = '' }) {
         />
       </div>
       <style>{`
-        .stat-bar { margin-bottom: var(--space-xs); }
+        .stat-bar {
+          margin-bottom: var(--space-xs);
+          font-family: var(--font-family-sans);
+        }
         .stat-bar__header {
           display: flex;
           justify-content: space-between;
           font-size: var(--font-size-sm);
           margin-bottom: 2px;
         }
-        .stat-bar__label { color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.05em; font-size: var(--font-size-xs); }
-        .stat-bar__value { font-weight: 600; }
+        .stat-bar__label {
+          color: var(--color-muted);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          font-size: var(--font-size-xs);
+          font-weight: var(--font-weight-medium);
+        }
+        .stat-bar__value {
+          font-weight: var(--font-weight-semibold);
+          font-variant-numeric: tabular-nums;
+        }
         .stat-bar__track {
           height: 8px;
           background: var(--color-surface);
@@ -32,9 +44,12 @@ export default function StatBar({ label, value, max = 100, unit = '' }) {
         .stat-bar__fill {
           height: 100%;
           width: var(--fill-width);
-          background: var(--color-primary);
+          background: var(--color-text);
           border-radius: 4px;
           transition: width 0.5s ease;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .stat-bar__fill { transition: none; }
         }
       `}</style>
     </div>

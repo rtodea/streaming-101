@@ -44,7 +44,16 @@ export default function StatsPanel() {
 
       {qualities.length > 0 && (
         <div>
-          <h3 style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-muted)', textTransform: 'uppercase', marginBottom: 'var(--space-xs)' }}>
+          <h3
+            style={{
+              fontSize: 'var(--font-size-xs)',
+              fontWeight: 'var(--font-weight-medium)',
+              color: 'var(--color-muted)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+              marginBottom: 'var(--space-xs)',
+            }}
+          >
             Quality Distribution
           </h3>
           {qualities.map(([quality, count]) => (
@@ -60,7 +69,13 @@ export default function StatsPanel() {
       )}
 
       {stats.viewers.length > 0 && (
-        <div style={{ overflowX: 'auto' }}>
+        <div
+          style={{
+            maxWidth: '100%',
+            overflowX: 'auto',
+            WebkitOverflowScrolling: 'touch',
+          }}
+        >
           <table className="stats-table">
             <thead>
               <tr>
@@ -88,6 +103,7 @@ export default function StatsPanel() {
         .stats-table {
           width: 100%;
           border-collapse: collapse;
+          font-family: var(--font-family-sans);
           font-size: var(--font-size-sm);
         }
         .stats-table th, .stats-table td {
@@ -97,9 +113,13 @@ export default function StatsPanel() {
         }
         .stats-table th {
           font-size: var(--font-size-xs);
+          font-weight: var(--font-weight-medium);
           text-transform: uppercase;
           letter-spacing: 0.05em;
           color: var(--color-muted);
+        }
+        .stats-table td {
+          font-variant-numeric: tabular-nums;
         }
       `}</style>
     </div>

@@ -7,7 +7,7 @@ export default function PlayerControls({ quality, bandwidth, bufferLevel, levels
         <span className="player-controls__label">Quality</span>
         {levels && levels.length > 0 ? (
           <select
-            className="player-controls__select"
+            className="form-control player-controls__select"
             value={selectedLevel ?? -1}
             onChange={(e) => onLevelChange?.(Number(e.target.value))}
           >
@@ -43,10 +43,12 @@ export default function PlayerControls({ quality, bandwidth, bufferLevel, levels
       <style>{`
         .player-controls {
           display: flex;
+          flex-wrap: wrap;
           gap: var(--space-lg);
           padding: var(--space-sm) var(--space-md);
           background: var(--color-surface);
           border-radius: var(--radius-md);
+          font-family: var(--font-family-sans);
           font-size: var(--font-size-sm);
         }
         .player-controls__stat {
@@ -58,19 +60,16 @@ export default function PlayerControls({ quality, bandwidth, bufferLevel, levels
           color: var(--color-muted);
           text-transform: uppercase;
           font-size: var(--font-size-xs);
+          font-weight: var(--font-weight-medium);
           letter-spacing: 0.05em;
         }
-        .player-controls__value { font-weight: 600; }
+        .player-controls__value {
+          font-weight: var(--font-weight-semibold);
+        }
+        /* Compact .form-control override inside the inline controls bar */
         .player-controls__select {
-          font-family: inherit;
-          font-size: var(--font-size-sm);
-          font-weight: 600;
-          background: var(--color-surface);
-          color: var(--color-text);
-          border: 1px solid var(--color-border);
-          border-radius: var(--radius-sm);
-          padding: 2px 6px;
-          cursor: pointer;
+          padding: var(--space-xs) var(--space-sm);
+          background: var(--color-bg);
         }
         .player-controls__buffer {
           width: 60px;
@@ -83,6 +82,9 @@ export default function PlayerControls({ quality, bandwidth, bufferLevel, levels
           height: 100%;
           background: var(--color-success);
           transition: width 0.5s ease;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .player-controls__buffer-fill { transition: none; }
         }
       `}</style>
     </div>

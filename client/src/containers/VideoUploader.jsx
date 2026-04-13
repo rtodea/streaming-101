@@ -75,11 +75,16 @@ export default function VideoUploader({ onUploadComplete }) {
       <div className="row">
         <input
           ref={fileInputRef}
+          className="form-control"
           type="file"
           accept={ACCEPT}
           disabled={uploading}
         />
-        <button onClick={handleUpload} disabled={uploading}>
+        <button
+          className="btn btn--primary"
+          onClick={handleUpload}
+          disabled={uploading}
+        >
           {uploading ? 'Uploading...' : 'Upload'}
         </button>
       </div>
@@ -112,7 +117,9 @@ export default function VideoUploader({ onUploadComplete }) {
           background: var(--color-surface);
           border-radius: var(--radius-sm);
           overflow: hidden;
+          font-family: var(--font-family-sans);
           font-size: var(--font-size-sm);
+          font-weight: var(--font-weight-medium);
         }
         .uploader-progress span {
           position: absolute;
@@ -121,15 +128,20 @@ export default function VideoUploader({ onUploadComplete }) {
           align-items: center;
           justify-content: center;
           z-index: 1;
+          font-variant-numeric: tabular-nums;
         }
         .uploader-progress__bar {
           height: 100%;
-          background: var(--color-primary);
+          background: var(--color-text);
           opacity: 0.2;
           transition: width 0.3s ease;
         }
         .uploader-progress__bar--transcode {
-          background: var(--color-warning);
+          background: var(--color-text);
+          opacity: 0.35;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .uploader-progress__bar { transition: none; }
         }
       `}</style>
     </div>

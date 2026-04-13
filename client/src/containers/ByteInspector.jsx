@@ -59,9 +59,9 @@ export default function ByteInspector() {
     <div className="stack" style={{ gap: 'var(--space-sm)' }}>
       <div className="row" style={{ flexWrap: 'wrap', gap: 'var(--space-xs)' }}>
         <select
+          className="form-control"
           value={selectedVideo}
           onChange={(e) => handleVideoChange(e.target.value)}
-          style={{ fontSize: 'var(--font-size-sm)', padding: '4px 8px' }}
         >
           <option value="">Select a video...</option>
           {videos.map(v => (
@@ -72,9 +72,9 @@ export default function ByteInspector() {
         </select>
 
         <select
+          className="form-control"
           value={selectedFile}
           onChange={(e) => handleFileChange(e.target.value)}
-          style={{ fontSize: 'var(--font-size-sm)', padding: '4px 8px' }}
         >
           {FILE_OPTIONS.map(opt => (
             <option key={opt.value} value={opt.value}>{opt.label}</option>

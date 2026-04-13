@@ -13,20 +13,23 @@ export default function StatGauge({ label, value, unit = '' }) {
           background: var(--color-surface);
           border-radius: var(--radius-md);
           min-width: 120px;
+          font-family: var(--font-family-sans);
         }
         .stat-gauge__value {
           font-size: var(--font-size-2xl);
-          font-weight: 700;
-          line-height: 1;
+          font-weight: var(--font-weight-bold);
+          line-height: var(--line-height-tight);
+          font-variant-numeric: tabular-nums;
         }
         .stat-gauge__unit {
-          font-size: var(--font-size-md);
-          font-weight: 400;
+          font-size: var(--font-size-base);
+          font-weight: var(--font-weight-regular);
           color: var(--color-muted);
           margin-left: 2px;
         }
         .stat-gauge__label {
-          font-size: var(--font-size-sm);
+          font-size: var(--font-size-xs);
+          font-weight: var(--font-weight-medium);
           color: var(--color-muted);
           text-transform: uppercase;
           letter-spacing: 0.05em;

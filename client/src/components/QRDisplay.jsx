@@ -20,6 +20,7 @@ export default function QRDisplay({ url, size = 200 }) {
         }
         .qr-display__code { padding: var(--space-sm); }
         .qr-display__url {
+          font-family: var(--font-family-mono);
           font-size: var(--font-size-sm);
           color: var(--color-muted);
           word-break: break-all;

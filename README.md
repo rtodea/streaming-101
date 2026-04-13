@@ -172,7 +172,8 @@ streaming-101/
 ├── scripts/
 │   └── generate-fallback.sh         # Generate test video with HLS variants
 └── notes/
-    └── debugging.md                 # Detailed debugging guide
+    ├── debugging.md                 # Detailed debugging guide
+    └── design-system.md             # Fonts, buttons, and design tokens
 ```
 
 ## Component Architecture
