@@ -62,6 +62,7 @@ export default function ByteInspector() {
           className="form-control"
           value={selectedVideo}
           onChange={(e) => handleVideoChange(e.target.value)}
+          style={{ flex: '1 1 100%', overflow: 'hidden', textOverflow: 'ellipsis' }}
         >
           <option value="">Select a video...</option>
           {videos.map(v => (
@@ -75,6 +76,7 @@ export default function ByteInspector() {
           className="form-control"
           value={selectedFile}
           onChange={(e) => handleFileChange(e.target.value)}
+          style={{ flex: '1 1 100%', fontSize: 'var(--font-size-xs)' }}
         >
           {FILE_OPTIONS.map(opt => (
             <option key={opt.value} value={opt.value}>{opt.label}</option>

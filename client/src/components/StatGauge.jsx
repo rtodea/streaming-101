@@ -9,14 +9,15 @@ export default function StatGauge({ label, value, unit = '' }) {
       <style>{`
         .stat-gauge {
           text-align: center;
-          padding: var(--space-md);
+          padding: var(--space-sm);
           background: var(--color-surface);
           border-radius: var(--radius-md);
-          min-width: 120px;
+          min-width: 0;
+          flex: 1 1 0;
           font-family: var(--font-family-sans);
         }
         .stat-gauge__value {
-          font-size: var(--font-size-2xl);
+          font-size: var(--font-size-xl);
           font-weight: var(--font-weight-bold);
           line-height: var(--line-height-tight);
           font-variant-numeric: tabular-nums;

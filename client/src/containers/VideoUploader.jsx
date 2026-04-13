@@ -72,13 +72,14 @@ export default function VideoUploader({ onUploadComplete }) {
 
   return (
     <div className="stack" style={{ gap: 'var(--space-sm)' }}>
-      <div className="row">
+      <div className="row" style={{ flexWrap: 'wrap' }}>
         <input
           ref={fileInputRef}
           className="form-control"
           type="file"
           accept={ACCEPT}
           disabled={uploading}
+          style={{ flex: '1 1 100%', minWidth: 0 }}
         />
         <button
           className="btn btn--primary"

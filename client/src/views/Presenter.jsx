@@ -32,18 +32,18 @@ export default function Presenter() {
       <div className="grid grid-2" style={{ alignItems: 'start' }}>
         <div className="stack">
           <section>
-            <h2 style={{ fontSize: 'var(--font-size-lg)', marginBottom: 'var(--space-sm)' }}>
+            <h2 style={{ fontSize: 'var(--font-size-base)', fontWeight: 'var(--font-weight-semibold)', marginBottom: 'var(--space-xs)' }}>
               Upload Video
             </h2>
             <VideoUploader />
           </section>
 
           <section>
-            <h2 style={{ fontSize: 'var(--font-size-lg)', marginBottom: 'var(--space-sm)' }}>
+            <h2 style={{ fontSize: 'var(--font-size-base)', fontWeight: 'var(--font-weight-semibold)', marginBottom: 'var(--space-xs)' }}>
               Live Camera
             </h2>
             <LiveCamera />
-            <div className="row" style={{ marginTop: 'var(--space-sm)' }}>
+            <div className="stack" style={{ marginTop: 'var(--space-sm)', gap: 'var(--space-xs)' }}>
               <label
                 htmlFor="segment-duration"
                 style={{
@@ -64,36 +64,36 @@ export default function Presenter() {
                 max="10"
                 value={segmentDuration}
                 onChange={(e) => updateSegmentDuration(Number(e.target.value))}
-                style={{ flex: 1 }}
+                style={{ width: '100%' }}
               />
             </div>
           </section>
 
           <section>
-            <h2 style={{ fontSize: 'var(--font-size-lg)', marginBottom: 'var(--space-sm)' }}>
+            <h2 style={{ fontSize: 'var(--font-size-base)', fontWeight: 'var(--font-weight-semibold)', marginBottom: 'var(--space-xs)' }}>
               Audience QR Code
             </h2>
-            <QRDisplay url={catalogUrl} size={180} />
+            <QRDisplay url={catalogUrl} size={140} />
           </section>
         </div>
 
         <div className="stack">
           <section>
-            <h2 style={{ fontSize: 'var(--font-size-lg)', marginBottom: 'var(--space-sm)' }}>
+            <h2 style={{ fontSize: 'var(--font-size-base)', fontWeight: 'var(--font-weight-semibold)', marginBottom: 'var(--space-xs)' }}>
               Videos
             </h2>
             <CatalogList allowDelete />
           </section>
 
           <section>
-            <h2 style={{ fontSize: 'var(--font-size-lg)', marginBottom: 'var(--space-sm)' }}>
+            <h2 style={{ fontSize: 'var(--font-size-base)', fontWeight: 'var(--font-weight-semibold)', marginBottom: 'var(--space-xs)' }}>
               Byte Inspector
             </h2>
             <ByteInspector />
           </section>
 
           <section>
-            <h2 style={{ fontSize: 'var(--font-size-lg)', marginBottom: 'var(--space-sm)' }}>
+            <h2 style={{ fontSize: 'var(--font-size-base)', fontWeight: 'var(--font-weight-semibold)', marginBottom: 'var(--space-xs)' }}>
               Live Stats
             </h2>
             <StatsPanel />
