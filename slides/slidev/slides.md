@@ -293,6 +293,29 @@ url: /catalog
 
 ---
 
+# Browser Caching: VOD vs Live
+
+HLS chunks are just HTTP responses — the browser (and CDNs) can cache them. But the caching strategy is **opposite** for VOD and live.
+
+<table>
+<thead><tr><th></th><th>VOD</th><th>Live</th></tr></thead>
+<tbody>
+<tr><td v-click><b>Chunks (.ts)</b></td><td v-click>Immutable — cache forever</td><td v-click>Immutable — cache, but short-lived on disk</td></tr>
+<tr><td v-click><b>Manifest (.m3u8)</b></td><td v-click>Static — cache aggressively</td><td v-click>Changes every segment — <b>must not cache</b></td></tr>
+<tr><td v-click><b>Cache-Control</b></td><td v-click><code>max-age=31536000</code></td><td v-click><code>no-cache</code> or <code>max-age=1</code></td></tr>
+<tr><td v-click><b>Seeking</b></td><td v-click>Any chunk instantly (cached)</td><td v-click>Only recent window (old chunks expire)</td></tr>
+<tr><td v-click><b>Replay</b></td><td v-click>Free — served from cache</td><td v-click>Impossible unless DVR window configured</td></tr>
+</tbody>
+</table>
+
+<v-click>
+
+> VOD = cache everything. Live = cache chunks, **never** cache the manifest.
+
+</v-click>
+
+---
+
 # Live Streaming
 
 <v-clicks>
