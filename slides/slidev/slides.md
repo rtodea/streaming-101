@@ -36,14 +36,17 @@ At the lowest level: a sequence of **frames**, each frame a grid of **pixels**, 
 
 ### Pixel → Frame → Video
 
-| Level | What it is | Size |
-|-------|-----------|------|
-| **Pixel** | 3 bytes (R, G, B) | 3 bytes |
-| **Frame** | 1920 × 1080 pixels | **~6 MB** |
-| **1 second** | 30 frames | **~180 MB/s** |
-| **1 minute** | 60 seconds | **~10.8 GB** |
-
 </v-click>
+
+<table>
+<thead><tr><th>Level</th><th>What it is</th><th>Size</th></tr></thead>
+<v-clicks><tbody>
+<tr><td><b>Pixel</b></td><td>3 bytes (R, G, B)</td><td>3 bytes</td></tr>
+<tr><td><b>Frame</b></td><td>1920 × 1080 pixels</td><td><b>~6 MB</b></td></tr>
+<tr><td><b>1 second</b></td><td>30 frames</td><td><b>~180 MB/s</b></td></tr>
+<tr><td><b>1 minute</b></td><td>60 seconds</td><td><b>~10.8 GB</b></td></tr>
+</tbody></v-clicks>
+</table>
 
 <v-click>
 
@@ -63,14 +66,17 @@ $$R_{\text{raw}} = 1920 \times 1080 \times 3 \times 30 \approx 178 \text{ MB/s} 
 
 ### What compression buys us
 
-| Codec | Compression | 1080p30 Bitrate | 1 hour |
-|-------|-------------|-----------------|--------|
-| Raw | 1:1 | 1.42 Gbps | 625 GB |
-| H.264 | ~50:1 | ~28 Mbps | ~12.5 GB |
-| H.265 | ~100:1 | ~14 Mbps | ~6.25 GB |
-| AV1 | ~130:1 | ~11 Mbps | ~4.8 GB |
-
 </v-click>
+
+<table>
+<thead><tr><th>Codec</th><th>Compression</th><th>1080p30 Bitrate</th><th>1 hour</th></tr></thead>
+<v-clicks><tbody>
+<tr><td>Raw</td><td>1:1</td><td>1.42 Gbps</td><td>625 GB</td></tr>
+<tr><td>H.264</td><td>~50:1</td><td>~28 Mbps</td><td>~12.5 GB</td></tr>
+<tr><td>H.265</td><td>~100:1</td><td>~14 Mbps</td><td>~6.25 GB</td></tr>
+<tr><td>AV1</td><td>~130:1</td><td>~11 Mbps</td><td>~4.8 GB</td></tr>
+</tbody></v-clicks>
+</table>
 
 ---
 
@@ -111,16 +117,15 @@ Quality follows a **logarithmic** curve with bitrate:
 
 </v-clicks>
 
-<v-click>
-
-| Connection | Bandwidth | Max Quality |
-|-----------|-----------|-------------|
-| 3G Mobile | ~2 Mbps | 480p |
-| 4G Mobile | ~20 Mbps | 1080p |
-| Home Wi-Fi | ~50 Mbps | 4K |
-| Covered phone 📱🤚 | <1 Mbps | Buffering |
-
-</v-click>
+<table>
+<thead><tr><th>Connection</th><th>Bandwidth</th><th>Max Quality</th></tr></thead>
+<v-clicks><tbody>
+<tr><td>3G Mobile</td><td>~2 Mbps</td><td>480p</td></tr>
+<tr><td>4G Mobile</td><td>~20 Mbps</td><td>1080p</td></tr>
+<tr><td>Home Wi-Fi</td><td>~50 Mbps</td><td>4K</td></tr>
+<tr><td>Covered phone 📱🤚</td><td>&lt;1 Mbps</td><td>Buffering</td></tr>
+</tbody></v-clicks>
+</table>
 
 ---
 
@@ -230,15 +235,14 @@ url: /catalog
 
 HLS requires **~3 chunks buffered** before playback starts.
 
-<v-click>
-
-| Segment Size | Chunks Buffered | Latency |
-|-------------|-----------------|---------|
-| 6 seconds | 3 | **~18s** |
-| 2 seconds | 3 | **~6s** |
-| 1 second | 3 | **~3s** |
-
-</v-click>
+<table>
+<thead><tr><th>Segment Size</th><th>Chunks Buffered</th><th>Latency</th></tr></thead>
+<v-clicks><tbody>
+<tr><td>6 seconds</td><td>3</td><td><b>~18s</b></td></tr>
+<tr><td>2 seconds</td><td>3</td><td><b>~6s</b></td></tr>
+<tr><td>1 second</td><td>3</td><td><b>~3s</b></td></tr>
+</tbody></v-clicks>
+</table>
 
 <v-click>
 
@@ -293,15 +297,14 @@ url: /presenter
 
 The presenter tweaks HLS segment duration **live** — and the audience sees latency change in real-time.
 
-<v-click>
-
-| Config | Before | After |
-|--------|--------|-------|
-| Segment size | 6s | 2s |
-| Buffered chunks | 3 | 3 |
-| Latency | ~18s | ~6s |
-
-</v-click>
+<table>
+<thead><tr><th>Config</th><th>Before</th><th>After</th></tr></thead>
+<v-clicks><tbody>
+<tr><td>Segment size</td><td>6s</td><td>2s</td></tr>
+<tr><td>Buffered chunks</td><td>3</td><td>3</td></tr>
+<tr><td>Latency</td><td>~18s</td><td>~6s</td></tr>
+</tbody></v-clicks>
+</table>
 
 <v-click>
 
