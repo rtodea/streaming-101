@@ -56,6 +56,53 @@ At the lowest level: a sequence of **frames**, each frame a grid of **pixels**, 
 
 ---
 
+# YouTube Quality Tiers: What Do They Mean?
+
+The number is the **vertical pixel count**. More pixels = sharper image, but exponentially more data.
+
+<table>
+<thead><tr><th>Label</th><th>Resolution</th><th>Pixels/Frame</th><th>×1080p</th></tr></thead>
+<tbody>
+<tr><td v-click>360p</td><td v-click>640 × 360</td><td v-click>230K</td><td v-click>0.11×</td></tr>
+<tr><td v-click>480p (SD)</td><td v-click>854 × 480</td><td v-click>410K</td><td v-click>0.20×</td></tr>
+<tr><td v-click>720p (HD)</td><td v-click>1280 × 720</td><td v-click>922K</td><td v-click>0.44×</td></tr>
+<tr><td v-click>1080p (Full HD)</td><td v-click>1920 × 1080</td><td v-click>2.07M</td><td v-click>1×</td></tr>
+<tr><td v-click>1440p (2K)</td><td v-click>2560 × 1440</td><td v-click>3.69M</td><td v-click>1.78×</td></tr>
+<tr><td v-click>2160p (4K)</td><td v-click>3840 × 2160</td><td v-click>8.29M</td><td v-click>4×</td></tr>
+</tbody>
+</table>
+
+<v-click>
+
+> "4K" = **4× the pixels** of 1080p, not 4× the width.
+
+</v-click>
+
+---
+
+# Frame Rate: 30 fps vs 60 fps
+
+The **frame rate** multiplies everything — more frames per second = smoother motion, but double the data.
+
+<table>
+<thead><tr><th>Resolution</th><th>30 fps (raw)</th><th>60 fps (raw)</th><th>Difference</th></tr></thead>
+<tbody>
+<tr><td v-click>720p</td><td v-click>~80 MB/s</td><td v-click>~160 MB/s</td><td v-click>2×</td></tr>
+<tr><td v-click>1080p</td><td v-click>~178 MB/s</td><td v-click>~356 MB/s</td><td v-click>2×</td></tr>
+<tr><td v-click>4K</td><td v-click>~712 MB/s</td><td v-click>~1.4 GB/s</td><td v-click>2×</td></tr>
+</tbody>
+</table>
+
+<v-clicks>
+
+- **30 fps** — standard for most video (films are 24 fps)
+- **60 fps** — gaming, sports, fast motion (YouTube shows "1080p60" badge)
+- Higher fps helps with **motion clarity** but doesn't improve still-image sharpness
+
+</v-clicks>
+
+---
+
 # The Math Behind Raw Video
 
 A single 1080p frame at 30 fps:
