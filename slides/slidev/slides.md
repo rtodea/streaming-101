@@ -40,12 +40,12 @@ At the lowest level: a sequence of **frames**, each frame a grid of **pixels**, 
 
 <table>
 <thead><tr><th>Level</th><th>What it is</th><th>Size</th></tr></thead>
-<v-clicks><tbody>
-<tr><td><b>Pixel</b></td><td>3 bytes (R, G, B)</td><td>3 bytes</td></tr>
-<tr><td><b>Frame</b></td><td>1920 × 1080 pixels</td><td><b>~6 MB</b></td></tr>
-<tr><td><b>1 second</b></td><td>30 frames</td><td><b>~180 MB/s</b></td></tr>
-<tr><td><b>1 minute</b></td><td>60 seconds</td><td><b>~10.8 GB</b></td></tr>
-</tbody></v-clicks>
+<tbody>
+<tr><td v-click><b>Pixel</b></td><td v-click>3 bytes (R, G, B)</td><td v-click>3 bytes</td></tr>
+<tr><td v-click><b>Frame</b></td><td v-click>1920 × 1080 pixels</td><td v-click><b>~6 MB</b></td></tr>
+<tr><td v-click><b>1 second</b></td><td v-click>30 frames</td><td v-click><b>~180 MB/s</b></td></tr>
+<tr><td v-click><b>1 minute</b></td><td v-click>60 seconds</td><td v-click><b>~10.8 GB</b></td></tr>
+</tbody>
 </table>
 
 <v-click>
@@ -70,12 +70,12 @@ $$R_{\text{raw}} = 1920 \times 1080 \times 3 \times 30 \approx 178 \text{ MB/s} 
 
 <table>
 <thead><tr><th>Codec</th><th>Compression</th><th>1080p30 Bitrate</th><th>1 hour</th></tr></thead>
-<v-clicks><tbody>
-<tr><td>Raw</td><td>1:1</td><td>1.42 Gbps</td><td>625 GB</td></tr>
-<tr><td>H.264</td><td>~50:1</td><td>~28 Mbps</td><td>~12.5 GB</td></tr>
-<tr><td>H.265</td><td>~100:1</td><td>~14 Mbps</td><td>~6.25 GB</td></tr>
-<tr><td>AV1</td><td>~130:1</td><td>~11 Mbps</td><td>~4.8 GB</td></tr>
-</tbody></v-clicks>
+<tbody>
+<tr><td v-click>Raw</td><td v-click>1:1</td><td v-click>1.42 Gbps</td><td v-click>625 GB</td></tr>
+<tr><td v-click>H.264</td><td v-click>~50:1</td><td v-click>~28 Mbps</td><td v-click>~12.5 GB</td></tr>
+<tr><td v-click>H.265</td><td v-click>~100:1</td><td v-click>~14 Mbps</td><td v-click>~6.25 GB</td></tr>
+<tr><td v-click>AV1</td><td v-click>~130:1</td><td v-click>~11 Mbps</td><td v-click>~4.8 GB</td></tr>
+</tbody>
 </table>
 
 ---
@@ -119,12 +119,12 @@ Quality follows a **logarithmic** curve with bitrate:
 
 <table>
 <thead><tr><th>Connection</th><th>Bandwidth</th><th>Max Quality</th></tr></thead>
-<v-clicks><tbody>
-<tr><td>3G Mobile</td><td>~2 Mbps</td><td>480p</td></tr>
-<tr><td>4G Mobile</td><td>~20 Mbps</td><td>1080p</td></tr>
-<tr><td>Home Wi-Fi</td><td>~50 Mbps</td><td>4K</td></tr>
-<tr><td>Covered phone 📱🤚</td><td>&lt;1 Mbps</td><td>Buffering</td></tr>
-</tbody></v-clicks>
+<tbody>
+<tr><td v-click>3G Mobile</td><td v-click>~2 Mbps</td><td v-click>480p</td></tr>
+<tr><td v-click>4G Mobile</td><td v-click>~20 Mbps</td><td v-click>1080p</td></tr>
+<tr><td v-click>Home Wi-Fi</td><td v-click>~50 Mbps</td><td v-click>4K</td></tr>
+<tr><td v-click>Covered phone 📱🤚</td><td v-click>&lt;1 Mbps</td><td v-click>Buffering</td></tr>
+</tbody>
 </table>
 
 ---
@@ -237,11 +237,11 @@ HLS requires **~3 chunks buffered** before playback starts.
 
 <table>
 <thead><tr><th>Segment Size</th><th>Chunks Buffered</th><th>Latency</th></tr></thead>
-<v-clicks><tbody>
-<tr><td>6 seconds</td><td>3</td><td><b>~18s</b></td></tr>
-<tr><td>2 seconds</td><td>3</td><td><b>~6s</b></td></tr>
-<tr><td>1 second</td><td>3</td><td><b>~3s</b></td></tr>
-</tbody></v-clicks>
+<tbody>
+<tr><td v-click>6 seconds</td><td v-click>3</td><td v-click><b>~18s</b></td></tr>
+<tr><td v-click>2 seconds</td><td v-click>3</td><td v-click><b>~6s</b></td></tr>
+<tr><td v-click>1 second</td><td v-click>3</td><td v-click><b>~3s</b></td></tr>
+</tbody>
 </table>
 
 <v-click>
@@ -299,11 +299,11 @@ The presenter tweaks HLS segment duration **live** — and the audience sees lat
 
 <table>
 <thead><tr><th>Config</th><th>Before</th><th>After</th></tr></thead>
-<v-clicks><tbody>
-<tr><td>Segment size</td><td>6s</td><td>2s</td></tr>
-<tr><td>Buffered chunks</td><td>3</td><td>3</td></tr>
-<tr><td>Latency</td><td>~18s</td><td>~6s</td></tr>
-</tbody></v-clicks>
+<tbody>
+<tr><td v-click>Segment size</td><td v-click>6s</td><td v-click>2s</td></tr>
+<tr><td v-click>Buffered chunks</td><td v-click>3</td><td v-click>3</td></tr>
+<tr><td v-click>Latency</td><td v-click>~18s</td><td v-click>~6s</td></tr>
+</tbody>
 </table>
 
 <v-click>
