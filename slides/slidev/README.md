@@ -19,7 +19,30 @@ The built slides are served by the main NestJS app at `/slides`.
 
 ## Slide Basics
 
-All slides live in **`slides.md`** — a single Markdown file. Slides are separated by `---` on its own line.
+Slides are split across multiple files in the **`slides/`** directory. The entry point **`slides.md`** imports each section using Slidev's `src:` syntax:
+
+```md
+---
+src: ./slides/01-cover.md
+---
+
+---
+src: ./slides/02-pixels-and-video.md
+---
+```
+
+Each section file contains one or more slides separated by `---`. The sections are:
+
+| File | Section |
+|------|---------|
+| `01-cover.md` | Title slide |
+| `02-pixels-and-video.md` | Pixels, resolutions, frame rates |
+| `03-compression.md` | Raw video math, codecs, quality tradeoffs |
+| `04-hls-and-abr.md` | VOD pipeline, ABR, m3u8 manifests |
+| `05-live-streaming.md` | Caching, live ingest, latency |
+| `06-demos-and-closing.md` | Audience demos, further reading, closing |
+
+To add a new section, create a file in `slides/` and add a `src:` import in `slides.md`. To add slides within a section, edit that section's file directly.
 
 ### Frontmatter
 
