@@ -14,63 +14,73 @@ const props = defineProps({
 
 const container = ref(null)
 const { clicks } = useNav()
-const elements = ref([])
-const diagramId = `mermaid-reveal-${Math.random().toString(36).slice(2, 9)}`
 
-const totalSteps = computed(() => props.steps || elements.value.length)
+// Parse diagram into header (type + participants) and interaction lines
+function parseDiagram(source) {
+  const lines = source.trim().split('\n')
+  const header = [] // type declaration + participant lines
+  const interactions = [] // arrow lines (the steps)
 
-function detectElements(svg) {
-  const els = []
-  const source = props.diagram.trim()
+  // Arrow patterns for sequence diagrams
+  const arrowPattern = /^\s*\S+\s*->>|^\s*\S+\s*-->>|^\s*\S+\s*->|^\s*\S+\s*-->/
 
-  if (source.startsWith('sequenceDiagram')) {
-    // Sequence diagrams: select message lines + labels
-    const messages = svg.querySelectorAll('.messageText, .messageLine0, .messageLine1')
-    // Group by message pairs (line + text)
-    const groups = new Map()
-    messages.forEach((el) => {
-      // Messages share y-position proximity — group by vertical offset
-      const y = Math.round(el.getBBox?.()?.y ?? parseFloat(el.getAttribute('y') ?? '0'))
-      const bucket = Math.round(y / 10) * 10
-      if (!groups.has(bucket)) groups.set(bucket, [])
-      groups.get(bucket).push(el)
-    })
+  let isSequence = false
 
-    // Also grab activation rects if present
-    const activations = svg.querySelectorAll('.activation0, .activation1, .activation2')
-    activations.forEach((el) => {
-      const y = Math.round(el.getBBox?.()?.y ?? parseFloat(el.getAttribute('y') ?? '0'))
-      const bucket = Math.round(y / 10) * 10
-      if (groups.has(bucket)) {
-        groups.get(bucket).push(el)
-      }
-    })
+  for (const line of lines) {
+    const trimmed = line.trim()
 
-    // Sort by y-position (top to bottom = chronological order)
-    const sorted = [...groups.entries()].sort((a, b) => a[0] - b[0])
-    sorted.forEach(([, group]) => els.push(group))
-
-    // Also collect loop/alt boxes and their labels
-    const loops = svg.querySelectorAll('.loopText, .loopLine, .labelBox, .labelText')
-    if (loops.length > 0) {
-      els.push([...loops])
+    if (trimmed === 'sequenceDiagram') {
+      isSequence = true
+      header.push(line)
+      continue
     }
-  } else {
-    // Flowcharts / graph diagrams: select nodes then edges
-    const nodes = svg.querySelectorAll('.node')
-    const edges = svg.querySelectorAll('.edgePath, .edgeLabel')
 
-    // Interleave: first node, then edges connecting to it, etc.
-    // Simple approach: nodes first, then edges
-    nodes.forEach((el) => els.push([el]))
-    edges.forEach((el) => els.push([el]))
+    if (isSequence) {
+      if (trimmed.startsWith('participant') || trimmed.startsWith('actor') || trimmed === '') {
+        header.push(line)
+      } else if (arrowPattern.test(trimmed)) {
+        interactions.push(line)
+      } else if (trimmed.startsWith('Note') || trimmed.startsWith('note')) {
+        interactions.push(line)
+      } else if (trimmed.startsWith('loop') || trimmed.startsWith('alt') || trimmed.startsWith('opt') || trimmed === 'end' || trimmed.startsWith('else')) {
+        interactions.push(line)
+      } else {
+        // Other lines (e.g. autonumber, rect, etc.) go in header
+        header.push(line)
+      }
+    } else {
+      // Non-sequence diagram — treat each node/edge definition as a step
+      if (lines.indexOf(line) === 0) {
+        header.push(line)
+      } else if (trimmed.includes('-->') || trimmed.includes('---') || trimmed.includes('==>') || trimmed.includes('-.->')) {
+        interactions.push(line)
+      } else if (trimmed !== '') {
+        // Could be a node definition or edge — treat as interaction
+        interactions.push(line)
+      }
+    }
   }
 
-  return els
+  return { header, interactions }
 }
 
-async function render() {
+const parsed = computed(() => parseDiagram(props.diagram))
+const totalSteps = computed(() => props.steps || parsed.value.interactions.length)
+
+// Build diagram source showing only the first N interactions
+function buildPartialDiagram(stepCount) {
+  const { header, interactions } = parsed.value
+  const visibleInteractions = interactions.slice(0, stepCount)
+  return [...header, ...visibleInteractions].join('\n')
+}
+
+let renderCounter = 0
+
+async function renderAtStep() {
   if (!container.value) return
+
+  const currentClicks = clicks.value ?? 0
+  const visibleSteps = Math.min(Math.max(currentClicks, 0), totalSteps.value)
 
   mermaid.initialize({
     startOnLoad: false,
@@ -80,39 +90,31 @@ async function render() {
       actorFontFamily: 'Inter, sans-serif',
       messageFontFamily: 'Inter, sans-serif',
       noteFontFamily: 'Inter, sans-serif',
+      useMaxWidth: false,
+      width: 180,
+      height: 40,
     },
   })
 
+  // Always show participants even at step 0
+  const source = visibleSteps === 0
+    ? parsed.value.header.join('\n')
+    : buildPartialDiagram(visibleSteps)
+
+  // Each render needs a unique ID for mermaid
+  renderCounter++
+  const diagramId = `mermaid-reveal-${renderCounter}-${Math.random().toString(36).slice(2, 7)}`
+
   try {
-    const { svg } = await mermaid.render(diagramId, props.diagram.trim())
+    const { svg } = await mermaid.render(diagramId, source)
     container.value.innerHTML = svg
-
-    const svgEl = container.value.querySelector('svg')
-    if (!svgEl) return
-
-    // Detect interactive elements
-    elements.value = detectElements(svgEl)
-
-    // Initial state: hide all elements
-    updateVisibility()
   } catch (err) {
     container.value.innerHTML = `<pre class="mermaid-reveal__error">${err.message}</pre>`
   }
 }
 
-function updateVisibility() {
-  const currentClicks = clicks.value ?? 0
-  elements.value.forEach((group, i) => {
-    const visible = i < currentClicks
-    group.forEach((el) => {
-      el.style.opacity = visible ? '1' : '0'
-      el.style.transition = 'opacity 0.3s ease'
-    })
-  })
-}
-
-onMounted(render)
-watch(clicks, updateVisibility)
+onMounted(renderAtStep)
+watch(clicks, renderAtStep)
 </script>
 
 <style scoped>
@@ -125,8 +127,8 @@ watch(clicks, updateVisibility)
   padding: 1rem;
 }
 .mermaid-reveal :deep(svg) {
-  max-width: 100%;
-  max-height: 80vh;
+  max-width: 90%;
+  max-height: 65vh;
 }
 .mermaid-reveal__error {
   color: #c00;
