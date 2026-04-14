@@ -15,8 +15,6 @@ drawings:
 transition: slide-left
 ---
 
-<!-- T015: Opening slide -->
-
 ---
 layout: cover-image
 image: /images/cover-placeholder.svg
@@ -29,8 +27,6 @@ image: /images/cover-placeholder.svg
 <p class="muted">timjs meetup — 2026</p>
 
 ---
-
-<!-- T016: What Is a Video? section -->
 
 # What Is a Video, Really?
 
@@ -80,43 +76,40 @@ $$R_{\text{raw}} = 1920 \times 1080 \times 3 \times 30 \approx 178 \text{ MB/s} 
 
 # Containers vs Codecs
 
-<v-click>
+<v-clicks>
 
-**Container** = the wrapper (MP4, WebM, MKV, TS)
+- **Container** = the wrapper (MP4, WebM, MKV, TS)
+- **Codec** = the compressor (H.264, H.265, VP9, AV1)
 
-</v-click>
-
-<v-click>
-
-**Codec** = the compressor (H.264, H.265, VP9, AV1)
-
-</v-click>
+</v-clicks>
 
 <v-click>
 
 ### How Compression Works (simplified)
 
+</v-click>
+
+<v-clicks>
+
 1. **Spatial** (intra-frame) — compress each frame like a JPEG
 2. **Temporal** (inter-frame) — store only the *differences* between frames
 3. **Keyframes** (I-frames) — full frames inserted periodically; deltas (P/B-frames) in between
 
-</v-click>
+</v-clicks>
 
 ---
-
-<!-- T017: Compression & Codecs -->
 
 # Bandwidth vs Quality Tradeoff
 
 Quality follows a **logarithmic** curve with bitrate:
 
-<v-click>
+<v-clicks>
 
 - Doubling bitrate does **not** double quality
 - Going from 1 → 2 Mbps is far more noticeable than 10 → 11 Mbps
 - Below a threshold: quality drops catastrophically (the "potato zone" 🥔)
 
-</v-click>
+</v-clicks>
 
 <v-click>
 
@@ -133,19 +126,13 @@ Quality follows a **logarithmic** curve with bitrate:
 
 # The Checkerboard Demo
 
-A **static** checkerboard compresses almost perfectly — temporal compression removes everything.
+<v-clicks>
 
-<v-click>
+- A **static** checkerboard compresses almost perfectly — temporal compression removes everything.
+- A **rotating** checkerboard defeats temporal compression — every frame is unique.
+- At low bitrates, sharp edges show **blocking artifacts** — the squares smear into gray zones.
 
-A **rotating** checkerboard defeats temporal compression — every frame is unique.
-
-</v-click>
-
-<v-click>
-
-At low bitrates, sharp edges show **blocking artifacts** — the squares smear into gray zones.
-
-</v-click>
+</v-clicks>
 
 <v-click>
 
@@ -154,18 +141,10 @@ At low bitrates, sharp edges show **blocking artifacts** — the squares smear i
 </v-click>
 
 ---
-
-<!-- T018: Demo break for Upload & Transcode -->
-
----
 layout: demo-break
 title: Upload & Transcode Demo
 url: /presenter
 ---
-
----
-
-<!-- T019: VOD Pipeline with MermaidReveal -->
 
 ---
 clicks: 7
@@ -190,23 +169,15 @@ sequenceDiagram
 
 ---
 
-<!-- T020-T021: ABR section -->
-
 # Adaptive Bitrate Streaming (ABR)
 
-The video isn't sent as one file — it's **chopped into small chunks** (2–6 seconds).
+<v-clicks>
 
-<v-click>
+- The video isn't sent as one file — it's **chopped into small chunks** (2–6 seconds).
+- The server provides a **manifest** (`.m3u8`) listing all quality variants and their chunks.
+- The player measures **download speed** in real-time and picks the best quality for the next chunk.
 
-The server provides a **manifest** (`.m3u8`) listing all quality variants and their chunks.
-
-</v-click>
-
-<v-click>
-
-The player measures **download speed** in real-time and picks the best quality for the next chunk.
-
-</v-click>
+</v-clicks>
 
 <v-click>
 
@@ -236,10 +207,6 @@ sequenceDiagram
 `" />
 
 ---
-
-<!-- T022: Demo break for ABR -->
-
----
 layout: demo-break
 title: ABR & Quality Selector Demo
 url: /catalog
@@ -247,27 +214,15 @@ url: /catalog
 
 ---
 
-<!-- T023: Live Streaming section -->
-
 # Live Streaming
 
-<v-click>
+<v-clicks>
 
-**Ingest**: Camera → WebRTC/MediaRecorder → WebSocket binary → Server
+- **Ingest**: Camera → WebRTC/MediaRecorder → WebSocket binary → Server
+- **Transcode**: FFmpeg encodes to 1080p + 720p + 480p simultaneously
+- **Deliver**: HLS chunks generated on-the-fly → viewers pull via `.m3u8` manifest
 
-</v-click>
-
-<v-click>
-
-**Transcode**: FFmpeg encodes to 1080p + 720p + 480p simultaneously
-
-</v-click>
-
-<v-click>
-
-**Deliver**: HLS chunks generated on-the-fly → viewers pull via `.m3u8` manifest
-
-</v-click>
+</v-clicks>
 
 ---
 
@@ -290,10 +245,6 @@ HLS requires **~3 chunks buffered** before playback starts.
 Shorter segments = lower latency, but more HTTP requests and less compression efficiency.
 
 </v-click>
-
----
-
-<!-- T024: Live Streaming Pipeline MermaidReveal -->
 
 ---
 clicks: 7
@@ -319,10 +270,6 @@ sequenceDiagram
 `" />
 
 ---
-
-<!-- T025: Demo break for Live Stream -->
-
----
 layout: demo-break
 title: Live Stream & Stats Demo
 url: /presenter
@@ -330,33 +277,15 @@ url: /presenter
 
 ---
 
-<!-- T026: Wow Factor section -->
-
 # The Wow Factor
 
-<v-click>
+<v-clicks>
 
-### 📱 Audience Participation
+- **📱 Audience Participation** — Scan the QR code → join as a viewer → your stats appear live on the dashboard.
+- **📊 Live Stats Dashboard** — The presenter sees real-time viewer count, bandwidth, quality distribution, and chunk request rates.
+- **🤚 Bandwidth Degradation** — Cover your phone → watch the dashboard react as quality downgrades cascade across viewers.
 
-Scan the QR code → join as a viewer → your stats appear live on the dashboard.
-
-</v-click>
-
-<v-click>
-
-### 📊 Live Stats Dashboard
-
-The presenter sees real-time viewer count, bandwidth, quality distribution, and chunk request rates.
-
-</v-click>
-
-<v-click>
-
-### 🤚 Bandwidth Degradation
-
-Cover your phone → watch the dashboard react as quality downgrades cascade across viewers.
-
-</v-click>
+</v-clicks>
 
 ---
 
@@ -381,18 +310,10 @@ The presenter tweaks HLS segment duration **live** — and the audience sees lat
 </v-click>
 
 ---
-
-<!-- T027: Demo break for Audience Participation -->
-
----
 layout: demo-break
 title: Audience Participation Demo
 url: /presenter
 ---
-
----
-
-<!-- T028: URL Reference slide -->
 
 ---
 layout: url-reference
@@ -400,21 +321,23 @@ layout: url-reference
 
 # Further Reading
 
+<v-clicks>
+
 - **[HLS Specification (RFC 8216)](https://datatracker.ietf.org/doc/html/rfc8216)** — The RFC behind HTTP Live Streaming
 - **[hls.js](https://github.com/video-dev/hls.js)** — The player library powering our viewer
 - **[FFmpeg Documentation](https://ffmpeg.org/documentation.html)** — The transcoding engine reference
 - **[Web API: MediaRecorder](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder)** — Browser API for capturing camera streams
 - **[Adaptive Streaming (Wikipedia)](https://en.wikipedia.org/wiki/Adaptive_bitrate_streaming)** — Overview of ABR techniques
 
----
-
-<!-- T029: Choose Your Next Adventure -->
+</v-clicks>
 
 ---
 layout: next-adventure
 ---
 
 # Choose Your Next Adventure
+
+<v-clicks>
 
 - **WebRTC** — Real-time peer-to-peer streaming with sub-second latency
 - **DASH** — MPEG's alternative to HLS (Dynamic Adaptive Streaming over HTTP)
@@ -423,9 +346,7 @@ layout: next-adventure
 - **Media Source Extensions** — The browser API that makes hls.js possible
 - **WebCodecs** — Low-level encode/decode directly in the browser
 
----
-
-<!-- T030: Closing slide -->
+</v-clicks>
 
 ---
 layout: quote

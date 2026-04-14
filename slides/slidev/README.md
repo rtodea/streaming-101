@@ -47,23 +47,33 @@ Content here...
 | `d` | Toggle dark mode |
 | `f` | Toggle fullscreen |
 
-### Progressive Reveals (v-click)
+### Progressive Reveals
 
-Wrap content in `<v-click>` to reveal on NEXT:
+**`<v-clicks>`** (plural) — automatically reveals each child element on NEXT. Best for lists:
+
+```md
+<v-clicks>
+
+- First item (appears on click 1)
+- Second item (appears on click 2)
+- Third item (appears on click 3)
+
+</v-clicks>
+```
+
+**`<v-click>`** (singular) — reveals a single block on NEXT. Best for standalone content (tables, quotes, formulas):
 
 ```md
 <v-click>
 
-This appears on the first click.
-
-</v-click>
-
-<v-click>
-
-This appears on the second click.
+| Col A | Col B |
+|-------|-------|
+| data  | data  |
 
 </v-click>
 ```
+
+You can mix both in the same slide — `<v-clicks>` for lists, `<v-click>` for everything else.
 
 ## Custom Layouts
 
