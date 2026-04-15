@@ -217,3 +217,83 @@ What JavaScript actually controls:
 - A/V sync algorithm internals
 
 </v-clicks>
+
+---
+
+# Media Source Extensions (MSE)
+
+The `<video>` tag was designed for **one file → one video**. But streaming needs to feed chunks dynamically.
+
+<v-click>
+
+### The problem
+
+</v-click>
+
+<v-clicks>
+
+- `<video src="movie.mp4">` loads one file — no way to switch quality mid-stream
+- HLS/DASH need to fetch **small chunks** and stitch them together on the fly
+- The browser has no built-in HLS support (except Safari)
+
+</v-clicks>
+
+<v-click>
+
+### MSE — the solution (2013, W3C spec)
+
+</v-click>
+
+<v-clicks>
+
+- JavaScript creates a `MediaSource` object and wires it to `<video>` via a blob URL
+- Opens a `SourceBuffer` — a pipe where JS can **push raw media chunks**
+- The browser's C++ decoder processes each chunk as if it were part of one continuous file
+- This is **exactly** what hls.js does — it's an MSE client
+
+</v-clicks>
+
+---
+
+# MSE: How hls.js Wires It Up
+
+<v-click>
+
+```javascript
+// 1. Create a MediaSource and connect it to <video>
+const ms = new MediaSource();
+video.src = URL.createObjectURL(ms);
+
+// 2. When ready, open a SourceBuffer for the codec
+ms.addEventListener('sourceopen', () => {
+  const sb = ms.addSourceBuffer('video/mp4; codecs="avc1.64001f"');
+
+  // 3. Fetch an HLS chunk and push it in
+  fetch('/hls/720p/segment-001.ts')
+    .then(r => r.arrayBuffer())
+    .then(data => sb.appendBuffer(data));
+});
+```
+
+</v-click>
+
+<v-click>
+
+### What this unlocks
+
+</v-click>
+
+<v-clicks>
+
+- **Adaptive bitrate** — switch quality by pushing chunks from a different playlist
+- **Live streaming** — keep appending new chunks as they arrive
+- **Seeking** — jump to any point by fetching the right chunk and appending it
+- **Gap handling** — detect buffering gaps and fetch missing segments
+
+</v-clicks>
+
+<v-click>
+
+> Without MSE, libraries like hls.js, dash.js, and Shaka Player **could not exist**.
+
+</v-click>
