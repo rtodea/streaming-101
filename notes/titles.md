@@ -73,38 +73,5 @@ These proposals are tailored for the **TimJS** audience, focusing on the browser
 ### 9) Death of the MP4: Why Static Files are Killing your Mobile UX
 **Description:** Static files are for images; packets are for video. We’ll show you how to migrate to a packetized HLS future that saves bandwidth, improves retention, and scales to millions of viewers.
 
----
-
-## 🎞️ The "Moving Pictures" & Web Standards Set
-
-This set pays homage to the heritage of cinema while focusing on the modern web standards (MSE, HLS, VOD) that power today's largest video platforms.
-
-### 1) The Digital Cinematograph: Reinventing the Moving Picture
-**Description:** From celluloid to source buffers. We’ll explore how the `<video>` tag evolves the 100-year-old tradition of "moving pictures" into a modern web standard, replacing static assets with dynamic, programmatically controlled streams.
-
-### 2) VOD Excellence: Engineering the YouTube Experience
-**Description:** YouTube doesn't just play files; it manages state. We’ll dive into the web standards that power global VOD platforms, focusing on how to architect a resilient playback engine using nothing but vanilla JavaScript and the browser's native media stack.
-
-### 3) Beyond the `.mp4`: The Rise of Segmented Streaming
-**Description:** The single file is a relic of the past. Learn why modern streaming architectures have moved to HLS and DASH, and how to transition your VOD assets from "large downloads" to "fluid segments" for an instant-start experience.
-
-### 4) Master of the Manifest: HLS, DASH, and the Standardized Web
-**Description:** The real power of web video lies in the manifest. We’ll deconstruct HLS playlists and DASH descriptions to show how these standards enable features like adaptive quality, multi-language audio, and seamless VOD-to-Live transitions.
-
-### 5) The Open Web's Projection Booth: Navigating File Formats
-**Description:** Containers vs. Codecs. A clear-eyed look at the modern web’s "Projection Booth"—understanding the differences between MP4, WebM, and fragmented MP4, and how to choose the right format for cross-browser compatibility.
-
-### 6) The Virtual Projectionist: Controlling Playback with JS
-**Description:** Stop letting the browser decide how your video behaves. We’ll use the Media Source Extensions (MSE) API to become "Virtual Projectionists," manually stitching together video segments to build a custom, high-performance VOD player.
-
-### 7) Buffering the Blockbuster: The Future of Browser VOD
-**Description:** How do the giants maintain "infinite" playback without crashing the tab? We’ll explore the memory management and buffer strategies required to stream feature-length VOD content while keeping the browser responsive and the "picture" moving.
-
-### 8) Standardizing the Stream: The Evolution of the `<video>` Tag
-**Description:** The `<video>` tag was just the beginning. We’ll trace the evolution of web media standards, from basic playback to the advanced MSE and EME APIs that allow us to build industry-grade streaming platforms directly in the browser.
-
-### 9) Moving Pictures, Fixed Standards: A Guide to Modern Ingest
-**Description:** Bridging the gap between raw video and the browser. Learn the standards-compliant way to package VOD content, ensuring your "moving pictures" are ready for any device, any connection, and any modern web platform.
-
-### 10) The Seamless Sequence: Building a Continuous VOD Engine
-**Description:** Continuity is an art form. We’ll show you how to chain discrete video segments into a single, uninterrupted experience, mimicking the seamless reel-changes of classic cinema using modern browser APIs and streaming protocols.
+### 10) Bare Metal Streaming: High-Performance Video on Low-Power Chips
+**Description:** Optimizing FFmpeg and Node.js for ARM64 architectures. Learn how to build a production-ready streaming ingest that doesn't melt your server or your infrastructure budget.
