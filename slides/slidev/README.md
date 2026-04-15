@@ -38,9 +38,10 @@ Each section file contains one or more slides separated by `---`. The sections a
 | `01-cover.md` | Title slide |
 | `02-pixels-and-video.md` | Pixels, resolutions, frame rates |
 | `03-compression.md` | Raw video math, codecs, quality tradeoffs |
-| `04-hls-and-abr.md` | VOD pipeline, ABR, m3u8 manifests |
-| `05-live-streaming.md` | Caching, live ingest, latency |
-| `06-demos-and-closing.md` | Audience demos, further reading, closing |
+| `04-video-tag.md` | `<video>` history, browser pipeline, GPU, OS roles |
+| `05-hls-and-abr.md` | VOD pipeline, ABR, m3u8 manifests |
+| `06-live-streaming.md` | Caching, live ingest, latency |
+| `07-demos-and-closing.md` | Audience demos, further reading, closing |
 
 To add a new section, create a file in `slides/` and add a `src:` import in `slides.md`. To add slides within a section, edit that section's file directly.
 

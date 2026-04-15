@@ -28,13 +28,17 @@ src: ./slides/03-compression.md
 ---
 
 ---
-src: ./slides/04-hls-and-abr.md
+src: ./slides/04-video-tag.md
 ---
 
 ---
-src: ./slides/05-live-streaming.md
+src: ./slides/05-hls-and-abr.md
 ---
 
 ---
-src: ./slides/06-demos-and-closing.md
+src: ./slides/06-live-streaming.md
+---
+
+---
+src: ./slides/07-demos-and-closing.md
 ---
