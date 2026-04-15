@@ -40,6 +40,38 @@ These proposals utilize the **McEnerney "Value" Model** (Problem → Instability
 *   **Title:** **The Relativity of the Stream: Managing the "Universal Now" in Live Video.**
 *   **Description:** In a live stream, every viewer occupies a different "Now" due to network variance. This **temporal divergence** creates a chaotic experience for interactive or "social" apps. We’ll apply Einstein’s frame-of-reference logic to build a synchronization layer, ensuring that your "Live" stream feels simultaneous for every observer across the globe.
 
-### 10) The "Raw Bytes" (First Principles/Educational)
-*   **Title:** **From Pixels to Packets: Building the 6-Stage Pipeline of Light.**
-*   **Description:** Video is just light hit by math, chopped by logic, and routed by networking. If any step is opaque, your application remains a "black box." We will unpack all 6 stages—from the camera’s raw YUV pixels to the browser’s final GPU render—to build a transparent, packetized alternative to the big streamers with **zero "magic" and 100% first principles.**
+---
+
+## 🚀 TimJS Meetup Style Proposals (Short & Punchy)
+
+These proposals are tailored for the **TimJS** audience, focusing on the browser engine, raw JavaScript, and building high-performance alternatives to industry giants.
+
+### 1) Beyond the Black Box: Surgery on the `<video>` Tag
+**Description:** Stop treating video like a static image. We’ll perform "byte surgery" using Media Source Extensions (MSE) to manually pump HLS segments into the DOM, bypassing high-level libraries to build a streaming engine from first principles.
+
+### 2) Netflix in 60 Minutes: Building a Global Streaming Stack on ARM
+**Description:** Why is your `src="video.mp4"` killing your server and your UX? Learn to architect a segmented HLS pipeline that handles network jitter, implements adaptive bitrates, and runs efficiently on a $5 ARM node.
+
+### 3) The Leaky Bucket: Managing the Physics of Video Buffering
+**Description:** Video isn’t a file; it’s a managed queue of light. We’ll explore the "leaky bucket" model to handle 5G drops and network latency, ensuring your player stays alive without the dreaded "spinner of death."
+
+### 4) Frame-Perfect: Unpacking the Mystery of Video Seeking
+**Description:** Why does your video freeze for 2 seconds when you seek? Discover the secrets of GOP structures and I-frames to build a custom player that feels as snappy and responsive as YouTube.
+
+### 5) No Libraries, No Magic: Pure JavaScript Video Streaming
+**Description:** Shaka and Video.js are powerful, but do you know what they’re actually doing? We’ll bypass the wrappers and talk directly to the browser’s media engine using raw buffers and HLS manifests.
+
+### 6) Adaptive Bitrates: Keeping the Stream Alive in a 5G World
+**Description:** 5G is fast, but 5G in a tunnel is zero. Learn how to implement ABR logic to swap video qualities on the fly, maintaining a continuous "live" feeling regardless of the user's connection.
+
+### 7) Streaming for Humans: Coding for a Brain that Lives in the Past
+**Description:** Your brain takes 100ms to process reality. We’ll explore how to use predictive buffering and Einstein's relativity to synchronize live video for a global audience, compensating for both neural and digital lag.
+
+### 8) The Pipeline of Light: From Raw Pixels to Network Packets
+**Description:** Trace the 6-stage journey of a video frame from the camera's sensor to the browser's GPU. A deep dive into codecs, segments, and the protocols that power the modern web.
+
+### 9) Death of the MP4: Why Static Files are Killing your Mobile UX
+**Description:** Static files are for images; packets are for video. We’ll show you how to migrate to a packetized HLS future that saves bandwidth, improves retention, and scales to millions of viewers.
+
+### 10) Bare Metal Streaming: High-Performance Video on Low-Power Chips
+**Description:** Optimizing FFmpeg and Node.js for ARM64 architectures. Learn how to build a production-ready streaming ingest that doesn't melt your server or your infrastructure budget.
