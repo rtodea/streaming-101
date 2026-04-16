@@ -111,3 +111,10 @@ This set pays homage to the heritage of cinema while focusing on the modern web 
 
 ### 10) The Seamless Sequence: Building a Continuous VOD Engine
 **Description:** Continuity is an art form. We’ll show you how to chain discrete video segments into a single, uninterrupted experience, mimicking the seamless reel-changes of classic cinema using modern browser APIs and streaming protocols.
+
+## Final Proposal
+
+### Moving Pictures, Fixed Standards: The Evolution of the `<video>` Tag
+Often dismissed as just a moving <img> tag, the <video> tag is actually the unsung hero of the modern web.
+We’re going to unpack the architecture of continuous playback and get our hands dirty with the raw mechanics under the hood: frames, bitrates, codecs, and manifest files.
+We’ll see how these raw building blocks play together by creating our own YouTube clone from scratch.
