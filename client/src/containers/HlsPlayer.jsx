@@ -7,6 +7,8 @@ export default function HlsPlayer({ src, viewerId, watchingId }) {
   const { attach, stats, setLevel } = useHls(src)
   const ws = useWebSocket()
   const statsIntervalRef = useRef(null)
+  const statsRef = useRef(stats)
+  statsRef.current = stats
 
   const videoRef = useCallback((el) => {
     if (el) {
@@ -19,12 +21,13 @@ export default function HlsPlayer({ src, viewerId, watchingId }) {
     ws.connect()
 
     statsIntervalRef.current = setInterval(() => {
+      const s = statsRef.current
       ws.sendJson({
         type: 'viewer:stats',
         viewerId,
-        currentQuality: stats.quality,
-        bandwidth: stats.bandwidth,
-        bufferLevel: stats.bufferLevel,
+        currentQuality: s.quality,
+        bandwidth: s.bandwidth,
+        bufferLevel: s.bufferLevel,
       })
     }, 2000)
 
