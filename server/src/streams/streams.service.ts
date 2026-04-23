@@ -53,6 +53,8 @@ export class StreamsService {
     }
 
     const args = [
+      '-use_wallclock_as_timestamps', '1',
+      '-fflags', '+genpts',
       '-f', 'webm', '-i', 'pipe:0',
     ];
 
@@ -63,7 +65,7 @@ export class StreamsService {
         '-map', '0:v', '-map', '0:a',
         `-c:v:${i}`, 'libx264', '-preset', 'ultrafast', '-tune', 'zerolatency',
         `-b:v:${i}`, p.bitrate, `-maxrate:v:${i}`, p.maxrate, `-bufsize:v:${i}`, p.bufsize,
-        `-filter:v:${i}`, `scale=${p.scale}`,
+        `-filter:v:${i}`, `fps=30,scale=${p.scale}`,
         `-c:a:${i}`, 'aac', '-b:a', '128k',
         '-f', 'hls',
         '-hls_time', String(session.segmentDuration),
