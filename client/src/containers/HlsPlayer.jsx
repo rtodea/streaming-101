@@ -18,12 +18,6 @@ export default function HlsPlayer({ src, viewerId, watchingId }) {
   useEffect(() => {
     ws.connect()
 
-    ws.sendJson({
-      type: 'viewer:connect',
-      viewerId,
-      watchingId,
-    })
-
     statsIntervalRef.current = setInterval(() => {
       ws.sendJson({
         type: 'viewer:stats',
@@ -40,6 +34,12 @@ export default function HlsPlayer({ src, viewerId, watchingId }) {
       ws.disconnect()
     }
   }, [viewerId, watchingId])
+
+  useEffect(() => {
+    if (ws.state === 'connected') {
+      ws.sendJson({ type: 'viewer:connect', viewerId, watchingId })
+    }
+  }, [ws.state, viewerId, watchingId])
 
   return (
     <div className="stack">
