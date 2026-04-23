@@ -51,9 +51,11 @@ export default function useHls(src) {
       })
 
       hls.on(Hls.Events.FRAG_LOADED, (_event, data) => {
-        const { total, trequest, tfirst } = data.frag.stats.loading
-        const duration = (trequest - tfirst) / 1000
-        const bw = duration > 0 ? Math.round((total * 8) / duration / 1000) : 0
+        const { total, loading } = data.frag.stats
+        const duration = (loading.end - loading.start) / 1000
+        const bw = duration > 0 && total > 0
+          ? Math.round((total * 8) / duration / 1000)
+          : 0
         setStats(prev => ({ ...prev, bandwidth: bw }))
       })
 
