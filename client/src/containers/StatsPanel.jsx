@@ -18,8 +18,6 @@ export default function StatsPanel() {
       .then(setStats)
       .catch(() => {})
 
-    ws.connect()
-    ws.sendJson({ type: 'presenter:connect' })
     ws.on('stats:update', (msg) => {
       setStats({
         viewerCount: msg.viewerCount,
@@ -29,8 +27,15 @@ export default function StatsPanel() {
       })
     })
 
+    ws.connect()
     return () => ws.disconnect()
   }, [])
+
+  useEffect(() => {
+    if (ws.state === 'connected') {
+      ws.sendJson({ type: 'presenter:connect' })
+    }
+  }, [ws.state])
 
   const maxViewers = Math.max(50, stats.viewerCount)
   const qualities = Object.entries(stats.qualityDistribution)
