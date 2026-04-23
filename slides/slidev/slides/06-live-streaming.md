@@ -77,6 +77,74 @@ sequenceDiagram
 
 ---
 
+# The HLS Browser Gap
+
+HLS is an Apple-born standard. Support is fragmented across the desktop web.
+
+<div class="grid grid-cols-2 gap-4">
+<div v-click>
+
+### Native Support (Safari/iOS)
+- `<video src="stream.m3u8">` works out of the box.
+- Browser handles everything (fetch, buffer, quality).
+- **Cons:** Very limited control or telemetry.
+
+</div>
+<div v-click>
+
+### No Native Support (Chrome/Firefox/Edge)
+- Browser has no idea how to parse `.m3u8`.
+- Loading it as a `src` results in an error.
+- **Solution:** We need a JavaScript "driver" to teach the browser HLS.
+
+</div>
+</div>
+
+---
+
+# hls.js: The JavaScript Driver
+
+`hls.js` is a massive library because it re-implements the entire video stack in JS.
+
+<v-clicks>
+
+- **Fetch**: Uses standard `fetch`/`XHR` to download manifests and segments.
+- **Transmuxing**: HLS often uses `.ts` (MPEG-TS). Browsers prefer `.mp4` (ISO BMFF). `hls.js` converts bytes on-the-fly in a Web Worker.
+- **MSE (Media Source Extensions)**: The "Manual Pump" API that feeds raw bytes into the `<video>` element.
+- **ABR Logic**: It monitors your bandwidth and decides when to switch qualities.
+
+</v-clicks>
+
+<v-click>
+
+> Without `hls.js`, HLS streaming would fail for ~80% of desktop users.
+
+</v-click>
+
+---
+
+# MSE: Media Source Extensions
+
+How `hls.js` talks to the hardware.
+
+<MermaidReveal :diagram="`
+flowchart LR
+    URL[.m3u8] --> JS[hls.js]
+    JS -->|Fetch .ts| Seg[Segment Bytes]
+    Seg -->|Transmux| MP4[fMP4 Bytes]
+    MP4 -->|SourceBuffer.appendBuffer| MSE[MediaSource API]
+    MSE --> V[Video Tag]
+    V --> GPU[GPU / Display]
+`" />
+
+<v-click>
+
+MSE turned the `<video>` tag from a **Black Box** (we give a URL, it does magic) into a **Sink** (we pump raw bytes, it plays them).
+
+</v-click>
+
+---
+
 # The Rolling Window
 
 FFmpeg's "live" HLS mode is a **sliding window** of recent segments.

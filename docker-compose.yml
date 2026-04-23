@@ -8,6 +8,11 @@ services:
       - /app/node_modules
     environment:
       - VITE_BACKEND_URL=http://server:3000
+      # Set when serving via a public HTTPS reverse proxy (e.g. timjs.tadeo.ro)
+      # so Vite HMR tells the browser to connect over wss:// to the public port.
+      # Leave unset for plain http://localhost:5173 dev.
+      - VITE_HMR_CLIENT_PORT=${VITE_HMR_CLIENT_PORT-}
+      - VITE_HMR_PROTOCOL=${VITE_HMR_PROTOCOL-}
     depends_on:
       server:
         condition: service_healthy

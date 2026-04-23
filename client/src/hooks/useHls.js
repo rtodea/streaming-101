@@ -11,6 +11,7 @@ export default function useHls(src) {
     levels: [],
     selectedLevel: -1,
   })
+  const [liveState, setLiveState] = useState({ isLive: false, behindLive: 0 })
 
   const attach = useCallback((videoEl) => {
     videoRef.current = videoEl
@@ -77,6 +78,19 @@ export default function useHls(src) {
           bufferLevel: Math.max(0, bufferEnd - video.currentTime),
         }))
       }
+
+      const hls = hlsRef.current
+      const details = hls?.latestLevelDetails
+      const isLive = !!details?.live
+      if (!isLive) {
+        setLiveState(prev => (prev.isLive ? { isLive: false, behindLive: 0 } : prev))
+        return
+      }
+      const syncPos = hls.liveSyncPosition
+      const behind = Number.isFinite(syncPos)
+        ? Math.max(0, syncPos - video.currentTime)
+        : 0
+      setLiveState({ isLive: true, behindLive: behind })
     }, 1000)
 
     return () => {
@@ -93,5 +107,16 @@ export default function useHls(src) {
     setStats(prev => ({ ...prev, selectedLevel: index }))
   }, [])
 
-  return { attach, stats, setLevel }
+  const jumpToLive = useCallback(() => {
+    const hls = hlsRef.current
+    const video = videoRef.current
+    if (!hls || !video) return
+    const target = hls.liveSyncPosition
+    if (Number.isFinite(target)) {
+      video.currentTime = target
+      video.play().catch(() => {})
+    }
+  }, [])
+
+  return { attach, stats, liveState, setLevel, jumpToLive }
 }
