@@ -169,15 +169,13 @@ Net effect: at any moment, only the last **~20 seconds** of the stream exists. A
 
 <MermaidReveal :diagram="`
 flowchart LR
-    subgraph now[Manifest now]
-        direction LR
-        s5[seg-05] --> s6[seg-06] --> s7[seg-07] --> s8[seg-08] --> s9[seg-09]
-    end
-    s10[seg-10<br/>new]:::new --> now
-    s4[seg-04<br/>deleted]:::gone
-    now --> s4
-    classDef new fill:#d4edda,stroke:#28a745
-    classDef gone fill:#f8d7da,stroke:#dc3545,stroke-dasharray:4
+    new[seg-10 new]:::fresh
+    s5[seg-05] --> s6[seg-06] --> s7[seg-07] --> s8[seg-08] --> s9[seg-09]
+    gone[seg-04 deleted]:::expired
+    new --> s5
+    s9 --> gone
+    classDef fresh fill:#d4edda,stroke:#28a745,color:#155724
+    classDef expired fill:#f8d7da,stroke:#dc3545,color:#721c24
 `" />
 
 <v-click>
