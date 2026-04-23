@@ -44,8 +44,10 @@ export class WsGateway implements OnGatewayConnection, OnGatewayDisconnect {
       this.wsService.clearPresenter(client);
     } else if (meta.role === 'camera') {
       if (meta.streamId) {
-        this.streamsService.stopLiveStream(meta.streamId);
-        this.wsService.broadcast({ type: 'stream:ended', streamId: meta.streamId });
+        const streamId = meta.streamId;
+        this.streamsService.stopLiveStream(streamId).finally(() => {
+          this.wsService.broadcast({ type: 'stream:ended', streamId });
+        });
       }
       this.wsService.clearCameraSocket(client);
     }
@@ -87,8 +89,10 @@ export class WsGateway implements OnGatewayConnection, OnGatewayDisconnect {
       case 'camera:stop': {
         const meta = this.socketMeta.get(client);
         if (meta?.streamId) {
-          this.streamsService.stopLiveStream(meta.streamId);
-          this.wsService.broadcast({ type: 'stream:ended', streamId: meta.streamId });
+          const streamId = meta.streamId;
+          this.streamsService.stopLiveStream(streamId).finally(() => {
+            this.wsService.broadcast({ type: 'stream:ended', streamId });
+          });
         }
         this.wsService.clearCameraSocket(client);
         break;

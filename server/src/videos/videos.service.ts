@@ -66,6 +66,31 @@ export class VideosService implements OnModuleInit {
     }
   }
 
+  registerArchivedLive(id: string, title: string) {
+    if (this.videos.has(id)) return;
+
+    const vodDir = path.join(HLS_OUTPUT_DIR, 'vod', id);
+    const qualities = fs.existsSync(vodDir)
+      ? fs.readdirSync(vodDir).filter(f => fs.statSync(path.join(vodDir, f)).isDirectory())
+      : [];
+
+    this.videos.set(id, {
+      id,
+      title,
+      originalPath: '',
+      format: 'live-archive',
+      fileSize: 0,
+      status: 'ready',
+      qualities,
+      hlsManifestPath: `/hls/vod/${id}/master.m3u8`,
+      createdAt: new Date().toISOString(),
+      transcodingProgress: 100,
+      errorMessage: null,
+    });
+
+    this.wsService.broadcast({ type: 'transcode:complete', videoId: id });
+  }
+
   create(title: string, originalPath: string, format: string, fileSize: number): Video {
     const id = randomUUID();
     const video: Video = {

@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject, forwardRef } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { spawn, ChildProcess } from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
 import { ProcessRegistry } from '../health/process-registry';
+import { VideosService } from '../videos/videos.service';
 
 export interface StreamSession {
   id: string;
@@ -28,6 +29,11 @@ const QUALITY_PRESETS = [
 export class StreamsService {
   private streams = new Map<string, StreamSession>();
   private ffmpegProcesses = new Map<string, ChildProcess>();
+
+  constructor(
+    @Inject(forwardRef(() => VideosService))
+    private readonly videosService: VideosService,
+  ) {}
 
   create(segmentDuration = parseInt(SEGMENT_DURATION, 10)): StreamSession {
     const id = randomUUID();
@@ -69,8 +75,7 @@ export class StreamsService {
         `-c:a:${i}`, 'aac', '-b:a', '128k',
         '-f', 'hls',
         '-hls_time', String(session.segmentDuration),
-        '-hls_list_size', '5',
-        '-hls_flags', 'delete_segments+append_list',
+        '-hls_playlist_type', 'event',
         '-hls_segment_filename', path.join(outDir, 'segment-%03d.ts'),
         path.join(outDir, 'stream.m3u8'),
       );
@@ -109,12 +114,38 @@ export class StreamsService {
     }
   }
 
-  stopLiveStream(streamId: string) {
+  async stopLiveStream(streamId: string): Promise<void> {
+    const session = this.streams.get(streamId);
+    if (!session || session.status === 'ended') return;
+
+    session.status = 'ended';
+    session.endedAt = new Date().toISOString();
+
     const proc = this.ffmpegProcesses.get(streamId);
-    if (proc?.stdin) {
-      proc.stdin.end();
+    if (proc) {
+      if (proc.stdin && !proc.stdin.destroyed) proc.stdin.end();
+      await new Promise<void>((resolve) => {
+        if (proc.exitCode !== null) return resolve();
+        proc.once('close', () => resolve());
+      });
     }
-    this.end(streamId);
+
+    const liveDir = path.join(HLS_OUTPUT_DIR, 'live', streamId);
+    const vodDir = path.join(HLS_OUTPUT_DIR, 'vod', streamId);
+    if (fs.existsSync(liveDir) && !fs.existsSync(vodDir)) {
+      try {
+        fs.renameSync(liveDir, vodDir);
+        const title = `Live recording — ${new Date(session.startedAt).toLocaleString()}`;
+        this.videosService.registerArchivedLive(streamId, title);
+      } catch (err) {
+        console.log(JSON.stringify({
+          service: 'streaming-101-server',
+          timestamp: new Date().toISOString(),
+          level: 'error',
+          message: `Failed to archive live stream ${streamId}: ${err}`,
+        }));
+      }
+    }
   }
 
   findAll(): StreamSession[] {
@@ -140,13 +171,6 @@ export class StreamsService {
     }
 
     return session;
-  }
-
-  end(id: string) {
-    const session = this.streams.get(id);
-    if (!session) return;
-    session.status = 'ended';
-    session.endedAt = new Date().toISOString();
   }
 
   private writeMasterManifest(outputBase: string) {
