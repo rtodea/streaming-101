@@ -15,57 +15,50 @@ const props = defineProps({
 const container = ref(null)
 const { clicks } = useNav()
 
-// Parse diagram into header (type + participants) and interaction lines
+// Parse diagram into header (type + participants) and interaction lines.
+// Only sequenceDiagram is split into reveal steps. Other diagram types
+// (flowchart, stateDiagram, classDiagram, etc.) render as a single SVG —
+// their layout depends on the full graph, so progressive reveal would just
+// produce broken intermediate frames.
 function parseDiagram(source) {
   const lines = source.trim().split('\n')
-  const header = [] // type declaration + participant lines
-  const interactions = [] // arrow lines (the steps)
+  const firstNonEmpty = lines.find(l => l.trim() !== '') || ''
+  const isSequence = firstNonEmpty.trim() === 'sequenceDiagram'
 
-  // Arrow patterns for sequence diagrams
+  if (!isSequence) {
+    return { header: lines, interactions: [], isSequence: false }
+  }
+
+  const header = []
+  const interactions = []
   const arrowPattern = /^\s*\S+\s*->>|^\s*\S+\s*-->>|^\s*\S+\s*->|^\s*\S+\s*-->/
-
-  let isSequence = false
 
   for (const line of lines) {
     const trimmed = line.trim()
 
     if (trimmed === 'sequenceDiagram') {
-      isSequence = true
       header.push(line)
-      continue
-    }
-
-    if (isSequence) {
-      if (trimmed.startsWith('participant') || trimmed.startsWith('actor') || trimmed === '') {
-        header.push(line)
-      } else if (arrowPattern.test(trimmed)) {
-        interactions.push(line)
-      } else if (trimmed.startsWith('Note') || trimmed.startsWith('note')) {
-        interactions.push(line)
-      } else if (trimmed.startsWith('loop') || trimmed.startsWith('alt') || trimmed.startsWith('opt') || trimmed === 'end' || trimmed.startsWith('else')) {
-        interactions.push(line)
-      } else {
-        // Other lines (e.g. autonumber, rect, etc.) go in header
-        header.push(line)
-      }
+    } else if (trimmed.startsWith('participant') || trimmed.startsWith('actor') || trimmed === '') {
+      header.push(line)
+    } else if (arrowPattern.test(trimmed)) {
+      interactions.push(line)
+    } else if (trimmed.startsWith('Note') || trimmed.startsWith('note')) {
+      interactions.push(line)
+    } else if (trimmed.startsWith('loop') || trimmed.startsWith('alt') || trimmed.startsWith('opt') || trimmed === 'end' || trimmed.startsWith('else')) {
+      interactions.push(line)
     } else {
-      // Non-sequence diagram — treat each node/edge definition as a step
-      if (lines.indexOf(line) === 0) {
-        header.push(line)
-      } else if (trimmed.includes('-->') || trimmed.includes('---') || trimmed.includes('==>') || trimmed.includes('-.->')) {
-        interactions.push(line)
-      } else if (trimmed !== '') {
-        // Could be a node definition or edge — treat as interaction
-        interactions.push(line)
-      }
+      header.push(line)
     }
   }
 
-  return { header, interactions }
+  return { header, interactions, isSequence: true }
 }
 
 const parsed = computed(() => parseDiagram(props.diagram))
-const totalSteps = computed(() => props.steps || parsed.value.interactions.length)
+const totalSteps = computed(() => {
+  if (!parsed.value.isSequence) return 0
+  return props.steps || parsed.value.interactions.length
+})
 
 // Build diagram source showing only the first N interactions
 function buildPartialDiagram(stepCount) {
@@ -96,10 +89,16 @@ async function renderAtStep() {
     },
   })
 
-  // Always show participants even at step 0
-  const source = visibleSteps === 0
-    ? parsed.value.header.join('\n')
-    : buildPartialDiagram(visibleSteps)
+  // Non-sequence diagrams render the full source — their layout requires
+  // every node and edge to be present at once, so step-by-step reveal
+  // would just produce broken intermediate frames. Sequence diagrams keep
+  // the existing per-click animation: header (cast) at step 0, then one
+  // arrow per click.
+  const source = !parsed.value.isSequence
+    ? props.diagram
+    : visibleSteps === 0
+      ? parsed.value.header.join('\n')
+      : buildPartialDiagram(visibleSteps)
 
   // Each render needs a unique ID for mermaid
   renderCounter++
