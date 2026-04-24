@@ -7,4 +7,4 @@ image: /images/cover-placeholder.svg
 
 ### From Pixels to Packets in JavaScript
 
-<p class="muted">timjs meetup — 2026</p>
+<p class="muted">timjs meetup, 2026</p>

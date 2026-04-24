@@ -1,15 +1,15 @@
 # Browser Caching: VOD vs Live
 
-HLS chunks are just HTTP responses — the browser (and CDNs) can cache them. But the caching strategy is **opposite** for VOD and live.
+HLS chunks are just HTTP responses, so the browser (and CDNs) can cache them. But the caching strategy is **opposite** for VOD and live.
 
 <table>
 <thead><tr><th></th><th>VOD</th><th>Live</th></tr></thead>
 <tbody>
-<tr><td v-click><b>Chunks (.ts)</b></td><td v-click>Immutable — cache forever</td><td v-click>Immutable — cache, but short-lived on disk</td></tr>
-<tr><td v-click><b>Manifest (.m3u8)</b></td><td v-click>Static — cache aggressively</td><td v-click>Changes every segment — <b>must not cache</b></td></tr>
+<tr><td v-click><b>Chunks (.ts)</b></td><td v-click>Immutable, cache forever</td><td v-click>Immutable, cache but short-lived on disk</td></tr>
+<tr><td v-click><b>Manifest (.m3u8)</b></td><td v-click>Static, cache aggressively</td><td v-click>Changes every segment, <b>must not cache</b></td></tr>
 <tr><td v-click><b>Cache-Control</b></td><td v-click><code>max-age=31536000</code></td><td v-click><code>no-cache</code> or <code>max-age=1</code></td></tr>
 <tr><td v-click><b>Seeking</b></td><td v-click>Any chunk instantly (cached)</td><td v-click>Only recent window (old chunks expire)</td></tr>
-<tr><td v-click><b>Replay</b></td><td v-click>Free — served from cache</td><td v-click>Impossible unless DVR window configured</td></tr>
+<tr><td v-click><b>Replay</b></td><td v-click>Free, served from cache</td><td v-click>Impossible unless DVR window configured</td></tr>
 </tbody>
 </table>
 
@@ -83,15 +83,15 @@ FFmpeg's "live" HLS mode is a **sliding window** of recent segments.
 
 <v-clicks>
 
-- `-hls_time 4` — each segment covers ~4 seconds of video
-- `-hls_list_size 5` — manifest lists only the most recent 5 segments
-- `-hls_flags delete_segments` — older `.ts` files are **erased from disk**
+- `-hls_time 4`: each segment covers ~4 seconds of video
+- `-hls_list_size 5`: manifest lists only the most recent 5 segments
+- `-hls_flags delete_segments`: older `.ts` files are **erased from disk**
 
 </v-clicks>
 
 <v-click>
 
-Net effect: at any moment, only the last **~20 seconds** of the stream exists. Anything older is gone — the server has no memory.
+Net effect: at any moment, only the last **~20 seconds** of the stream exists. Anything older is gone; the server has no memory.
 
 </v-click>
 
@@ -144,18 +144,18 @@ Every 4 seconds: one segment joins the head, one segment drops off the tail. The
 # DVR: Three Flags Flipped
 
 ```ts {all|2-3|2-3|5|all}
-// Before — sliding window, ~20s of history
+// Before: sliding window, ~20s of history
 '-hls_list_size', '5',
 '-hls_flags', 'delete_segments+append_list',
 
-// After — full DVR + auto-archive
+// After: full DVR + auto-archive
 '-hls_playlist_type', 'event',
 ```
 
 <v-clicks>
 
 - `-hls_list_size` → implicitly `0` (unbounded) under EVENT mode
-- No more `delete_segments` — every `.ts` file stays on disk
+- No more `delete_segments`; every `.ts` file stays on disk
 - When stdin closes, FFmpeg writes `#EXT-X-ENDLIST` → playlist is now a complete VOD
 
 </v-clicks>
@@ -177,7 +177,7 @@ When the camera stops, the recording is **already on disk** as HLS segments.
 
 <v-click>
 
-No transcoding. No copying. Just a filesystem rename — the exact same bytes are now a VOD.
+No transcoding. No copying. Just a filesystem rename, and the exact same bytes are now a VOD.
 
 </v-click>
 
@@ -224,7 +224,7 @@ sequenceDiagram
 
 <v-click>
 
-The server rebuilds `VideosService`'s in-memory catalog from `vod/` at startup — so archived streams survive restarts for free.
+The server rebuilds `VideosService`'s in-memory catalog from `vod/` at startup, so archived streams survive restarts for free.
 
 </v-click>
 

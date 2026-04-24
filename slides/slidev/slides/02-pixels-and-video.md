@@ -54,10 +54,10 @@ The number is the **vertical pixel count**. More pixels = sharper image, but exp
 
 <v-clicks>
 
-- The **"p"** stands for **progressive scan** (every line drawn each frame, vs **"i"** = interlaced — odd/even lines alternating)
-- Early TV standards were defined by **scan lines** (vertical resolution) — 480i (NTSC), 576i (PAL)
+- The **"p"** stands for **progressive scan** (every line drawn each frame, vs **"i"** = interlaced, odd/even lines alternating)
+- Early TV standards were defined by **scan lines** (vertical resolution): 480i (NTSC), 576i (PAL)
 - When HD arrived, the same convention stuck: **720p**, **1080i**, **1080p**
-- The **horizontal** pixels just follow from the **aspect ratio** (16:9) — given 1080 vertical → 1920 horizontal
+- The **horizontal** pixels just follow from the **aspect ratio** (16:9): given 1080 vertical → 1920 horizontal
 
 </v-clicks>
 
@@ -69,8 +69,8 @@ The number is the **vertical pixel count**. More pixels = sharper image, but exp
 
 <v-clicks>
 
-- Cinema (DCI) standard is 4096 × 2160 — the **"4K"** refers to ~4000 **horizontal** pixels
-- Consumer "4K" (UHD) is 3840 × 2160 — the name was borrowed from cinema marketing
+- Cinema (DCI) standard is 4096 × 2160, and the **"4K"** refers to ~4000 **horizontal** pixels
+- Consumer "4K" (UHD) is 3840 × 2160. The name was borrowed from cinema marketing.
 - Confusingly, **4K switches to horizontal** naming while everything else uses vertical
 
 </v-clicks>
@@ -79,7 +79,7 @@ The number is the **vertical pixel count**. More pixels = sharper image, but exp
 
 # Frame Rate: 30 fps vs 60 fps
 
-The **frame rate** multiplies everything — more frames per second = smoother motion, but double the data.
+The **frame rate** multiplies everything. More frames per second = smoother motion, but double the data.
 
 <table>
 <thead><tr><th>Resolution</th><th>30 fps (raw)</th><th>60 fps (raw)</th><th>Difference</th></tr></thead>
@@ -92,8 +92,8 @@ The **frame rate** multiplies everything — more frames per second = smoother m
 
 <v-clicks>
 
-- **30 fps** — standard for most video (films are 24 fps)
-- **60 fps** — gaming, sports, fast motion (YouTube shows "1080p60" badge)
+- **30 fps**: standard for most video (films are 24 fps)
+- **60 fps**: gaming, sports, fast motion (YouTube shows "1080p60" badge)
 - Higher fps helps with **motion clarity** but doesn't improve still-image sharpness
 
 </v-clicks>

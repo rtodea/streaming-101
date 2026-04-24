@@ -39,9 +39,9 @@ $$R_{\text{raw}} = 1920 \times 1080 \times 3 \times 30 \approx 178 \text{ MB/s} 
 
 <v-clicks>
 
-1. **Spatial** (intra-frame) — compress each frame like a JPEG
-2. **Temporal** (inter-frame) — store only the *differences* between frames
-3. **Keyframes** (I-frames) — full frames inserted periodically; deltas (P/B-frames) in between
+1. **Spatial** (intra-frame): compress each frame like a JPEG
+2. **Temporal** (inter-frame): store only the *differences* between frames
+3. **Keyframes** (I-frames): full frames inserted periodically; deltas (P/B-frames) in between
 
 </v-clicks>
 
@@ -75,9 +75,9 @@ Quality follows a **logarithmic** curve with bitrate:
 
 <v-clicks>
 
-- A **static** checkerboard compresses almost perfectly — temporal compression removes everything.
-- A **rotating** checkerboard defeats temporal compression — every frame is unique.
-- At low bitrates, sharp edges show **blocking artifacts** — the squares smear into gray zones.
+- A **static** checkerboard compresses almost perfectly. Temporal compression removes everything.
+- A **rotating** checkerboard defeats temporal compression; every frame is unique.
+- At low bitrates, sharp edges show **blocking artifacts**: the squares smear into gray zones.
 
 </v-clicks>
 

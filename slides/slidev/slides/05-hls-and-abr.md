@@ -31,9 +31,9 @@ sequenceDiagram
 
 <v-clicks>
 
-- **M3U** = "MP3 URL" — a playlist format from the Winamp era (1990s)
+- **M3U** = "MP3 URL", a playlist format from the Winamp era (1990s)
 - **M3U8** = M3U encoded in **UTF-8** (the "8" is the encoding, not a version number)
-- Apple adopted it for HLS — it's just a **text file** listing chunk URLs
+- Apple adopted it for HLS. It's just a **text file** listing chunk URLs.
 
 </v-clicks>
 
@@ -131,7 +131,7 @@ The `<video>` tag was designed for **one file → one video**. But streaming nee
 
 <v-clicks>
 
-- `<video src="movie.mp4">` loads one file — no way to switch quality mid-stream
+- `<video src="movie.mp4">` loads one file, with no way to switch quality mid-stream
 - HLS/DASH need to fetch **small chunks** and stitch them together on the fly
 - The browser has no built-in HLS support (except Safari)
 
@@ -139,16 +139,16 @@ The `<video>` tag was designed for **one file → one video**. But streaming nee
 
 <v-click>
 
-### MSE — the solution (2013, W3C spec)
+### MSE: the solution (2013, W3C spec)
 
 </v-click>
 
 <v-clicks>
 
 - JavaScript creates a `MediaSource` object and wires it to `<video>` via a blob URL
-- Opens a `SourceBuffer` — a pipe where JS can **push raw media chunks**
+- Opens a `SourceBuffer`, a pipe where JS can **push raw media chunks**
 - The browser's C++ decoder processes each chunk as if it were part of one continuous file
-- This is **exactly** what hls.js does — it's an MSE client
+- This is **exactly** what hls.js does: it's an MSE client
 
 </v-clicks>
 
@@ -184,10 +184,10 @@ ms.addEventListener('sourceopen', () => {
 
 <v-clicks>
 
-- **Adaptive bitrate** — switch quality by pushing chunks from a different playlist
-- **Live streaming** — keep appending new chunks as they arrive
-- **Seeking** — jump to any point by fetching the right chunk and appending it
-- **Gap handling** — detect buffering gaps and fetch missing segments
+- **Adaptive bitrate**: switch quality by pushing chunks from a different playlist
+- **Live streaming**: keep appending new chunks as they arrive
+- **Seeking**: jump to any point by fetching the right chunk and appending it
+- **Gap handling**: detect buffering gaps and fetch missing segments
 
 </v-clicks>
 
@@ -225,7 +225,7 @@ MSE turned the `<video>` tag from a **Black Box** (we give a URL, it does magic)
 
 <v-clicks>
 
-- The video isn't sent as one file — it's **chopped into small chunks** (2–6 seconds).
+- The video isn't sent as one file. It's **chopped into small chunks** (2 to 6 seconds).
 - The server provides a **manifest** (`.m3u8`) listing all quality variants and their chunks.
 - The player measures **download speed** in real-time and picks the best quality for the next chunk.
 
