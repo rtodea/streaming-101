@@ -1,7 +1,7 @@
 <template>
   <div class="cover-image">
     <div class="cover-image__left">
-      <img :src="image" alt="" />
+      <img :src="resolvedSrc" alt="" />
     </div>
     <div class="cover-image__right">
       <slot />
@@ -10,8 +10,21 @@
 </template>
 
 <script setup>
-defineProps({
+import { computed } from 'vue'
+
+const props = defineProps({
   image: { type: String, required: true },
+})
+
+// Frontmatter strings aren't rewritten by Vite the way template asset paths
+// are, so a bare "/images/foo.jpg" would resolve to the site root instead of
+// the Slidev base (e.g. "/slides/"). Prepend BASE_URL manually for relative
+// paths; leave absolute URLs alone.
+const resolvedSrc = computed(() => {
+  const img = props.image
+  if (/^https?:\/\//i.test(img)) return img
+  const base = import.meta.env.BASE_URL || '/'
+  return base.replace(/\/$/, '') + (img.startsWith('/') ? img : `/${img}`)
 })
 </script>
 

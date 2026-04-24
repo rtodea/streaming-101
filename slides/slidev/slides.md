@@ -3,7 +3,7 @@ theme: default
 colorSchema: light
 title: 'Streaming 101: From Pixels to Packets in JavaScript'
 info: |
-  A timjs meetup presentation on how video streaming actually works —
+  A timjs meetup presentation on how video streaming actually works,
   from raw pixels to HLS adaptive bitrate delivery.
 fonts:
   sans: Inter
@@ -13,11 +13,15 @@ highlighter: shiki
 drawings:
   persist: false
 transition: slide-left
+layout: cover-image
+image: /images/no-tv-signal.jpg
 ---
 
----
-src: ./slides/01-cover.md
----
+# Streaming 101
+
+### From Pixels to Packets in JavaScript
+
+<p class="muted">timjs meetup, 2026</p>
 
 ---
 src: ./slides/02-pixels-and-video.md
