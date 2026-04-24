@@ -1,6 +1,6 @@
 ---
 layout: cover-image
-image: /images/cover-placeholder.svg
+image: /images/no-tv-signal.jpg
 ---
 
 # Streaming 101
