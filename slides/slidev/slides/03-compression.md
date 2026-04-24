@@ -223,6 +223,111 @@ $$R_{\text{raw}} = 1920 \times 1080 \times 3 \times 30 \approx 178 \text{ MB/s} 
 
 ---
 
+# When Does Compression Actually Happen?
+
+<v-clicks>
+
+- **Is the uploaded file already compressed?** Yes. Your phone's camera encodes H.264 in real time. The raw 1.4 Gbps sensor stream is squeezed to ~10 Mbps **before** it touches disk.
+- **Is it stored compressed?** Yes, at every stage. The server keeps the uploaded original *and* the re-encoded variants, all compressed.
+- **Does compression happen during transmission?** No. HTTP just moves the same compressed bytes. Nothing is re-encoded in flight.
+- **Are the lower-quality variants "the compression"?** Yes. Each variant (480p, 720p, 1080p) is a **separate re-encode** at a different target resolution and bitrate.
+- So compression runs **twice** in our pipeline: once in the camera at capture, once on the server at transcode. Playback is strictly *decompression*.
+
+</v-clicks>
+
+<style scoped>
+ul { font-size: 0.92em; }
+</style>
+
+---
+clicks: 8
+---
+
+# The Compression Pipeline
+
+<MermaidReveal :diagram="`
+sequenceDiagram
+    participant Cam as Camera Sensor
+    participant Phone as Phone (HW encoder)
+    participant Srv as Server (FFmpeg)
+    participant Disk as Storage
+    participant Plr as Player
+    Cam->>Phone: Raw pixels (~1.4 Gbps)
+    Phone->>Phone: Compress #1 (H.264 in real time)
+    Phone->>Srv: Upload compressed .mp4 (~10 Mbps)
+    Srv->>Srv: Compress #2 (re-encode per variant)
+    Srv->>Disk: Store 480p / 720p / 1080p segments
+    Plr->>Disk: GET segment.ts
+    Disk-->>Plr: Compressed bytes (no re-encode)
+    Plr->>Plr: Decode to pixels for display
+`" />
+
+---
+
+# Transcoding: One File, Many Variants
+
+<div class="grid grid-cols-2 gap-6 items-start transcode">
+<div>
+
+<v-click>
+
+### The algorithm, per variant
+
+</v-click>
+
+<v-clicks>
+
+1. **Decode** source bytes to raw pixel frames.
+2. **Rescale** to the target resolution (1920×1080 → 854×480).
+3. **Re-encode** with the target codec + bitrate (H.264 @ 800 kbps for 480p).
+
+</v-clicks>
+
+<v-click>
+
+Repeat for 720p and 1080p. Three passes = three independent compressed files.
+
+</v-click>
+
+</div>
+<div>
+
+<v-click>
+
+### What our ffmpeg command does
+
+```bash
+ffmpeg -i source.mp4 \
+  -vf scale=854:480 \
+  -c:v libx264 -b:v 800k \
+  -f hls 480p/stream.m3u8
+```
+
+</v-click>
+
+<v-click>
+
+### Why not just lower the bitrate?
+
+</v-click>
+
+<v-clicks>
+
+- Keeping 1080p at 800 kbps looks **blocky**. The codec has too many pixels and too few bits.
+- Rescaling first gives the codec fewer pixels to care about, so every bit it spends shows up as detail.
+
+</v-clicks>
+
+</div>
+</div>
+
+<style scoped>
+.transcode ul, .transcode ol { font-size: 0.9em; }
+.transcode pre { font-size: 0.75em; }
+</style>
+
+---
+
 # Bandwidth vs Quality Tradeoff
 
 Quality follows a **logarithmic** curve with bitrate:
