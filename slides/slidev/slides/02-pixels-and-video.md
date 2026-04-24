@@ -1,5 +1,13 @@
 # What Is a Video, Really?
 
+<div class="grid grid-cols-2 gap-6 items-center">
+<div>
+
+<img src="/images/streaming-101-moving-pictures.png" alt="Filmstrip showing a ball bouncing frame by frame" class="filmstrip" />
+
+</div>
+<div>
+
 At the lowest level: a sequence of **frames**, each frame a grid of **pixels**, each pixel a set of **bytes**.
 
 <v-click>
@@ -23,6 +31,17 @@ At the lowest level: a sequence of **frames**, each frame a grid of **pixels**, 
 > Nobody streams raw video. This is why compression exists.
 
 </v-click>
+
+</div>
+</div>
+
+<style scoped>
+.filmstrip {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+}
+</style>
 
 ---
 
