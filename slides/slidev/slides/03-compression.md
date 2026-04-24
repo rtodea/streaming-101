@@ -73,6 +73,37 @@ $$R_{\text{raw}} = 1920 \times 1080 \times 3 \times 30 \approx 178 \text{ MB/s} 
 
 ---
 
+# MPEG: Frame, Slice, Macroblock, Block, Pixel
+
+<div class="grid grid-cols-2 gap-6 items-center mechanism">
+<div>
+  <img src="/images/compress-mpeg-intro.png" alt="A frame broken down into slices, macroblocks, blocks, and finally pixels" />
+</div>
+<div>
+
+<v-clicks>
+
+- Where Motion JPEG stops at the frame, the **MPEG family** (H.264, H.265, AV1) exploits what's similar *between* frames.
+- To do that, it first breaks each frame into a hierarchy:
+  - **Slice**: an independently decodable strip of the frame.
+  - **Macroblock**: the basic unit of motion estimation (typically 16×16 pixels).
+  - **Block**: the unit of DCT / transform coding inside a macroblock.
+  - **Pixel**: the leaf.
+- Everything that follows (motion vectors, I/P/B frame types, quantization) operates on **macroblocks**, not whole frames.
+
+</v-clicks>
+
+</div>
+</div>
+
+<style scoped>
+.mechanism img { width: 100%; height: auto; max-height: 340px; object-fit: contain; }
+.mechanism ul { font-size: 0.9em; }
+.mechanism ul ul { font-size: 0.95em; }
+</style>
+
+---
+
 # Motion Estimation: Predict, Don't Store
 
 <div class="grid grid-cols-2 gap-6 items-center mechanism">
