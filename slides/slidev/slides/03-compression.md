@@ -490,6 +490,67 @@ blockquote { font-size: 0.85em; margin-top: 0.4em; }
 
 ---
 
+# Fabrice Bellard
+
+<div class="grid grid-cols-[3fr_2fr] gap-6 items-start bellard">
+<div>
+
+<v-clicks>
+
+- Born 1972, Grenoble. École Polytechnique, then Télécom Paris.
+- Age 17 (1989): writes **LZEXE**, an executable compressor for DOS.
+- 1997: derives the **Bellard formula** for π, ~47% faster than BBP.
+- 2000: starts **FFmpeg**.
+- 2003: starts **QEMU**. Modern hardware virtualization (KVM) is built on top of it.
+- 2011: **JSLinux**, a Linux PC running inside a browser tab.
+- 2014: **BPG**, a JPEG replacement built on H.265 intra-frame coding.
+- 2019: **QuickJS**, a tiny embeddable JavaScript engine.
+
+</v-clicks>
+
+<v-click>
+
+### Records and recognition
+
+</v-click>
+
+<v-clicks>
+
+- 2009 **π record**: 2.7 trillion digits on a single ~$3,000 desktop, beating supercomputers of the era.
+- 2011 **O'Reilly Open Source Award** for QEMU. Three IOCCC wins.
+
+</v-clicks>
+
+<v-click>
+
+### Day job
+
+</v-click>
+
+<v-clicks>
+
+- Co-founded **Amarisoft** in 2012, headquartered in **Levallois-Perret** (just outside Paris). Software 4G/5G base stations on commodity hardware.
+- Still CTO. Almost no public profile: virtually no interviews, no social media.
+
+</v-clicks>
+
+</div>
+<div>
+  <img src="/images/bellard.jpg" alt="Portrait of Fabrice Bellard" class="bellard-portrait" />
+  <p class="caption">Image: Computer History Museum</p>
+</div>
+</div>
+
+<style scoped>
+.bellard ul { font-size: 0.72em; margin: 0.2em 0; }
+.bellard ul li { margin: 0.1em 0; }
+.bellard h3 { font-size: 0.85em; margin: 0.45em 0 0.15em; }
+.bellard-portrait { width: 100%; height: auto; max-height: 320px; object-fit: cover; border-radius: 0.4em; }
+.caption { font-size: 0.6em; color: var(--slidev-theme-accents-1); text-align: center; margin-top: 0.3em; }
+</style>
+
+---
+
 # Making the Demo Files with FFmpeg
 
 ```bash {all|1-4|6-9|11-14|16-18|all}
