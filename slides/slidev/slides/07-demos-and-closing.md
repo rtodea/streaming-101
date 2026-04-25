@@ -14,6 +14,8 @@
 
 The presenter tweaks HLS segment duration **live**, and the audience sees latency change in real-time.
 
+<v-click>
+
 <table>
 <thead><tr><th>Config</th><th>Before</th><th>After</th></tr></thead>
 <tbody>
@@ -22,6 +24,8 @@ The presenter tweaks HLS segment duration **live**, and the audience sees latenc
 <tr><td v-click>Latency</td><td v-click>~18s</td><td v-click>~6s</td></tr>
 </tbody>
 </table>
+
+</v-click>
 
 <v-click>
 

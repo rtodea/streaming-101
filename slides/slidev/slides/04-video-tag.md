@@ -112,6 +112,8 @@ sequenceDiagram
 
 </v-clicks>
 
+<v-click>
+
 <table>
 <thead><tr><th></th><th>Software (CPU)</th><th>Hardware (GPU)</th></tr></thead>
 <tbody>
@@ -122,6 +124,8 @@ sequenceDiagram
 <tr><td v-click><b>Fallback</b></td><td v-click>Always available</td><td v-click>Falls back to software if unsupported</td></tr>
 </tbody>
 </table>
+
+</v-click>
 
 <v-click>
 
@@ -166,6 +170,8 @@ sequenceDiagram
 
 # Who Owns What: Browser vs OS vs Hardware
 
+<v-click>
+
 <table>
 <thead><tr><th>Responsibility</th><th>Who handles it</th></tr></thead>
 <tbody>
@@ -179,6 +185,8 @@ sequenceDiagram
 <tr><td v-click>Audio output & sync</td><td v-click><b>Browser → OS</b> via Web Audio / platform APIs</td></tr>
 </tbody>
 </table>
+
+</v-click>
 
 <v-click>
 

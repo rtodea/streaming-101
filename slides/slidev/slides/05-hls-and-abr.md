@@ -545,6 +545,8 @@ h3 { font-size: 0.9em; margin: 0.5em 0 0.2em; }
 
 Your phone is on 4G and the player measures **4 Mbps**. The manifest offers three variants:
 
+<v-click>
+
 <table class="abr-table">
 <thead><tr><th>Variant</th><th>Bitrate <code>R(q)</code></th><th>Fits under 4 Mbps?</th><th>Picked</th></tr></thead>
 <tbody>
@@ -553,6 +555,8 @@ Your phone is on 4G and the player measures **4 Mbps**. The manifest offers thre
 <tr><td v-click>1080p</td><td v-click>5.0 Mbps</td><td v-click>no (would stall)</td><td v-click>no</td></tr>
 </tbody>
 </table>
+
+</v-click>
 
 <v-click>
 

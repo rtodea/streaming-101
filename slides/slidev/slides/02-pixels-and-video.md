@@ -16,15 +16,20 @@ At the lowest level: a sequence of **frames**, each frame a grid of **pixels**, 
 
 </v-click>
 
+<v-click>
+
 <table>
 <thead><tr><th>Level</th><th>What it is</th><th>Size</th></tr></thead>
 <tbody>
+<tr><td v-click><b>Byte</b></td><td v-click>8 bits (0 or 1), 0–255</td><td v-click>1 byte</td></tr>
 <tr><td v-click><b>Pixel</b></td><td v-click>3 bytes (R, G, B)</td><td v-click>3 bytes</td></tr>
 <tr><td v-click><b>Frame</b></td><td v-click>1920 × 1080 pixels</td><td v-click><b>~6 MB</b></td></tr>
 <tr><td v-click><b>1 second</b></td><td v-click>30 frames</td><td v-click><b>~180 MB/s</b></td></tr>
 <tr><td v-click><b>1 minute</b></td><td v-click>60 seconds</td><td v-click><b>~10.8 GB</b></td></tr>
 </tbody>
 </table>
+
+</v-click>
 
 <v-click>
 
@@ -229,6 +234,8 @@ blockquote { font-size: 0.9em; }
 
 The number is the **vertical pixel count**. More pixels = sharper image, but exponentially more data.
 
+<v-click>
+
 <table>
 <thead><tr><th>Label</th><th>Resolution</th><th>Pixels/Frame</th><th>×1080p</th></tr></thead>
 <tbody>
@@ -240,6 +247,8 @@ The number is the **vertical pixel count**. More pixels = sharper image, but exp
 <tr><td v-click>2160p (4K)</td><td v-click>3840 × 2160</td><td v-click>8,294,400 ≈ 8.29M</td><td v-click>4×</td></tr>
 </tbody>
 </table>
+
+</v-click>
 
 <v-click>
 
@@ -280,6 +289,8 @@ The number is the **vertical pixel count**. More pixels = sharper image, but exp
 
 The **frame rate** multiplies everything. More frames per second = smoother motion, but double the data.
 
+<v-click>
+
 <table>
 <thead><tr><th>Resolution</th><th>30 fps (raw)</th><th>60 fps (raw)</th><th>Difference</th></tr></thead>
 <tbody>
@@ -288,6 +299,8 @@ The **frame rate** multiplies everything. More frames per second = smoother moti
 <tr><td v-click>4K</td><td v-click>746,496,000 ≈ 712 MB/s</td><td v-click>1,492,992,000 ≈ 1.4 GB/s</td><td v-click>2×</td></tr>
 </tbody>
 </table>
+
+</v-click>
 
 <v-clicks>
 
