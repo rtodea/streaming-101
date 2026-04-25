@@ -112,8 +112,6 @@ sequenceDiagram
 
 </v-clicks>
 
-<v-click>
-
 <table>
 <thead><tr><th></th><th>Software (CPU)</th><th>Hardware (GPU)</th></tr></thead>
 <tbody>
@@ -125,7 +123,6 @@ sequenceDiagram
 </tbody>
 </table>
 
-</v-click>
 
 <v-click>
 
@@ -170,8 +167,6 @@ sequenceDiagram
 
 # Who Owns What: Browser vs OS vs Hardware
 
-<v-click>
-
 <table>
 <thead><tr><th>Responsibility</th><th>Who handles it</th></tr></thead>
 <tbody>
@@ -186,7 +181,6 @@ sequenceDiagram
 </tbody>
 </table>
 
-</v-click>
 
 <v-click>
 

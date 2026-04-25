@@ -2,8 +2,6 @@
 
 HLS chunks are just HTTP responses, so the browser (and CDNs) can cache them. But the caching strategy is **opposite** for VOD and live.
 
-<v-click>
-
 <table>
 <thead><tr><th></th><th>VOD</th><th>Live</th></tr></thead>
 <tbody>
@@ -15,7 +13,6 @@ HLS chunks are just HTTP responses, so the browser (and CDNs) can cache them. Bu
 </tbody>
 </table>
 
-</v-click>
 
 <v-click>
 
@@ -41,8 +38,6 @@ HLS chunks are just HTTP responses, so the browser (and CDNs) can cache them. Bu
 
 HLS requires **~3 chunks buffered** before playback starts.
 
-<v-click>
-
 <table>
 <thead><tr><th>Segment Size</th><th>Chunks Buffered</th><th>Latency</th></tr></thead>
 <tbody>
@@ -52,7 +47,6 @@ HLS requires **~3 chunks buffered** before playback starts.
 </tbody>
 </table>
 
-</v-click>
 
 <v-click>
 
@@ -130,8 +124,6 @@ Every 4 seconds: one segment joins the head, one segment drops off the tail. The
 
 `#EXT-X-PLAYLIST-TYPE` tells the player what kind of manifest this is.
 
-<v-click>
-
 <table>
 <thead><tr><th></th><th>VOD</th><th>EVENT</th><th>LIVE <em>(no tag)</em></th></tr></thead>
 <tbody>
@@ -143,7 +135,6 @@ Every 4 seconds: one segment joins the head, one segment drops off the tail. The
 </tbody>
 </table>
 
-</v-click>
 
 <v-click>
 

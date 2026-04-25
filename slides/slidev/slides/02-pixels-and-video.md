@@ -16,8 +16,6 @@ At the lowest level: a sequence of **frames**, each frame a grid of **pixels**, 
 
 </v-click>
 
-<v-click>
-
 <table>
 <thead><tr><th>Level</th><th>What it is</th><th>Size</th></tr></thead>
 <tbody>
@@ -28,8 +26,6 @@ At the lowest level: a sequence of **frames**, each frame a grid of **pixels**, 
 <tr><td v-click><b>1 minute</b></td><td v-click>60 seconds</td><td v-click><b>~10.8 GB</b></td></tr>
 </tbody>
 </table>
-
-</v-click>
 
 <v-click>
 
@@ -113,8 +109,6 @@ You blink 15 to 20 times per minute, ~100 ms each. Roughly **10% of your waking 
 
 </v-clicks>
 
-<v-click>
-
 <table>
 <thead><tr><th>Codec trick</th><th>Brain trick</th></tr></thead>
 <tbody>
@@ -123,8 +117,6 @@ You blink 15 to 20 times per minute, ~100 ms each. Roughly **10% of your waking 
 <tr><td v-click><b>Buffer</b>: smooth out network jitter</td><td v-click>Smooth out blinks and saccades</td></tr>
 </tbody>
 </table>
-
-</v-click>
 
 <v-click>
 
@@ -234,8 +226,6 @@ blockquote { font-size: 0.9em; }
 
 The number is the **vertical pixel count**. More pixels = sharper image, but exponentially more data.
 
-<v-click>
-
 <table>
 <thead><tr><th>Label</th><th>Resolution</th><th>Pixels/Frame</th><th>×1080p</th></tr></thead>
 <tbody>
@@ -247,8 +237,6 @@ The number is the **vertical pixel count**. More pixels = sharper image, but exp
 <tr><td v-click>2160p (4K)</td><td v-click>3840 × 2160</td><td v-click>8,294,400 ≈ 8.29M</td><td v-click>4×</td></tr>
 </tbody>
 </table>
-
-</v-click>
 
 <v-click>
 
@@ -289,8 +277,6 @@ The number is the **vertical pixel count**. More pixels = sharper image, but exp
 
 The **frame rate** multiplies everything. More frames per second = smoother motion, but double the data.
 
-<v-click>
-
 <table>
 <thead><tr><th>Resolution</th><th>30 fps (raw)</th><th>60 fps (raw)</th><th>Difference</th></tr></thead>
 <tbody>
@@ -299,8 +285,6 @@ The **frame rate** multiplies everything. More frames per second = smoother moti
 <tr><td v-click>4K</td><td v-click>746,496,000 ≈ 712 MB/s</td><td v-click>1,492,992,000 ≈ 1.4 GB/s</td><td v-click>2×</td></tr>
 </tbody>
 </table>
-
-</v-click>
 
 <v-clicks>
 

@@ -357,8 +357,6 @@ MSE turned the `<video>` tag from a **Black Box** (we give a URL, it does magic)
 
 > Short answer: no, and that's by design.
 
-<v-click>
-
 <table class="hls-status">
 <thead><tr><th>Browser</th><th>Native HLS?</th><th>Notes</th></tr></thead>
 <tbody>
@@ -368,7 +366,6 @@ MSE turned the `<video>` tag from a **Black Box** (we give a URL, it does magic)
 </tbody>
 </table>
 
-</v-click>
 
 <v-click>
 
@@ -443,10 +440,6 @@ The bet "ship MSE, not protocols" produced two streaming formats and a small eco
 
 ### The JS players that decode them
 
-</v-click>
-
-<v-click>
-
 <table class="players">
 <thead><tr><th>Library</th><th>Plays</th><th>What it solves</th><th>In production at</th></tr></thead>
 <tbody>
@@ -455,6 +448,7 @@ The bet "ship MSE, not protocols" produced two streaming formats and a small eco
 <tr><td><b>Shaka Player</b></td><td>HLS + DASH + EME</td><td>One library for both protocols, plus DRM (Widevine / PlayReady / FairPlay) for paid content</td><td><b>YouTube TV</b>, Google web products</td></tr>
 </tbody>
 </table>
+
 
 </v-click>
 
@@ -545,8 +539,6 @@ h3 { font-size: 0.9em; margin: 0.5em 0 0.2em; }
 
 Your phone is on 4G and the player measures **4 Mbps**. The manifest offers three variants:
 
-<v-click>
-
 <table class="abr-table">
 <thead><tr><th>Variant</th><th>Bitrate <code>R(q)</code></th><th>Fits under 4 Mbps?</th><th>Picked</th></tr></thead>
 <tbody>
@@ -556,7 +548,6 @@ Your phone is on 4G and the player measures **4 Mbps**. The manifest offers thre
 </tbody>
 </table>
 
-</v-click>
 
 <v-click>
 

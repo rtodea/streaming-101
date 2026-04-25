@@ -10,8 +10,6 @@ $$R_{\text{raw}} = 1920 \times 1080 \times 3 \times 30 \approx 178 \text{ MB/s} 
 
 </v-click>
 
-<v-click>
-
 <table>
 <thead><tr><th>Codec</th><th>Compression</th><th>1080p30 Bitrate</th><th>1 hour</th></tr></thead>
 <tbody>
@@ -22,7 +20,6 @@ $$R_{\text{raw}} = 1920 \times 1080 \times 3 \times 30 \approx 178 \text{ MB/s} 
 </tbody>
 </table>
 
-</v-click>
 
 ---
 
@@ -442,8 +439,6 @@ Quality follows a **logarithmic** curve with bitrate:
 
 </v-clicks>
 
-<v-click>
-
 <table>
 <thead><tr><th>Connection</th><th>Bandwidth</th><th>Max Quality</th></tr></thead>
 <tbody>
@@ -454,7 +449,6 @@ Quality follows a **logarithmic** curve with bitrate:
 </tbody>
 </table>
 
-</v-click>
 
 ---
 
