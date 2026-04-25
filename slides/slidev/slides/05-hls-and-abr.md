@@ -221,6 +221,67 @@ MSE turned the `<video>` tag from a **Black Box** (we give a URL, it does magic)
 
 ---
 
+# Will Browsers Ever Add Native HLS?
+
+> Short answer: no, and that's by design.
+
+<v-click>
+
+<table class="hls-status">
+<thead><tr><th>Browser</th><th>Native HLS?</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td><b>Safari / iOS</b></td><td>Yes, since 2009</td><td>Apple owns the spec. Native LL-HLS too.</td></tr>
+<tr><td><b>Chrome / Edge</b></td><td>No</td><td>No plans. Stable position for a decade.</td></tr>
+<tr><td><b>Firefox</b></td><td>No</td><td>Same.</td></tr>
+</tbody>
+</table>
+
+</v-click>
+
+<v-click>
+
+### Why not?
+
+</v-click>
+
+<v-clicks>
+
+- W3C / Chromium / Mozilla deliberately picked **MSE** over bundling protocols. "Give JS the primitives; let userland implement HLS, DASH, or whatever's next."
+- From their view, hls.js + dash.js + Shaka Player **is the feature**, not a workaround.
+
+</v-clicks>
+
+<v-click>
+
+### What's actually moving
+
+</v-click>
+
+<v-clicks>
+
+- **WebCodecs** (Chromium shipped, others partial): direct access to hardware encode/decode. Even lower-level than MSE.
+- **MoQ** (Media over QUIC): the IETF's next-gen streaming protocol on HTTP/3. If anything ships natively in non-Apple browsers, it'd be this, not HLS.
+- **Managed MSE** (Safari 17+): battery-friendly hints. Augments the JS-library model, doesn't replace it.
+
+</v-clicks>
+
+<v-click>
+
+> hls.js is here for the long haul.
+
+</v-click>
+
+<style scoped>
+blockquote { font-size: 0.95em; margin: 0.3em 0; }
+h3 { font-size: 0.95em; margin: 0.5em 0 0.2em; }
+ul { font-size: 0.85em; margin: 0.3em 0; }
+ul li { margin: 0.1em 0; }
+.hls-status { font-size: 0.8em; margin-top: 0.3em; }
+.hls-status th, .hls-status td { padding: 0.25em 0.6em; }
+</style>
+
+---
+
 # Adaptive Bitrate Streaming (ABR)
 
 <v-clicks>
