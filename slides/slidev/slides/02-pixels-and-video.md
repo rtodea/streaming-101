@@ -45,6 +45,186 @@ At the lowest level: a sequence of **frames**, each frame a grid of **pixels**, 
 
 ---
 
+# Why Video Even Works
+
+Video is just still pictures shown fast. Two old ideas explain why your brain experiences "motion."
+
+<v-clicks>
+
+- **Persistence of vision** *(Peter Mark Roget, 1824)*. The same Roget who later compiled the thesaurus. He noticed that the spokes of a wheel, seen through the slats of a fence, appeared continuous. His paper proposed that a retinal image **lingers ~50 ms** after the light is gone.
+- **The Phi phenomenon** *(Max Wertheimer, 1912)*. Two dots flashing in different positions are perceived as one dot **moving**. Motion isn't on the screen. It's **invented by the visual cortex**.
+- **Why 24 fps?** Silent films ran at 16 to 22 fps to save expensive nitrate stock. When sound-on-film arrived in 1927, the industry needed a *consistent* speed for the optical audio track. 24 fps was the cheapest rate that kept dialog intelligible and dropped the choppiness.
+
+</v-clicks>
+
+<v-click>
+
+> Cinema works not because we're seeing motion, but because our brain *invents* motion from a flicker of stills.
+
+</v-click>
+
+<style scoped>
+ul { font-size: 0.85em; }
+ul li { margin: 0.25em 0; }
+blockquote { font-size: 0.9em; }
+</style>
+
+---
+
+# You're Blind Several Times a Minute
+
+Your eyes don't pan smoothly. They jump in **saccades**, 3 to 5 times every second.
+
+<v-clicks>
+
+- During each saccade (~30 to 80 ms) the brain **suppresses vision entirely** to hide the motion blur. *(Erdmann & Dodge, 1898; Volkmann, 1962.)*
+- Add it up: roughly **40 minutes of every waking day, you are functionally blind**, and you don't notice.
+- The **stopped-clock illusion** is direct proof. Glance quickly at a wall clock and the second hand seems to pause an unusually long beat. Your brain back-fills the saccade with the *first* image it sees on landing. *(Yarrow et al., Nature, 2001.)*
+
+</v-clicks>
+
+<v-click>
+
+> Your visual system drops frames constantly and lies about it.
+
+</v-click>
+
+<style scoped>
+ul { font-size: 0.88em; }
+ul li { margin: 0.25em 0; }
+blockquote { font-size: 0.9em; }
+</style>
+
+---
+
+# Blinks Are P-Frames for Your Eyes
+
+You blink 15 to 20 times per minute, ~100 ms each. Roughly **10% of your waking life is spent with your eyes shut.**
+
+<v-clicks>
+
+- The world doesn't go dark. The brain holds the last image in **iconic memory** for ~250 to 500 ms. *(George Sperling, Harvard PhD thesis, 1960.)*
+- Whatever didn't change since the previous "frame" is reused. Whatever did is patched in.
+
+</v-clicks>
+
+<v-click>
+
+<table>
+<thead><tr><th>Codec trick</th><th>Brain trick</th></tr></thead>
+<tbody>
+<tr><td><b>I-frame</b>: full picture, decodable alone</td><td>A fresh look on saccade landing</td></tr>
+<tr><td><b>P-frame</b>: store only what changed</td><td>Reuse iconic memory, patch the delta</td></tr>
+<tr><td><b>Buffer</b>: smooth out network jitter</td><td>Smooth out blinks and saccades</td></tr>
+</tbody>
+</table>
+
+</v-click>
+
+<v-click>
+
+> Compression engineers reinvented, in software, the same shortcuts evolution shipped in our visual cortex.
+
+</v-click>
+
+<style scoped>
+ul, p { font-size: 0.85em; }
+table { font-size: 0.8em; margin-top: 0.4em; }
+table th, table td { padding: 0.25em 0.6em; }
+blockquote { font-size: 0.85em; margin-top: 0.3em; }
+</style>
+
+---
+
+# You Live ~100 ms in the Past
+
+Vision has a pipeline. Each stage adds latency.
+
+<v-clicks>
+
+- **13 to 20 ms**: photon hits the retina, triggers a chemical signal in a photoreceptor.
+- **40 to 60 ms**: signal travels the optic nerve to the visual cortex.
+- **100 to 150 ms**: cortex assembles edges, motion, depth into something you "see."
+
+</v-clicks>
+
+<v-click>
+
+### Streaming latencies, for comparison
+
+</v-click>
+
+<v-clicks>
+
+- **Your brain**: ~100 ms.
+- **WebRTC video call**: ~200 ms.
+- **Low-Latency HLS**: ~1,000 ms.
+- **Standard HLS / TV broadcast**: 6 to 30 seconds.
+
+</v-clicks>
+
+<v-click>
+
+> "Real-time" is a lie. Even your own eyes lag ~100 ms behind reality.
+
+</v-click>
+
+<style scoped>
+ul { font-size: 0.85em; }
+ul li { margin: 0.2em 0; }
+h3 { font-size: 0.95em; margin: 0.5em 0 0.2em; }
+blockquote { font-size: 0.9em; }
+</style>
+
+---
+clicks: 6
+---
+
+# Your Eye-to-Mind Pipeline
+
+<MermaidReveal :diagram="`
+sequenceDiagram
+    participant P as Photon
+    participant R as Retina (rod or cone)
+    participant N as Optic nerve
+    participant V as Visual cortex
+    participant M as Conscious mind
+    P->>R: Hits photoreceptor
+    R->>R: Chemical cascade (13 to 20 ms)
+    R->>N: Electrical signal
+    N->>V: Travel time (40 to 60 ms)
+    V->>V: Edge, motion, depth, recognition
+    V->>M: 'I see' (100 to 150 ms total)
+`" />
+
+---
+
+# Your Brain Is Already Predicting
+
+If the brain has a 100 ms lag, how do you catch a ball?
+
+<v-clicks>
+
+- The visual cortex **extrapolates**. It guesses where moving objects will be ~100 ms ahead of where they currently are, to compensate for its own delay.
+- The **flash-lag effect** *(Nijhawan, Nature, 1994)*: a moving ball and a flash that *physically* coincide are perceived with the ball **ahead** of the flash. The brain has already moved on.
+- This is exactly the same trick a P-frame uses, but in the *time* dimension instead of *space*.
+
+</v-clicks>
+
+<v-click>
+
+> You're not seeing reality. You're seeing your brain's best guess of where reality is *about to be*.
+
+</v-click>
+
+<style scoped>
+ul { font-size: 0.88em; }
+ul li { margin: 0.25em 0; }
+blockquote { font-size: 0.9em; }
+</style>
+
+---
+
 # YouTube Quality Tiers: What Do They Mean?
 
 The number is the **vertical pixel count**. More pixels = sharper image, but exponentially more data.
