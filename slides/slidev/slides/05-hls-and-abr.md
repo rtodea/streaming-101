@@ -31,17 +31,30 @@ sequenceDiagram
 
 <v-clicks>
 
-- **M3U** = "MP3 URL", a playlist format from the Winamp era (1990s)
-- **M3U8** = M3U encoded in **UTF-8** (the "8" is the encoding, not a version number)
+- **M3U** = "MP3 URL", a playlist format from the Winamp era (1990s).
+- **M3U8** = M3U encoded in **UTF-8** (the "8" is the encoding, not a version number).
 - Apple adopted it for HLS. It's just a **text file** listing chunk URLs.
 
 </v-clicks>
 
 <v-click>
 
-### Master playlist (quality variants)
+### HLS uses two flavors
 
-```
+</v-click>
+
+<v-clicks>
+
+- **Master playlist**: lists the quality *variants* (one entry per resolution/bitrate). Loaded once at startup.
+- **Media playlist**: lists the actual `.ts` segments for **one** variant. Refetched periodically for live.
+
+</v-clicks>
+
+---
+
+# Master Playlist: Quality Variants
+
+```ini {all|1|2-3|4-5|6-7|all}
 #EXTM3U
 #EXT-X-STREAM-INF:BANDWIDTH=800000,RESOLUTION=640x360
 360p/playlist.m3u8
@@ -51,13 +64,24 @@ sequenceDiagram
 1080p/playlist.m3u8
 ```
 
-</v-click>
+<v-clicks>
 
-<v-click>
+- **`#EXTM3U`** (line 1): magic header. Every M3U-family file starts with this.
+- **`#EXT-X-STREAM-INF`**: declares a variant. `BANDWIDTH` is the target in bps, `RESOLUTION` is pixels.
+- The line **after** each `STREAM-INF` is the URL of that variant's media playlist.
+- ABR uses these `BANDWIDTH` numbers to decide which variant to request next.
 
-### Media playlist (chunks for one quality)
+</v-clicks>
 
-```
+<style scoped>
+ul { font-size: 0.85em; }
+</style>
+
+---
+
+# Media Playlist: The Segments
+
+```ini {all|2|3-4|5-6|7-8|9|all}
 #EXTM3U
 #EXT-X-TARGETDURATION:6
 #EXTINF:6.000,
@@ -69,7 +93,58 @@ segment-002.ts
 #EXT-X-ENDLIST
 ```
 
+<v-clicks>
+
+- **`#EXT-X-TARGETDURATION:6`**: max segment length the player should expect.
+- **`#EXTINF:6.000,`** + filename: this segment lasts 6.000 seconds.
+- Next segment, also 6 seconds.
+- The last one is **shorter** (4.120s) because the source video didn't divide evenly.
+- **`#EXT-X-ENDLIST`**: VOD marker. "No more segments coming." Live playlists omit this.
+
+</v-clicks>
+
+<style scoped>
+ul { font-size: 0.85em; }
+</style>
+
+---
+
+# What's a `.ts` Segment?
+
+<v-clicks>
+
+- **TS** = **MPEG-2 Transport Stream** (ISO/IEC 13818-1, 1995).
+- Designed for **digital TV broadcast** where packets get lost over the air. Had to be self-syncing.
+- Format: 188-byte packets, each tagged with a stream ID. A receiver can tune in mid-stream and recover within a few packets.
+- HLS reuses TS because those same properties (chunked, joinable, error-tolerant) are exactly what HTTP delivery wants.
+
+</v-clicks>
+
+<v-click>
+
+### Why "segment"?
+
 </v-click>
+
+<v-clicks>
+
+- One `.ts` file = one slice of the timeline (typically 2 to 6 seconds).
+- Stitch many segments back-to-back and you reconstruct the whole video.
+- VOD segments are immutable. Live segments are appended at the head and (optionally) deleted from the tail.
+
+</v-clicks>
+
+<v-click>
+
+> Modern HLS also supports fMP4 segments (`.m4s`), but `.ts` is still the workhorse.
+
+</v-click>
+
+<style scoped>
+ul { font-size: 0.85em; margin: 0.3em 0; }
+h3 { font-size: 0.95em; margin: 0.5em 0 0.2em; }
+blockquote { font-size: 0.85em; margin-top: 0.4em; }
+</style>
 
 ---
 
