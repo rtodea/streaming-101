@@ -77,7 +77,7 @@ $$R_{\text{raw}} = 1920 \times 1080 \times 3 \times 30 \approx 178 \text{ MB/s} 
 
 <div class="grid grid-cols-2 gap-6 items-center mechanism">
 <div>
-  <img src="/images/compress-motion-jpeg.png" alt="Seven source frames each compressed independently as JPEGs" />
+  <img v-click src="/images/compress-motion-jpeg.png" alt="Seven source frames each compressed independently as JPEGs" />
 </div>
 <div>
 
@@ -103,7 +103,7 @@ $$R_{\text{raw}} = 1920 \times 1080 \times 3 \times 30 \approx 178 \text{ MB/s} 
 
 <div class="grid grid-cols-2 gap-6 items-center mechanism">
 <div>
-  <img src="/images/compress-mpeg-intro.png" alt="A frame broken down into slices, macroblocks, blocks, and finally pixels" />
+  <img v-click src="/images/compress-mpeg-intro.png" alt="A frame broken down into slices, macroblocks, blocks, and finally pixels" />
 </div>
 <div>
 
@@ -134,7 +134,7 @@ $$R_{\text{raw}} = 1920 \times 1080 \times 3 \times 30 \approx 178 \text{ MB/s} 
 
 <div class="grid grid-cols-2 gap-6 items-center mechanism">
 <div>
-  <img src="/images/compress-motion-estimation.png" alt="A reference frame plus a predicted next frame derived by tracking macroblocks" />
+  <img v-click src="/images/compress-motion-estimation.png" alt="A reference frame plus a predicted next frame derived by tracking macroblocks" />
 </div>
 <div>
 
@@ -161,7 +161,7 @@ $$R_{\text{raw}} = 1920 \times 1080 \times 3 \times 30 \approx 178 \text{ MB/s} 
 
 <div class="grid grid-cols-2 gap-6 items-center mechanism">
 <div>
-  <img src="/images/compress-b-frame.png" alt="An I-frame on the left, a B-frame in the middle referencing both past and future, and a P-frame on the right" />
+  <img v-click src="/images/compress-b-frame.png" alt="An I-frame on the left, a B-frame in the middle referencing both past and future, and a P-frame on the right" />
 </div>
 <div>
 
@@ -266,7 +266,7 @@ sequenceDiagram
 
 <div class="grid grid-cols-2 gap-6 items-center mechanism">
 <div>
-  <img src="/images/compress-gop.png" alt="Repeating pattern of I B B P... frames every 30, 60, or 90 frames" />
+  <img v-click src="/images/compress-gop.png" alt="Repeating pattern of I B B P... frames every 30, 60, or 90 frames" />
 </div>
 <div>
 
@@ -299,7 +299,7 @@ sequenceDiagram
 
 <div class="grid grid-cols-2 gap-6 items-center mechanism">
 <div>
-  <img src="/images/compress-pts-dts.png" alt="Frames carry a Presentation Time Stamp and a Decode Time Stamp; the two orderings differ because B-frames depend on future P-frames" />
+  <img v-click src="/images/compress-pts-dts.png" alt="Frames carry a Presentation Time Stamp and a Decode Time Stamp; the two orderings differ because B-frames depend on future P-frames" />
 </div>
 <div>
 
