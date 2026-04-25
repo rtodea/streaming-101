@@ -450,6 +450,82 @@ Quality follows a **logarithmic** curve with bitrate:
 
 ---
 
+# FFmpeg: The Swiss Army Knife of Video
+
+<v-clicks>
+
+- **Created in 2000 by Fabrice Bellard** (also wrote QEMU, TinyCC, and calculated π to a record number of digits).
+- **FF** = *Fast Forward*, the tape-deck button. **mpeg** = the codec family it first targeted.
+- A set of C **libraries** (`libavcodec`, `libavformat`, `libavfilter`, `libswscale`) plus three CLIs: `ffmpeg` (transcode), `ffprobe` (inspect), `ffplay` (play).
+- **Hundreds of codecs, dozens of containers, one unified API.** Before FFmpeg you needed a different tool per format.
+
+</v-clicks>
+
+<v-click>
+
+### Where you find it
+
+</v-click>
+
+<v-clicks>
+
+- VLC, MPV, OBS, Kodi: all built on `libav*`.
+- Twitch, Netflix, YouTube transcoding pipelines: FFmpeg under the hood.
+- Chrome and Firefox use FFmpeg-derived code for `<video>` decoding.
+
+</v-clicks>
+
+<v-click>
+
+> Our server uses it **twice**: re-encoding uploads into HLS variants (`videos.service.ts`), and converting the live WebM stream into H.264 segments (`streams.service.ts`).
+
+</v-click>
+
+<style scoped>
+ul { font-size: 0.85em; margin: 0.3em 0; }
+ul li { margin: 0.15em 0; }
+h3 { font-size: 0.95em; margin: 0.5em 0 0.2em; }
+blockquote { font-size: 0.85em; margin-top: 0.4em; }
+</style>
+
+---
+
+# Making the Demo Files with FFmpeg
+
+```bash {all|1-4|6-9|11-14|16-18|all}
+# 1. Static checkerboard PNG (geq filter draws each square via pixel coords)
+ffmpeg -f lavfi -i "color=white:s=1080x1080" \
+  -vf "geq=lum='if(eq(mod(floor(X/135)+floor(Y/135),2),0),255,0)'" \
+  -frames:v 1 checkerboard.png
+
+# 2. Rotate it (360 degrees over 10s, defeats temporal compression)
+ffmpeg -loop 1 -i checkerboard.png -t 10 \
+  -vf "rotate=2*PI*t/10:fillcolor=white:ow=1080:oh=1080" \
+  -c:v libx264 -pix_fmt yuv420p checkerboard_rotating.mp4
+
+# 3. Re-encode at four quality tiers (-b:v = target bitrate)
+ffmpeg -i checkerboard_rotating.mp4 -c:v libx264 -b:v 5M   high.mp4
+ffmpeg -i checkerboard_rotating.mp4 -c:v libx264 -b:v 200k low.mp4
+ffmpeg -i checkerboard_rotating.mp4 -c:v libx264 -b:v 50k  potato.mp4
+
+# 4. Stack two clips horizontally for side-by-side viewing
+ffmpeg -i high.mp4 -i potato.mp4 \
+  -filter_complex "[0:v][1:v]hstack=inputs=2" comparison.mp4
+```
+
+<v-click>
+
+> Same input, four output bitrates. The 100× spread (5 Mbps vs 50 kbps) is what produces the artifacts you'll see on the next slide.
+
+</v-click>
+
+<style scoped>
+pre { font-size: 0.6em; }
+blockquote { font-size: 0.85em; margin-top: 0.5em; }
+</style>
+
+---
+
 # The Checkerboard Demo
 
 <v-clicks>
