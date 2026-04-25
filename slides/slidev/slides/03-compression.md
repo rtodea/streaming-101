@@ -495,9 +495,17 @@ blockquote { font-size: 0.85em; margin-top: 0.4em; }
 # Fabrice Bellard
 
 <div class="grid grid-cols-[3fr_2fr] gap-6 items-start bellard">
-<div>
 
-<v-clicks at="2">
+<div class="bellard__image">
+  <v-click>
+    <img src="/images/bellard.jpg" alt="Portrait of Fabrice Bellard" class="bellard-portrait" />
+    <p class="caption">Image: Computer History Museum</p>
+  </v-click>
+</div>
+
+<div class="bellard__text">
+
+<v-clicks>
 
 - Born 1972, Grenoble. École Polytechnique, then Télécom Paris.
 - 1989 *(age 17)*: writes **LZEXE**, an executable compressor for DOS.
@@ -538,16 +546,13 @@ blockquote { font-size: 0.85em; margin-top: 0.4em; }
 </v-clicks>
 
 </div>
-<div>
-  <v-click at="1">
-    <img src="/images/bellard.jpg" alt="Portrait of Fabrice Bellard" class="bellard-portrait" />
-    <p class="caption">Image: Computer History Museum</p>
-  </v-click>
-</div>
+
 </div>
 
 <style scoped>
 .bellard { font-size: 0.95em; }
+.bellard__image { grid-column: 2; grid-row: 1; }
+.bellard__text { grid-column: 1; grid-row: 1; }
 .bellard ul { font-size: 0.62em; margin: 0.15em 0; line-height: 1.3; }
 .bellard ul li { margin: 0.05em 0; }
 .bellard h3 { font-size: 0.78em; margin: 0.35em 0 0.1em; }
