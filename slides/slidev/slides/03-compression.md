@@ -497,7 +497,7 @@ blockquote { font-size: 0.85em; margin-top: 0.4em; }
 <div class="grid grid-cols-[3fr_2fr] gap-6 items-start bellard">
 <div>
 
-<v-clicks>
+<v-clicks at="2">
 
 - Born 1972, Grenoble. École Polytechnique, then Télécom Paris.
 - 1989 *(age 17)*: writes **LZEXE**, an executable compressor for DOS.
@@ -518,9 +518,9 @@ blockquote { font-size: 0.85em; margin-top: 0.4em; }
 
 <v-clicks>
 
-- 2009 *(age 37)* **π record**: ~**2.7 × 10¹²** digits on a single ~$3,000 desktop. Beat the prior record of **~2.58 × 10¹²** (Daisuke Takahashi, Univ. of Tsukuba T2K supercomputer, Aug 2009).
-- For scale, today's record sits around **~2.02 × 10¹⁴** digits (StorageReview / Jordan Ranous, 2024), about **75×** Bellard's, but on a server with ~1 PB of storage.
-- 2011 *(age 39)* **O'Reilly Open Source Award** for QEMU. Three **IOCCC** *(International Obfuscated C Code Contest)* wins.
+- 2009 *(age 37)* **π record**: ~**2.7 × 10¹²** digits on a single ~$3,000 desktop. Beat **~2.58 × 10¹²** (Daisuke Takahashi, Univ. of Tsukuba T2K, Aug 2009).
+- For scale, today's record sits at **~2.02 × 10¹⁴** digits (StorageReview / Jordan Ranous, 2024), about **75×** Bellard's, on a server with ~1 PB of storage.
+- 2011 **O'Reilly Open Source Award** for QEMU. Three **IOCCC** *(International Obfuscated C Code Contest)* wins.
 
 </v-clicks>
 
@@ -532,24 +532,27 @@ blockquote { font-size: 0.85em; margin-top: 0.4em; }
 
 <v-clicks>
 
-- Co-founded **Amarisoft** in 2012 *(age 40)*, headquartered in **Levallois-Perret** (just outside Paris). Software 4G/5G base stations on commodity hardware.
+- Co-founded **Amarisoft** in 2012 *(age 40)*, in Levallois-Perret (Paris). Software 4G/5G base stations on commodity hardware.
 - Still CTO. Almost no public profile: virtually no interviews, no social media.
 
 </v-clicks>
 
 </div>
 <div>
-  <img src="/images/bellard.jpg" alt="Portrait of Fabrice Bellard" class="bellard-portrait" />
-  <p class="caption">Image: Computer History Museum</p>
+  <v-click at="1">
+    <img src="/images/bellard.jpg" alt="Portrait of Fabrice Bellard" class="bellard-portrait" />
+    <p class="caption">Image: Computer History Museum</p>
+  </v-click>
 </div>
 </div>
 
 <style scoped>
-.bellard ul { font-size: 0.72em; margin: 0.2em 0; }
-.bellard ul li { margin: 0.1em 0; }
-.bellard h3 { font-size: 0.85em; margin: 0.45em 0 0.15em; }
-.bellard-portrait { width: 100%; height: auto; max-height: 320px; object-fit: cover; border-radius: 0.4em; }
-.caption { font-size: 0.6em; color: var(--slidev-theme-accents-1); text-align: center; margin-top: 0.3em; }
+.bellard { font-size: 0.95em; }
+.bellard ul { font-size: 0.62em; margin: 0.15em 0; line-height: 1.3; }
+.bellard ul li { margin: 0.05em 0; }
+.bellard h3 { font-size: 0.78em; margin: 0.35em 0 0.1em; }
+.bellard-portrait { width: 100%; height: auto; max-height: 240px; object-fit: cover; border-radius: 0.4em; }
+.caption { font-size: 0.55em; color: var(--slidev-theme-accents-1); text-align: center; margin-top: 0.25em; }
 </style>
 
 ---
