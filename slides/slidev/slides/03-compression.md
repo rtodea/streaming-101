@@ -46,29 +46,28 @@ $$R_{\text{raw}} = 1920 \times 1080 \times 3 \times 30 \approx 178 \text{ MB/s} 
 
 <v-clicks>
 
-- **Container** = the wrapper file (MP4, WebM, MKV, TS). Carries video + audio + subtitles + sync metadata.
-- **Codec** = the algorithm that compressed the bits inside (H.264, H.265, VP9, AV1).
+- **Container** (industry term: *wrapper format*) = MP4, WebM, MKV, TS. Holds multiple **streams**: video, audio, subtitles, plus sync metadata.
+- **Codec** = the algorithm each stream was compressed with: H.264, H.265, VP9, AV1, Opus, AAC.
 
 </v-clicks>
 
 <v-click>
 
-### Mnemonic: same box, different bottle
+### Mnemonic: MP4 is to H.264 what ZIP is to deflate
 
 </v-click>
 
 <v-clicks>
 
-- The same `.mp4` **box** can hold H.264, H.265, *or* AV1 video.
-- The same H.264 **bottle** can sit inside an `.mp4`, an `.mkv`, *or* a `.ts`.
-- Container = what's on the **label** (the file extension).
-- Codec = what's actually **inside** (revealed only by inspecting the bytes).
+- A `.zip` is a **container**. Inside, each file can use a different compression algorithm (deflate, lzma, store).
+- A `.mp4` is the same idea: one outer file, several inner streams, each compressed with its own codec.
+- The extension tells you the **container**. Only inspecting the bytes (`ffprobe`) tells you the **codecs** inside.
 
 </v-clicks>
 
 <v-click>
 
-> If video won't play, ask: *which* container? *which* codec? Browsers reject combinations they don't understand even when both halves are individually fine.
+> When a video won't play, ask: *which* container *and* *which* codec? Browsers reject combinations they don't understand even when both halves are individually fine.
 
 </v-click>
 
