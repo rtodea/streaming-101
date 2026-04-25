@@ -379,7 +379,15 @@ MSE turned the `<video>` tag from a **Black Box** (we give a URL, it does magic)
 <v-clicks>
 
 - W3C / Chromium / Mozilla deliberately picked **MSE** over bundling protocols. "Give JS the primitives; let userland implement HLS, DASH, or whatever's next."
-- From their view, hls.js + dash.js + Shaka Player **is the feature**, not a workaround.
+- HLS is an Apple-authored **informational** RFC (8216), not a multi-vendor W3C/ISO spec. Other vendors don't want a single-vendor format baked into the platform.
+- DRM (FairPlay vs Widevine vs PlayReady) and codec licensing make a single native pipeline messy.
+
+### Where to read this for yourself
+
+- **Mozilla `standards-positions`** (GitHub): search issues for "HLS". Public, dated vendor positions.
+- **Chromium issue tracker**: search "native HLS support". Long-standing "won't fix, use MSE + hls.js" thread.
+- **IETF RFC 8216**: the HLS spec itself. Note its *informational* status.
+- **W3C Media Source Extensions** spec: the official "this is the answer instead" document.
 
 </v-clicks>
 
@@ -410,6 +418,59 @@ ul { font-size: 0.85em; margin: 0.3em 0; }
 ul li { margin: 0.1em 0; }
 .hls-status { font-size: 0.8em; margin-top: 0.3em; }
 .hls-status th, .hls-status td { padding: 0.25em 0.6em; }
+</style>
+
+---
+
+# What MSE Actually Enabled
+
+The bet "ship MSE, not protocols" produced two streaming formats and a small ecosystem of JS players.
+
+<v-click>
+
+### Two protocols ride on top of MSE
+
+</v-click>
+
+<v-clicks>
+
+- **HLS** *(Apple, RFC 8216, 2009)*: `.m3u8` text playlists + `.ts` (or fMP4) segments. The de-facto default for live and OTT video on the open web.
+- **MPEG-DASH** *(ISO/IEC 23009-1, 2012)*: vendor-neutral equivalent. XML manifest (`.mpd`), codec-agnostic. The "open standard" answer to HLS.
+
+</v-clicks>
+
+<v-click>
+
+### The JS players that decode them
+
+</v-click>
+
+<v-click>
+
+<table class="players">
+<thead><tr><th>Library</th><th>Plays</th><th>What it solves</th><th>In production at</th></tr></thead>
+<tbody>
+<tr><td><b>hls.js</b></td><td>HLS</td><td>Polyfills HLS for Chrome / Firefox / Edge (Safari plays it natively)</td><td><b>Twitch</b>, JW Player, DAZN</td></tr>
+<tr><td><b>dash.js</b></td><td>DASH</td><td>Reference player from the DASH Industry Forum</td><td><b>BBC iPlayer</b>, Akamai demos</td></tr>
+<tr><td><b>Shaka Player</b></td><td>HLS + DASH + EME</td><td>One library for both protocols, plus DRM (Widevine / PlayReady / FairPlay) for paid content</td><td><b>YouTube TV</b>, Google web products</td></tr>
+</tbody>
+</table>
+
+</v-click>
+
+<v-click>
+
+> Netflix and YouTube run their own in-house players, but the *protocols* on the wire are still these two.
+
+</v-click>
+
+<style scoped>
+ul { font-size: 0.8em; margin: 0.25em 0; }
+ul li { margin: 0.1em 0; }
+h3 { font-size: 0.9em; margin: 0.4em 0 0.2em; }
+.players { font-size: 0.72em; margin-top: 0.3em; }
+.players th, .players td { padding: 0.25em 0.5em; vertical-align: top; }
+blockquote { font-size: 0.8em; margin-top: 0.3em; }
 </style>
 
 ---
