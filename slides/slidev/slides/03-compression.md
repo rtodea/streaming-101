@@ -498,13 +498,13 @@ blockquote { font-size: 0.85em; margin-top: 0.4em; }
 <v-clicks>
 
 - Born 1972, Grenoble. École Polytechnique, then Télécom Paris.
-- Age 17 (1989): writes **LZEXE**, an executable compressor for DOS.
-- 1997: derives the **Bellard formula** for π, ~47% faster than BBP.
-- 2000: starts **FFmpeg**.
-- 2003: starts **QEMU**. Modern hardware virtualization (KVM) is built on top of it.
-- 2011: **JSLinux**, a Linux PC running inside a browser tab.
-- 2014: **BPG**, a JPEG replacement built on H.265 intra-frame coding.
-- 2019: **QuickJS**, a tiny embeddable JavaScript engine.
+- 1989 *(age 17)*: writes **LZEXE**, an executable compressor for DOS.
+- 1997 *(age 25)*: derives the **Bellard formula** for π, ~47% faster than BBP.
+- 2000 *(age 28)*: starts **FFmpeg**.
+- 2003 *(age 31)*: starts **QEMU**. Modern hardware virtualization (KVM) is built on top of it.
+- 2011 *(age 39)*: **JSLinux**, a Linux PC running inside a browser tab.
+- 2014 *(age 42)*: **BPG**, a JPEG replacement built on H.265 intra-frame coding.
+- 2019 *(age 47)*: **QuickJS**, a tiny embeddable JavaScript engine.
 
 </v-clicks>
 
@@ -516,8 +516,9 @@ blockquote { font-size: 0.85em; margin-top: 0.4em; }
 
 <v-clicks>
 
-- 2009 **π record**: 2.7 trillion digits on a single ~$3,000 desktop, beating supercomputers of the era.
-- 2011 **O'Reilly Open Source Award** for QEMU. Three IOCCC wins.
+- 2009 *(age 37)* **π record**: ~**2.7 × 10¹²** digits on a single ~$3,000 desktop. Beat the prior record of **~2.58 × 10¹²** (Daisuke Takahashi, Univ. of Tsukuba T2K supercomputer, Aug 2009).
+- For scale, today's record sits around **~2.02 × 10¹⁴** digits (StorageReview / Jordan Ranous, 2024) — about **75×** Bellard's, but on a server with ~1 PB of storage.
+- 2011 *(age 39)* **O'Reilly Open Source Award** for QEMU. Three **IOCCC** *(International Obfuscated C Code Contest)* wins.
 
 </v-clicks>
 
@@ -529,7 +530,7 @@ blockquote { font-size: 0.85em; margin-top: 0.4em; }
 
 <v-clicks>
 
-- Co-founded **Amarisoft** in 2012, headquartered in **Levallois-Perret** (just outside Paris). Software 4G/5G base stations on commodity hardware.
+- Co-founded **Amarisoft** in 2012 *(age 40)*, headquartered in **Levallois-Perret** (just outside Paris). Software 4G/5G base stations on commodity hardware.
 - Still CTO. Almost no public profile: virtually no interviews, no social media.
 
 </v-clicks>
