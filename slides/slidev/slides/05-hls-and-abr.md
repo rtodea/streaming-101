@@ -79,6 +79,63 @@ ul { font-size: 0.85em; }
 
 ---
 
+# Reading the BANDWIDTH Numbers
+
+`BANDWIDTH` is **bits per second**, the same unit ISPs quote (and 8× smaller than the bytes per second your file manager shows).
+
+```ini {all|1|2|3|all}
+BANDWIDTH=800000   =  800,000 bps   =  800 kbps  =  0.8 Mbps   (360p)
+BANDWIDTH=2800000  =  2,800,000 bps =  2.8 Mbps              (720p)
+BANDWIDTH=5000000  =  5,000,000 bps =  5.0 Mbps              (1080p)
+```
+
+<v-click>
+
+### How that compares to real links
+
+</v-click>
+
+<v-click>
+
+<table class="bw-table">
+<thead><tr><th>Link</th><th>Typical sustained speed</th><th>Variants that fit</th></tr></thead>
+<tbody>
+<tr><td>3G phone</td><td>~2 Mbps</td><td>360p only</td></tr>
+<tr><td>4G LTE</td><td>20 to 50 Mbps</td><td>1080p with room</td></tr>
+<tr><td><b>5G mid-band</b></td><td>100 to 400 Mbps</td><td>20 to 80 simultaneous 1080p</td></tr>
+<tr><td><b>Digi fibre 1 Gbps (RO)</b></td><td>~800 Mbps wired, ~300 over Wi-Fi</td><td>hundreds of 1080p</td></tr>
+</tbody>
+</table>
+
+</v-click>
+
+<v-click>
+
+### Pen and paper
+
+</v-click>
+
+<v-clicks>
+
+- Digi sells "1 Gbps". In practice the line tops out around 800 Mbps over Ethernet (Wi-Fi cuts that further).
+- One 1080p stream wants 5 Mbps. So **800 ÷ 5 ≈ 160 simultaneous 1080p streams** before the line saturates.
+- 5G at 200 Mbps gives **200 ÷ 5 = 40** simultaneous 1080p streams. One viewer barely notices the load.
+- ABR's real job isn't "find anything that fits". It's "find the highest variant that **survives one slow chunk** without draining the buffer".
+
+</v-clicks>
+
+<style scoped>
+pre { font-size: 0.7em; }
+h3 { font-size: 0.95em; margin: 0.5em 0 0.2em; }
+.bw-table { font-size: 0.75em; margin-top: 0.2em; }
+.bw-table th, .bw-table td { padding: 0.2em 0.6em; }
+ul { font-size: 0.8em; margin: 0.3em 0; }
+ul li { margin: 0.1em 0; }
+p { font-size: 0.9em; margin: 0.3em 0; }
+</style>
+
+---
+
 # Media Playlist: The Segments
 
 ```ini {all|2|3-4|5-6|7-8|9|all}
