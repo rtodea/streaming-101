@@ -22,28 +22,55 @@ $$R_{\text{raw}} = 1920 \times 1080 \times 3 \times 30 \approx 178 \text{ MB/s} 
 
 ---
 
-# Containers vs Codecs
+# Vocab: encode, decode, codec
 
 <v-clicks>
 
-- **Container** = the wrapper (MP4, WebM, MKV, TS)
-- **Codec** = the compressor (H.264, H.265, VP9, AV1)
+- **code**: from Latin *codex*, "a system of rules". Same root as *encrypt*, *cipher*, *codify*.
+- **encode** = put **into** code. (`en-` = "into")
+- **decode** = take **out of** code. (`de-` = "away from")
+- **codec** = a 1970s telephony portmanteau: **CO**(der) + **DEC**(oder).
+  - Anything that does both: turn raw pixels into compressed bits, *and* the reverse.
 
 </v-clicks>
 
 <v-click>
 
-### How Compression Works (simplified)
+> Encoder lives at the **producer** (camera, server). Decoder lives at the **consumer** (player, monitor). Same algorithm, run backwards.
+
+</v-click>
+
+---
+
+# Containers vs Codecs
+
+<v-clicks>
+
+- **Container** = the wrapper file (MP4, WebM, MKV, TS). Carries video + audio + subtitles + sync metadata.
+- **Codec** = the algorithm that compressed the bits inside (H.264, H.265, VP9, AV1).
+
+</v-clicks>
+
+<v-click>
+
+### Mnemonic: same box, different bottle
 
 </v-click>
 
 <v-clicks>
 
-1. **Spatial** (intra-frame): compress each frame like a JPEG
-2. **Temporal** (inter-frame): store only the *differences* between frames
-3. **Keyframes** (I-frames): full frames inserted periodically; deltas (P/B-frames) in between
+- The same `.mp4` **box** can hold H.264, H.265, *or* AV1 video.
+- The same H.264 **bottle** can sit inside an `.mp4`, an `.mkv`, *or* a `.ts`.
+- Container = what's on the **label** (the file extension).
+- Codec = what's actually **inside** (revealed only by inspecting the bytes).
 
 </v-clicks>
+
+<v-click>
+
+> If video won't play, ask: *which* container? *which* codec? Browsers reject combinations they don't understand even when both halves are individually fine.
+
+</v-click>
 
 ---
 
@@ -161,6 +188,78 @@ $$R_{\text{raw}} = 1920 \times 1080 \times 3 \times 30 \approx 178 \text{ MB/s} 
 .mechanism ul { font-size: 0.95em; }
 .mechanism blockquote { font-size: 0.9em; }
 </style>
+
+---
+
+# But Wait: Cameras Can't See the Future
+
+<div class="grid grid-cols-2 gap-6 items-start mechanism">
+<div>
+
+<v-clicks>
+
+### The trick: lookahead
+
+The encoder buffers a few frames before emitting any output. It pretends "the future" already happened by holding back a tiny bit.
+
+- More lookahead → better compression, more latency.
+- Less lookahead → lower latency, fatter files.
+
+</v-clicks>
+
+</div>
+<div>
+
+<v-clicks>
+
+### Live often skips B-frames entirely
+
+For real-time scenarios, encoders run with `-tune zerolatency` (or equivalent), which **disables B-frames**. You trade compression efficiency for ~0 frames of encode delay.
+
+</v-clicks>
+
+<v-click>
+
+### Where does the actual encoding run?
+
+</v-click>
+
+<v-clicks>
+
+- Not C++ on the camera. **Fixed-function silicon** on the SoC: Apple VideoToolbox, Qualcomm Venus, Samsung MFC, Intel Quick Sync.
+- The C/C++ part is the OS driver that feeds frames in and pulls compressed bytes out.
+
+</v-clicks>
+
+</div>
+</div>
+
+<style scoped>
+ul { font-size: 0.85em; }
+h3 { font-size: 1em; margin-top: 0.5em; }
+</style>
+
+---
+clicks: 7
+---
+
+# Live Capture: Sensor to Wire
+
+<MermaidReveal :diagram="`
+sequenceDiagram
+    participant Sen as Camera Sensor
+    participant ISP as Image Signal Processor
+    participant Enc as Hardware Encoder (VPU)
+    participant App as MediaRecorder API
+    participant Net as Network
+    Sen->>ISP: Raw Bayer pattern (~1.4 Gbps)
+    ISP->>ISP: Demosaic, white balance, exposure
+    ISP->>Enc: RGB frames at 30 fps
+    Enc->>Enc: Buffer N frames (lookahead, often 0)
+    Enc->>Enc: Compress to I and P frames
+    Enc->>App: Compressed bytes (VP8 or H.264)
+    App->>Net: Send chunk over WebSocket
+`" />
 
 ---
 
