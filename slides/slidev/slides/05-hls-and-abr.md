@@ -261,7 +261,7 @@ $$Q^{*} = \arg\max_{q} \; Q(q) \quad \text{s.t.} \quad R(q) \leq B_{\text{estima
 
 <v-click>
 
-<table>
+<table class="abr-symbols">
 <thead><tr><th>Symbol</th><th>Means</th></tr></thead>
 <tbody>
 <tr><td><code>q</code></td><td>one of the variants in the manifest (480p, 720p, 1080p, …)</td></tr>
@@ -274,13 +274,24 @@ $$Q^{*} = \arg\max_{q} \; Q(q) \quad \text{s.t.} \quad R(q) \leq B_{\text{estima
 
 </v-click>
 
+<style scoped>
+blockquote { font-size: 0.95em; margin: 0.3em 0; }
+ol, p { font-size: 0.85em; margin: 0.3em 0; }
+ol li { margin: 0.1em 0; }
+h3 { font-size: 0.9em; margin: 0.5em 0 0.2em; }
+.katex-display { margin: 0.3em 0 !important; }
+.katex { font-size: 0.95em !important; }
+.abr-symbols { font-size: 0.7em; margin-top: 0.2em; }
+.abr-symbols th, .abr-symbols td { padding: 0.15em 0.5em; }
+</style>
+
 ---
 
 # ABR in Practice
 
 Your phone is on 4G and the player measures **4 Mbps**. The manifest offers three variants:
 
-<table>
+<table class="abr-table">
 <thead><tr><th>Variant</th><th>Bitrate <code>R(q)</code></th><th>Fits under 4 Mbps?</th><th>Picked</th></tr></thead>
 <tbody>
 <tr><td v-click>480p</td><td v-click>0.8 Mbps</td><td v-click>yes</td><td v-click>no (looks worse)</td></tr>
@@ -305,11 +316,20 @@ Using ~80% of estimated bandwidth leaves headroom so a single slow chunk doesn't
 
 <v-clicks>
 
-- **Pick too high** (1080p at 4 Mbps): chunk takes longer than 4s to arrive, buffer drains, spinner appears.
+- **Pick too high** (1080p at 4 Mbps): chunk takes longer than 4s, buffer drains, spinner appears.
 - **Pick too low** (480p at 4 Mbps): safe, but wastes 3.2 Mbps of headroom and looks worse than it needs to.
-- **Bandwidth drops mid-stream** (you walked into an elevator): next measurement is lower, ABR picks a lower variant for the next chunk. That's the quality downshift you see on YouTube when Wi-Fi gets weak.
+- **Bandwidth drops mid-stream** (elevator, weak Wi-Fi): next measurement is lower, ABR picks a lower variant for the next chunk. That's the YouTube quality downshift.
 
 </v-clicks>
+
+<style scoped>
+p { font-size: 0.85em; margin: 0.3em 0; }
+h3 { font-size: 0.9em; margin: 0.5em 0 0.2em; }
+ul { font-size: 0.8em; margin: 0.3em 0; }
+ul li { margin: 0.15em 0; }
+.abr-table { font-size: 0.8em; margin-top: 0.3em; }
+.abr-table th, .abr-table td { padding: 0.2em 0.5em; }
+</style>
 
 ---
 clicks: 8
