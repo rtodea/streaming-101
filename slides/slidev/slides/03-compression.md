@@ -517,7 +517,7 @@ blockquote { font-size: 0.85em; margin-top: 0.4em; }
 <v-clicks>
 
 - 2009 *(age 37)* **π record**: ~**2.7 × 10¹²** digits on a single ~$3,000 desktop. Beat the prior record of **~2.58 × 10¹²** (Daisuke Takahashi, Univ. of Tsukuba T2K supercomputer, Aug 2009).
-- For scale, today's record sits around **~2.02 × 10¹⁴** digits (StorageReview / Jordan Ranous, 2024) — about **75×** Bellard's, but on a server with ~1 PB of storage.
+- For scale, today's record sits around **~2.02 × 10¹⁴** digits (StorageReview / Jordan Ranous, 2024), about **75×** Bellard's, but on a server with ~1 PB of storage.
 - 2011 *(age 39)* **O'Reilly Open Source Award** for QEMU. Three **IOCCC** *(International Obfuscated C Code Contest)* wins.
 
 </v-clicks>
