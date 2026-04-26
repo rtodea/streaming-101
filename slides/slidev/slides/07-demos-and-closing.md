@@ -5,30 +5,21 @@ url: /presenter
 ---
 
 ---
+layout: next-adventure
+---
 
 # My Takeaways
 
 <v-clicks>
 
-1. Video is a **magic trick**: showing pictures fast enough that the brain invents motion.
-2. There is **a lot of engineering** behind our video files: in the capturing devices, in storing them, in playing them back.
-3. **Everyone uses FFmpeg** under the hood for video pipelines.
-4. The **network adds an extra layer of complexity**: jitter, latency, ABR, all in service of keeping the picture moving.
-5. **"Live" is never live**, neither in your biology nor in your browser.
-6. **Browser standards have to please everybody**, and sometimes it's not obvious why things are "limited by design".
+- **Video is a magic trick** showing pictures fast enough that the brain invents the motion.
+- **There is a lot of engineering** behind every video file, from the capture device to storage to playback.
+- **Everyone uses FFmpeg** under the hood for video pipelines.
+- **The network adds complexity** jitter, latency, ABR, all in service of keeping the picture moving.
+- **"Live" is never live** neither in your biology nor in your browser.
+- **Limited by design** browser standards have to please everybody, and the constraints aren't always obvious.
 
 </v-clicks>
-
-<style scoped>
-ol {
-  column-count: 2;
-  column-gap: 2.5em;
-  font-size: 0.85em;
-  margin: 0.4em 0;
-  padding-left: 1.5em;
-}
-ol li { break-inside: avoid; margin: 0.4em 0; padding-left: 0.2em; }
-</style>
 
 ---
 layout: url-reference
