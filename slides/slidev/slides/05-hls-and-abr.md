@@ -324,8 +324,6 @@ ms.addEventListener('sourceopen', () => {
 </v-click>
 
 ---
-
----
 clicks: 7
 ---
 
