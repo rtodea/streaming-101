@@ -130,19 +130,15 @@ blockquote { font-size: 0.85em; margin-top: 0.4em; }
 
 > Latency is **fixed delay**. Jitter is **variable delay**. Continuity dies on jitter, not latency.
 
-<v-click>
-
 <table class="lj-table">
 <thead><tr><th></th><th>Latency</th><th>Jitter</th></tr></thead>
 <tbody>
-<tr><td><b>What it is</b></td><td>How long any one packet takes</td><td>How much packet times <em>vary</em></td></tr>
-<tr><td><b>Example</b></td><td>Every packet: 200 ms</td><td>100, 900, 50, 300 ms ...</td></tr>
-<tr><td><b>Effect on player</b></td><td>Just starts 200 ms later. Smooth.</td><td>"I needed a frame 30 ms ago. Where is it?"</td></tr>
-<tr><td><b>Mitigation</b></td><td>None needed</td><td>Pre-buffer enough seconds to absorb the worst spike</td></tr>
+<tr><td v-click><b>What it is</b></td><td v-click>How long any one packet takes</td><td v-click>How much packet times <em>vary</em></td></tr>
+<tr><td v-click><b>Example</b></td><td v-click>Every packet: 200 ms</td><td v-click>100, 900, 50, 300 ms ...</td></tr>
+<tr><td v-click><b>Effect on player</b></td><td v-click>Just starts 200 ms later. Smooth.</td><td v-click>"I needed a frame 30 ms ago. Where is it?"</td></tr>
+<tr><td v-click><b>Mitigation</b></td><td v-click>None needed</td><td v-click>Pre-buffer enough seconds to absorb the worst spike</td></tr>
 </tbody>
 </table>
-
-</v-click>
 
 <v-clicks>
 
@@ -222,20 +218,16 @@ Shorter segments = lower latency, but more HTTP requests and less compression ef
 
 "Live" TV is a polite fiction. By the time a goal hits your TV, the stadium has already cheered.
 
-<v-click>
-
 <table class="latency-table">
 <thead><tr><th>Stage</th><th>Cost</th><th>Why</th></tr></thead>
 <tbody>
-<tr><td><b>Encoding</b></td><td>1 to 2 s</td><td>Lookahead for B-frames, motion estimation</td></tr>
-<tr><td><b>Segmentation</b></td><td>~6 s</td><td>HLS player wants 3 segments before play. 2 s × 3 = 6 s.</td></tr>
-<tr><td><b>CDN propagation</b></td><td>1 to 2 s</td><td>Origin to edge hops; cache fill on first request</td></tr>
-<tr><td><b>Player buffer</b></td><td>2 to 10 s</td><td>Headroom for network jitter</td></tr>
-<tr><td><b>Total</b></td><td><b>10 to 30 s</b></td><td>Standard HLS, end to end</td></tr>
+<tr><td v-click><b>Encoding</b></td><td v-click>1 to 2 s</td><td v-click>Lookahead for B-frames, motion estimation</td></tr>
+<tr><td v-click><b>Segmentation</b></td><td v-click>~6 s</td><td v-click>HLS player wants 3 segments before play. 2 s × 3 = 6 s.</td></tr>
+<tr><td v-click><b>CDN propagation</b></td><td v-click>1 to 2 s</td><td v-click>Origin to edge hops; cache fill on first request</td></tr>
+<tr><td v-click><b>Player buffer</b></td><td v-click>2 to 10 s</td><td v-click>Headroom for network jitter</td></tr>
+<tr><td v-click><b>Total</b></td><td v-click><b>10 to 30 s</b></td><td v-click>Standard HLS, end to end</td></tr>
 </tbody>
 </table>
-
-</v-click>
 
 <v-click>
 
