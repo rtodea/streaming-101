@@ -6,6 +6,7 @@ url: /presenter
 
 ---
 layout: next-adventure
+class: my-takeaways
 ---
 
 # My Takeaways
@@ -14,12 +15,19 @@ layout: next-adventure
 
 - **Video is a magic trick** showing pictures fast enough that the brain invents the motion.
 - **There is a lot of engineering** behind every video file, from the capture device to storage to playback.
-- **Everyone uses FFmpeg** under the hood for video pipelines.
+- **Everyone uses FFmpeg** under the hood for video pipelines (Fabrice Bellard is the GOAT).
 - **The network adds complexity** jitter, latency, ABR, all in service of keeping the picture moving.
 - **"Live" is never live** neither in your biology nor in your browser.
 - **Limited by design** browser standards have to please everybody, and the constraints aren't always obvious.
 
 </v-clicks>
+
+<style scoped>
+.my-takeaways :deep(h1) { font-size: 1.3rem !important; margin-bottom: 1rem !important; }
+.my-takeaways :deep(ul) { gap: 0.6rem !important; }
+.my-takeaways :deep(li) { padding: 0.55rem 0.9rem !important; font-size: 0.78rem; line-height: 1.35; }
+.my-takeaways :deep(li strong) { font-size: 0.92rem !important; margin-bottom: 0.15rem !important; }
+</style>
 
 ---
 layout: url-reference
