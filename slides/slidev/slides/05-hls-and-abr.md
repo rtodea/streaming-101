@@ -375,16 +375,16 @@ MSE turned the `<video>` tag from a **Black Box** (we give a URL, it does magic)
 
 <v-clicks>
 
-- W3C / Chromium / Mozilla deliberately picked **MSE** over bundling protocols. "Give JS the primitives; let userland implement HLS, DASH, or whatever's next."
-- HLS is an Apple-authored **informational** RFC (8216), not a multi-vendor W3C/ISO spec. Other vendors don't want a single-vendor format baked into the platform.
+- W3C / Chromium / Mozilla picked **MSE** over bundling protocols. "Give JS the primitives; let userland implement HLS, DASH, or whatever's next."
+- HLS is an Apple-authored **informational** RFC (8216), not a multi-vendor W3C/ISO spec. Vendors don't want a single-vendor format baked in.
 - DRM (FairPlay vs Widevine vs PlayReady) and codec licensing make a single native pipeline messy.
 
 ### Where to read this for yourself
 
-- **Mozilla `standards-positions`** (GitHub): search issues for "HLS". Public, dated vendor positions.
-- **Chromium issue tracker**: search "native HLS support". Long-standing "won't fix, use MSE + hls.js" thread.
+- **Mozilla `standards-positions`** (GitHub): search issues for "HLS".
+- **Chromium issue tracker**: search "native HLS support" (long "won't fix, use MSE + hls.js" thread).
 - **IETF RFC 8216**: the HLS spec itself. Note its *informational* status.
-- **W3C Media Source Extensions** spec: the official "this is the answer instead" document.
+- **W3C MSE** spec: the official "this is the answer instead" document.
 
 </v-clicks>
 
@@ -409,12 +409,12 @@ MSE turned the `<video>` tag from a **Black Box** (we give a URL, it does magic)
 </v-click>
 
 <style scoped>
-blockquote { font-size: 0.95em; margin: 0.3em 0; }
-h3 { font-size: 0.95em; margin: 0.5em 0 0.2em; }
-ul { font-size: 0.85em; margin: 0.3em 0; }
-ul li { margin: 0.1em 0; }
-.hls-status { font-size: 0.8em; margin-top: 0.3em; }
-.hls-status th, .hls-status td { padding: 0.25em 0.6em; }
+blockquote { font-size: 0.78em; margin: 0.2em 0; }
+h3 { font-size: 0.78em; margin: 0.3em 0 0.1em; }
+ul { font-size: 0.62em; margin: 0.15em 0; line-height: 1.3; }
+ul li { margin: 0.05em 0; }
+.hls-status { font-size: 0.7em; margin-top: 0.2em; }
+.hls-status th, .hls-status td { padding: 0.18em 0.5em; }
 </style>
 
 ---
