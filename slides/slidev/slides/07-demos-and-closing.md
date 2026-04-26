@@ -20,8 +20,14 @@ url: /presenter
 </v-clicks>
 
 <style scoped>
-ol { font-size: 0.85em; margin: 0.4em 0; }
-ol li { margin: 0.3em 0; }
+ol {
+  column-count: 2;
+  column-gap: 2.5em;
+  font-size: 0.85em;
+  margin: 0.4em 0;
+  padding-left: 1.5em;
+}
+ol li { break-inside: avoid; margin: 0.4em 0; padding-left: 0.2em; }
 </style>
 
 ---
