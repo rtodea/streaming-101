@@ -1,7 +1,7 @@
 <template>
   <div class="demo-break">
     <div class="demo-break__icon">⟶</div>
-    <h1 class="demo-break__title">{{ title }}</h1>
+    <h1 class="demo-break__title">{{ frontmatter?.title || 'Live Demo' }}</h1>
     <p v-if="url" class="demo-break__url">{{ url }}</p>
     <p class="demo-break__hint">Switch to the application</p>
   </div>
@@ -9,7 +9,7 @@
 
 <script setup>
 defineProps({
-  title: { type: String, default: 'Live Demo' },
+  frontmatter: { type: Object, default: () => ({}) },
   url: { type: String, default: '' },
 })
 </script>

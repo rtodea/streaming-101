@@ -1,14 +1,14 @@
 <template>
   <div class="section-break">
     <p v-if="kicker" class="section-break__kicker">{{ kicker }}</p>
-    <h1 class="section-break__title">{{ title }}</h1>
+    <h1 class="section-break__title">{{ frontmatter?.title || 'Section' }}</h1>
     <p v-if="subtitle" class="section-break__subtitle">{{ subtitle }}</p>
   </div>
 </template>
 
 <script setup>
 defineProps({
-  title: { type: String, default: 'Section' },
+  frontmatter: { type: Object, default: () => ({}) },
   subtitle: { type: String, default: '' },
   kicker: { type: String, default: 'Up next' },
 })
