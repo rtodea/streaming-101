@@ -581,25 +581,31 @@ ul li { margin: 0.15em 0; }
 </style>
 
 ---
-clicks: 8
+clicks: 7
 ---
 
 # ABR Viewer Flow
 
 <MermaidReveal :diagram="`
 sequenceDiagram
-    participant V as Viewer (hls.js)
-    participant API as NestJS API
-    participant S as HLS Storage
-    V->>API: Request video catalog
-    API-->>V: Video list
-    V->>S: Fetch master.m3u8
-    S-->>V: Manifest with quality variants
-    V->>V: Select initial quality (start low)
-    V->>S: Request chunk from selected stream
-    S-->>V: .ts chunk
-    V->>V: Append to playback buffer
+    participant V as hls.js
+    participant API as API
+    participant S as Storage
+    V->>API: GET catalog
+    API-->>V: video list
+    V->>S: GET master.m3u8
+    S-->>V: variants
+    V->>V: pick lowest, probe bandwidth
+    V->>S: GET chunk.ts
+    S-->>V: chunk → MSE buffer → play
 `" />
+
+<style scoped>
+:deep(.mermaid-reveal svg) {
+  max-height: 52vh !important;
+  max-width: 80% !important;
+}
+</style>
 
 ---
 layout: demo-break
