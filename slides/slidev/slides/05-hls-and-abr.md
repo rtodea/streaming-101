@@ -481,6 +481,38 @@ blockquote { font-size: 0.8em; margin-top: 0.3em; }
 
 ---
 
+# ABR, Visualized
+
+<div class="abr-images">
+
+<figure v-click>
+  <img src="/images/abr-bit-rates.png" alt="Same content encoded at several different bit rates" />
+  <figcaption>Source content is encoded once per quality, producing parallel <em>bit rate ladders</em>.</figcaption>
+</figure>
+
+<figure v-click>
+  <img src="/images/abr-overview.png" alt="Client switching between bit rate variants over time as bandwidth changes" />
+  <figcaption>Client jumps between variants as bandwidth changes. The same playback timeline, stitched from chunks of different qualities.</figcaption>
+</figure>
+
+</div>
+
+<v-click>
+
+> Diagrams: Wikimedia Commons, 2011.
+
+</v-click>
+
+<style scoped>
+.abr-images { display: flex; flex-direction: column; gap: 0.5em; align-items: center; }
+.abr-images figure { margin: 0; width: 92%; text-align: center; }
+.abr-images img { width: 100%; height: auto; max-height: 26vh; object-fit: contain; border-radius: 0.3em; }
+.abr-images figcaption { font-size: 0.65em; color: var(--slidev-theme-accents-1); margin-top: 0.15em; }
+blockquote { font-size: 0.65em; text-align: center; margin-top: 0.3em; }
+</style>
+
+---
+
 # The ABR Rule, in English
 
 > Pick the highest-quality variant you can still download faster than it plays.
