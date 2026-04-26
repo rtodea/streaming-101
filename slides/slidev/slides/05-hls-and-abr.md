@@ -325,25 +325,33 @@ ms.addEventListener('sourceopen', () => {
 
 ---
 
+---
+clicks: 7
+---
+
 # MSE: The Byte Pipeline
 
-How `hls.js` talks to the hardware.
-
 <MermaidReveal :diagram="`
-flowchart LR
-    URL[.m3u8] --> JS[hls.js]
-    JS -->|Fetch .ts| Seg[Segment Bytes]
-    Seg -->|Transmux| MP4[fMP4 Bytes]
-    MP4 -->|SourceBuffer.appendBuffer| MSE[MediaSource API]
-    MSE --> V[Video Tag]
-    V --> GPU[GPU / Display]
+sequenceDiagram
+    participant JS as hls.js
+    participant Net as Server
+    participant TM as Transmuxer
+    participant MSE as MediaSource
+    participant V as &lt;video&gt;
+    JS->>Net: GET segment.ts
+    Net-->>JS: MPEG-TS bytes
+    JS->>TM: transmux to fMP4
+    TM-->>JS: fMP4 bytes
+    JS->>MSE: SourceBuffer.appendBuffer(fMP4)
+    MSE->>V: feed bytes to media element
+    V->>V: decode and render frames
 `" />
 
-<v-click>
+> MSE turned the `<video>` tag from a **black box** (give it a URL, it does magic) into a **sink** (pump raw bytes, it plays them).
 
-MSE turned the `<video>` tag from a **Black Box** (we give a URL, it does magic) into a **Sink** (we pump raw bytes, it plays them).
-
-</v-click>
+<style scoped>
+blockquote { font-size: 0.75em; text-align: center; margin-top: 0.5em; }
+</style>
 
 ---
 
@@ -403,12 +411,12 @@ MSE turned the `<video>` tag from a **Black Box** (we give a URL, it does magic)
 </v-click>
 
 <style scoped>
-blockquote { font-size: 0.78em; margin: 0.2em 0; }
-h3 { font-size: 0.78em; margin: 0.3em 0 0.1em; }
-ul { font-size: 0.62em; margin: 0.15em 0; line-height: 1.3; }
-ul li { margin: 0.05em 0; }
-.hls-status { font-size: 0.7em; margin-top: 0.2em; }
-.hls-status th, .hls-status td { padding: 0.18em 0.5em; }
+blockquote { font-size: 0.65em; margin: 0.15em 0; }
+h3 { font-size: 0.68em; margin: 0.2em 0 0.05em; }
+ul { font-size: 0.52em; margin: 0.1em 0; line-height: 1.25; }
+ul li { margin: 0.03em 0; }
+.hls-status { font-size: 0.6em; margin-top: 0.15em; }
+.hls-status th, .hls-status td { padding: 0.12em 0.4em; }
 </style>
 
 ---

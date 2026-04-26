@@ -320,27 +320,6 @@ Net effect: at any moment, only the last **~20 seconds** of the stream exists. A
 
 ---
 
-# Window in Motion
-
-<MermaidReveal :diagram="`
-flowchart LR
-    new[seg-10 new]:::fresh
-    s5[seg-05] --> s6[seg-06] --> s7[seg-07] --> s8[seg-08] --> s9[seg-09]
-    gone[seg-04 deleted]:::expired
-    new --> s5
-    s9 --> gone
-    classDef fresh fill:#d4edda,stroke:#28a745,color:#155724
-    classDef expired fill:#f8d7da,stroke:#dc3545,color:#721c24
-`" />
-
-<v-click>
-
-Every 4 seconds: one segment joins the head, one segment drops off the tail. The live edge keeps moving; the past disappears.
-
-</v-click>
-
----
-
 # Playlist Types
 
 `#EXT-X-PLAYLIST-TYPE` tells the player what kind of manifest this is.
