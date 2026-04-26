@@ -25,8 +25,8 @@ image: /images/no-tv-signal.jpg
 
 ---
 layout: section-break
-title: Eyes Are Liars
-subtitle: What a video really is, and why the brain insists it's moving.
+title: I spy with my little eye
+subtitle: What is a video, and why our brains insist it's moving.
 ---
 
 ---
@@ -45,7 +45,7 @@ src: ./slides/03-compression.md
 
 ---
 layout: section-break
-title: The Tag, Tamed
+title: Introducing the video tag
 subtitle: One HTML element, every file format the browser feels like supporting.
 ---
 
@@ -75,8 +75,8 @@ src: ./slides/06-live-streaming.md
 
 ---
 layout: section-break
-title: Roll Credits
-subtitle: Takeaways, one last demo, and your questions.
+title: One more thing...
+subtitle: Takeaways and your questions.
 ---
 
 ---
