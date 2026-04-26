@@ -25,8 +25,8 @@ image: /images/no-tv-signal.jpg
 
 ---
 layout: section-break
-title: Pixels & Perception
-subtitle: What is a video, and why does the brain see motion?
+title: Eyes Are Liars
+subtitle: What a video really is, and why the brain insists it's moving.
 ---
 
 ---
@@ -35,8 +35,8 @@ src: ./slides/02-pixels-and-video.md
 
 ---
 layout: section-break
-title: Compression
-subtitle: How a 1.4 Gbps stream becomes 5 Mbps.
+title: Codecs Are Magic
+subtitle: How a 1.4 Gbps stream becomes 5 Mbps without you noticing.
 ---
 
 ---
@@ -45,8 +45,8 @@ src: ./slides/03-compression.md
 
 ---
 layout: section-break
-title: The video tag
-subtitle: How the browser plays files we throw at it.
+title: The Tag, Tamed
+subtitle: One HTML element, every file format the browser feels like supporting.
 ---
 
 ---
@@ -55,8 +55,8 @@ src: ./slides/04-video-tag.md
 
 ---
 layout: section-break
-title: HLS & Adaptive Bitrate
-subtitle: Chunked delivery the network can survive.
+title: Chunked, Cached, Adaptive
+subtitle: HLS chops video into bites the network and the CDN can survive.
 ---
 
 ---
@@ -65,8 +65,8 @@ src: ./slides/05-hls-and-abr.md
 
 ---
 layout: section-break
-title: Live Streaming
-subtitle: When the next chunk doesn't exist yet.
+title: Live Is Always Late
+subtitle: When the next chunk doesn't exist yet, and how we cope.
 ---
 
 ---
@@ -75,8 +75,8 @@ src: ./slides/06-live-streaming.md
 
 ---
 layout: section-break
-title: Wrap Up
-subtitle: Takeaways, demo, questions.
+title: Roll Credits
+subtitle: Takeaways, one last demo, and your questions.
 ---
 
 ---
