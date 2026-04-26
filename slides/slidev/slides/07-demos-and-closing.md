@@ -64,12 +64,25 @@ layout: next-adventure
 </v-clicks>
 
 ---
-layout: quote
-author: ''
----
 
-# Thank You!
+# Open Questions and Thanks
 
-### Questions?
+<div class="closing">
+<div class="closing__text">
 
-<p class="muted">github.com/timjs/streaming-101</p>
+### Open Questions?
+
+<p class="muted">github.com/rtodea/streaming-101</p>
+
+</div>
+<div class="closing__image">
+  <img src="/images/tv-test-pattern.jpg" alt="Vintage TV test pattern with 'please stand by' message" />
+</div>
+</div>
+
+<style scoped>
+.closing { display: grid; grid-template-columns: 3fr 2fr; gap: 2rem; align-items: center; height: 100%; }
+.closing__text h3 { font-size: 1.4em; margin-bottom: 0.5em; }
+.closing__text p.muted { font-size: 1em; }
+.closing__image img { width: 100%; height: auto; max-height: 60vh; object-fit: contain; border-radius: 0.4em; }
+</style>
