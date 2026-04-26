@@ -451,9 +451,3 @@ sequenceDiagram
 The server rebuilds `VideosService`'s in-memory catalog from `vod/` at startup, so archived streams survive restarts for free.
 
 </v-click>
-
----
-layout: demo-break
-title: Live Stream with DVR + Archive Demo
-url: /presenter
----

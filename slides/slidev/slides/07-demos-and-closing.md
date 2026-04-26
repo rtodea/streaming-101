@@ -1,10 +1,4 @@
 ---
-layout: demo-break
-title: Audience Participation Demo
-url: /presenter
----
-
----
 layout: next-adventure
 class: my-takeaways
 ---
@@ -61,6 +55,12 @@ layout: next-adventure
 - **WebCodecs** low-level encode/decode directly in the browser
 
 </v-clicks>
+
+---
+layout: demo-break
+title: Live Demo
+url: /presenter
+---
 
 ---
 layout: cover-image

@@ -1,10 +1,4 @@
 ---
-layout: demo-break
-title: Upload & Transcode Demo
-url: /presenter
----
-
----
 clicks: 7
 ---
 
@@ -645,9 +639,3 @@ sequenceDiagram
   max-width: 80% !important;
 }
 </style>
-
----
-layout: demo-break
-title: ABR & Quality Selector Demo
-url: /catalog
----
