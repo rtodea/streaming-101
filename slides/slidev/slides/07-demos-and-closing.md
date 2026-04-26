@@ -60,12 +60,12 @@ layout: next-adventure
 
 <v-clicks>
 
-- **WebRTC**: real-time peer-to-peer streaming with sub-second latency
-- **DASH**: MPEG's alternative to HLS (Dynamic Adaptive Streaming over HTTP)
-- **AV1**: next-gen codec, better than H.265, royalty-free
-- **WebTransport**: HTTP/3 based low-latency streaming protocol
-- **Media Source Extensions**: the browser API that makes hls.js possible
-- **WebCodecs**: low-level encode/decode directly in the browser
+- **WebRTC** real-time peer-to-peer streaming with sub-second latency
+- **DASH** MPEG's alternative to HLS (Dynamic Adaptive Streaming over HTTP)
+- **AV1** next-gen codec, better than H.265, royalty-free
+- **WebTransport** HTTP/3 based low-latency streaming protocol
+- **Media Source Extensions** the browser API that makes hls.js possible
+- **WebCodecs** low-level encode/decode directly in the browser
 
 </v-clicks>
 
