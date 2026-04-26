@@ -222,6 +222,38 @@ blockquote { font-size: 0.9em; }
 
 ---
 
+# 3D Holographic Fan: POV in 2026
+
+<div class="grid grid-cols-2 gap-6 items-center holo-fan">
+<div>
+  <Youtube id="bhiM5opoj-E" :width="480" :height="270" />
+  <p class="caption">POV LED fan demo. <a href="https://www.youtube.com/watch?v=bhiM5opoj-E" target="_blank">youtube.com/watch?v=bhiM5opoj-E</a></p>
+</div>
+<div>
+
+<v-clicks>
+
+- A ring of LEDs on **rotating fan blades**, spinning at 400 to 1000 RPM.
+- The microcontroller fires each LED at the **exact angle** where that point should display a pixel of the image.
+- Your eye smears the dots together into a **floating image** in mid-air.
+- Same physics as the **phenakistoscope** (1832), with 200 years of LED engineering and a microcontroller.
+- Modern uses: storefront ads, trade-show signage, Marvel-movie cameos.
+
+</v-clicks>
+
+</div>
+</div>
+
+<style scoped>
+.holo-fan iframe { width: 100%; max-width: 100%; max-height: 45vh; aspect-ratio: 16 / 9; }
+.holo-fan .caption { font-size: 0.55em; color: var(--slidev-theme-accents-1); text-align: center; margin-top: 0.3em; }
+.holo-fan .caption a { text-decoration: underline; }
+.holo-fan ul { font-size: 0.72em; }
+.holo-fan ul li { margin: 0.18em 0; }
+</style>
+
+---
+
 # You're Blind Several Times a Minute
 
 Your eyes don't pan smoothly. They jump in **saccades**, 3 to 5 times every second.
