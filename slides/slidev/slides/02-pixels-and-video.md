@@ -72,6 +72,156 @@ blockquote { font-size: 0.9em; }
 
 ---
 
+# Thaumatrope (1825)
+
+<div class="grid grid-cols-2 gap-6 items-center precursor">
+<div>
+  <img v-click src="/images/thaumatrope.gif" alt="Animated thaumatrope" />
+  <p class="caption">Thaumatropio cane e uccelli, 1825. Wikimedia Commons.</p>
+</div>
+<div>
+
+<v-clicks>
+
+- **John Ayrton Paris**, a London surgeon-turned-toymaker.
+- A small cardboard disc with one image on each side, spun on twisted strings.
+- Each face flashes 10 to 20 times per second. The retina holds the previous image just long enough that you see them as **one combined picture**.
+- First commercial proof of **persistence of vision**.
+
+</v-clicks>
+
+</div>
+</div>
+
+<style scoped>
+.precursor img { width: 100%; max-height: 50vh; object-fit: contain; border-radius: 0.4em; }
+.precursor .caption { font-size: 0.6em; color: var(--slidev-theme-accents-1); text-align: center; margin-top: 0.3em; }
+.precursor ul { font-size: 0.78em; }
+.precursor ul li { margin: 0.2em 0; }
+</style>
+
+---
+
+# Phenakistoscope (1832)
+
+<div class="grid grid-cols-2 gap-6 items-center precursor">
+<div>
+  <img v-click src="/images/phenakistoscope.gif" alt="Animated phenakistoscope disc" />
+  <p class="caption">Phenakistoscope disc, c. 1833. Wikimedia Commons.</p>
+</div>
+<div>
+
+<v-clicks>
+
+- **Joseph Plateau** in Belgium, and **Simon Stampfer** in Austria, independently.
+- A spinning disc with sequential drawings around the rim, viewed through slits in front of a mirror.
+- The slits act as a shutter, masking each frame so only one is visible at a time. The first device to show **fluid motion**.
+- Plateau is sometimes called the first animator. He spent his last 40 years blind, possibly from staring at the sun in his early experiments.
+
+</v-clicks>
+
+</div>
+</div>
+
+<style scoped>
+.precursor img { width: 100%; max-height: 50vh; object-fit: contain; border-radius: 0.4em; }
+.precursor .caption { font-size: 0.6em; color: var(--slidev-theme-accents-1); text-align: center; margin-top: 0.3em; }
+.precursor ul { font-size: 0.72em; }
+.precursor ul li { margin: 0.18em 0; }
+</style>
+
+---
+
+# Zoetrope (1834)
+
+<div class="grid grid-cols-2 gap-6 items-center precursor">
+<div>
+  <img v-click src="/images/zoetrope.gif" alt="Computer-generated Muybridge zoetrope animation" />
+  <p class="caption">Muybridge horse zoetrope simulation. Wikimedia Commons.</p>
+</div>
+<div>
+
+<v-clicks>
+
+- **William George Horner**, English mathematician. Originally called the *daedalum*; renamed *zoetrope* (Greek "wheel of life") in 1867.
+- A rotating drum with slits cut in the side; sequential images line the inside wall.
+- The big upgrade over the phenakistoscope: **multiple people watch at the same time**.
+- The **flipbook** (1868, kineograph) was the same trick on paper pages: flick your thumb, get motion.
+
+</v-clicks>
+
+</div>
+</div>
+
+<style scoped>
+.precursor img { width: 100%; max-height: 50vh; object-fit: contain; border-radius: 0.4em; }
+.precursor .caption { font-size: 0.6em; color: var(--slidev-theme-accents-1); text-align: center; margin-top: 0.3em; }
+.precursor ul { font-size: 0.72em; }
+.precursor ul li { margin: 0.18em 0; }
+</style>
+
+---
+
+# Praxinoscope (1877)
+
+<div class="grid grid-cols-2 gap-6 items-center precursor">
+<div>
+  <img v-click src="/images/praxinoscope.jpg" alt="Original Reynaud praxinoscope" />
+  <p class="caption">Reynaud praxinoscope (CnAM 16554). Wikimedia Commons.</p>
+</div>
+<div>
+
+<v-clicks>
+
+- **Émile Reynaud**, French inventor.
+- Replaced the zoetrope's slits with a ring of mirrors. Reflections stitch the sequence together with **no flicker** and a brighter image.
+- In 1888 his **Théâtre Optique** projected hand-painted strips for an audience: the first public animated projection, **eight years before** the Lumière brothers' first film show in 1895.
+
+</v-clicks>
+
+</div>
+</div>
+
+<style scoped>
+.precursor img { width: 100%; max-height: 50vh; object-fit: contain; border-radius: 0.4em; }
+.precursor .caption { font-size: 0.6em; color: var(--slidev-theme-accents-1); text-align: center; margin-top: 0.3em; }
+.precursor ul { font-size: 0.75em; }
+.precursor ul li { margin: 0.2em 0; }
+</style>
+
+---
+
+# The Phi Phenomenon (1912)
+
+<div class="grid grid-cols-2 gap-6 items-center phi">
+<div>
+  <Youtube id="-zbzt7Cb2e4" :width="480" :height="270" />
+  <p class="caption">Demo: <a href="https://www.youtube.com/watch?v=-zbzt7Cb2e4" target="_blank">youtube.com/watch?v=-zbzt7Cb2e4</a></p>
+</div>
+<div>
+
+<v-clicks>
+
+- **Max Wertheimer**, founder of Gestalt psychology, 1912.
+- Two stationary lights flashing in alternating positions are perceived as **one moving light**.
+- Persistence of vision says "the last image lingers". Phi says **the brain invents the motion between distinct images**.
+- Modern cinema relies on phi, not persistence. Each frame is a separate sharp picture; the visual cortex fills in the slide between them.
+
+</v-clicks>
+
+</div>
+</div>
+
+<style scoped>
+.phi iframe { width: 100%; max-width: 100%; max-height: 45vh; aspect-ratio: 16 / 9; }
+.phi .caption { font-size: 0.55em; color: var(--slidev-theme-accents-1); text-align: center; margin-top: 0.3em; }
+.phi .caption a { text-decoration: underline; }
+.phi ul { font-size: 0.72em; }
+.phi ul li { margin: 0.18em 0; }
+</style>
+
+---
+
 # You're Blind Several Times a Minute
 
 Your eyes don't pan smoothly. They jump in **saccades**, 3 to 5 times every second.
