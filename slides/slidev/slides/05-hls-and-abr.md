@@ -479,36 +479,43 @@ blockquote { font-size: 0.8em; margin-top: 0.3em; }
 
 </v-clicks>
 
----
-
-# ABR, Visualized
-
-<div class="abr-images">
-
-<figure v-click>
-  <img src="/images/abr-bit-rates.png" alt="Same content encoded at several different bit rates" />
-  <figcaption>Source content is encoded once per quality, producing parallel <em>bit rate ladders</em>.</figcaption>
-</figure>
-
-<figure v-click>
+<figure class="abr-bottom-figure" v-click>
   <img src="/images/abr-overview.png" alt="Client switching between bit rate variants over time as bandwidth changes" />
-  <figcaption>Client jumps between variants as bandwidth changes. The same playback timeline, stitched from chunks of different qualities.</figcaption>
+  <figcaption>Client jumps between variants as bandwidth changes. <span class="src">Wikimedia Commons, 2011.</span></figcaption>
 </figure>
-
-</div>
-
-<v-click>
-
-> Diagrams: Wikimedia Commons, 2011.
-
-</v-click>
 
 <style scoped>
-.abr-images { display: flex; flex-direction: column; gap: 0.5em; align-items: center; }
-.abr-images figure { margin: 0; width: 92%; text-align: center; }
-.abr-images img { width: 100%; height: auto; max-height: 26vh; object-fit: contain; border-radius: 0.3em; }
-.abr-images figcaption { font-size: 0.65em; color: var(--slidev-theme-accents-1); margin-top: 0.15em; }
-blockquote { font-size: 0.65em; text-align: center; margin-top: 0.3em; }
+ul { font-size: 0.85em; }
+.abr-bottom-figure { margin: 0.6em auto 0; width: 78%; text-align: center; }
+.abr-bottom-figure img { width: 100%; height: auto; max-height: 18vh; object-fit: contain; border-radius: 0.3em; }
+.abr-bottom-figure figcaption { font-size: 0.6em; color: var(--slidev-theme-accents-1); margin-top: 0.2em; }
+.abr-bottom-figure .src { opacity: 0.8; }
+</style>
+
+---
+
+# ABR vs Network Bandwidth
+
+<figure class="abr-ladder" v-click>
+  <img src="/images/abr-bit-rates.png" alt="Same content encoded at several different bit rates" />
+  <figcaption>Source content is encoded once per quality, producing parallel <em>bit rate ladders</em>. <span class="src">Wikimedia Commons, 2011.</span></figcaption>
+</figure>
+
+<v-clicks>
+
+- Each row is the **same content**, encoded at a different bitrate.
+- The manifest publishes each row's bitrate via the `BANDWIDTH` field.
+- The player matches its **measured download speed** against those numbers and picks the highest row that still fits.
+
+</v-clicks>
+
+<style scoped>
+.abr-ladder { margin: 0.4em auto 0.6em; width: 78%; text-align: center; }
+.abr-ladder img { width: 100%; height: auto; max-height: 22vh; object-fit: contain; border-radius: 0.3em; }
+.abr-ladder figcaption { font-size: 0.6em; color: var(--slidev-theme-accents-1); margin-top: 0.2em; }
+.abr-ladder .src { opacity: 0.8; }
+ul { font-size: 0.78em; margin-top: 0.4em; }
+ul li { margin: 0.1em 0; }
 </style>
 
 ---
