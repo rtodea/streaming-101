@@ -21,53 +21,71 @@ HLS chunks are just HTTP responses, so the browser (and CDNs) can cache them. Bu
 </v-click>
 
 ---
+clicks: 8
+---
 
 # VOD vs Live: How the Client Sees Them
 
 Same `.m3u8` format. Opposite temporal contracts.
 
-<div class="grid grid-cols-2 gap-8 vod-live">
+<div class="grid grid-cols-2 gap-4 vod-live">
+
 <div>
 
-### VOD: full timeline visible
+<h3 class="vod-live__title">VOD: full timeline visible</h3>
 
-<v-clicks>
-
-- Manifest is downloaded **once** and ends with `#EXT-X-ENDLIST`.
-- Client knows segments 0 through N up front.
-- Free to fetch in any order, even out of sequence ("seek to 1:30:00 first").
-- Every byte is reachable, forever.
-
-</v-clicks>
+<MermaidReveal :diagram="`
+sequenceDiagram
+    participant C as Client
+    participant O as Origin
+    C->>O: GET master.m3u8
+    O-->>C: variants (1080p / 720p / 480p)
+    C->>O: GET 1080p/index.m3u8
+    O-->>C: full list + ENDLIST
+    C->>O: GET seg_001.ts
+    C->>O: GET seg_002.ts
+    C->>O: GET seg_003.ts
+`" />
 
 </div>
+
 <div>
 
-### Live: a peephole on the present
+<h3 class="vod-live__title">Live: peephole on the present</h3>
 
-<v-clicks>
-
-- Manifest lists only the **current window** (often ~20 s of segments).
-- Client must **re-poll** the manifest periodically to discover new segments.
-- Old segments expire from the manifest, and often from disk.
-- The "future" doesn't exist yet. The encoder is creating it now.
-
-</v-clicks>
+<MermaidReveal :diagram="`
+sequenceDiagram
+    participant C as Client
+    participant S as Packager
+    C->>S: GET live.m3u8
+    S-->>C: window: seg 104, 105, 106
+    C->>S: GET seg_104.ts
+    Note over S: encoding seg_107
+    C->>S: GET live.m3u8 (re-poll)
+    S-->>C: window: seg 105, 106, 107
+    C->>S: GET seg_107.ts
+`" />
 
 </div>
+
 </div>
 
-<v-click>
+<v-click at="8">
 
 > VOD is a complete book. Live is a ticker tape.
 
 </v-click>
 
 <style scoped>
-.vod-live ul { font-size: 0.78em; }
-.vod-live ul li { margin: 0.15em 0; }
-.vod-live h3 { font-size: 0.95em; margin-bottom: 0.3em; }
-blockquote { font-size: 0.9em; margin-top: 0.6em; }
+.vod-live__title { font-size: 0.85em; text-align: center; margin: 0 0 0.2em; font-weight: 600; }
+.vod-live :deep(.mermaid-reveal) { padding: 0.3rem; height: auto; }
+.vod-live :deep(.mermaid-reveal svg) {
+  max-width: 100% !important;
+  max-height: 48vh !important;
+  display: block;
+  margin: 0 auto;
+}
+blockquote { font-size: 0.9em; margin-top: 0.4em; text-align: center; }
 </style>
 
 ---
