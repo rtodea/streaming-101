@@ -1,40 +1,28 @@
-# The Wow Factor
-
-<v-clicks>
-
-- **📱 Audience Participation**: Scan the QR code → join as a viewer → your stats appear live on the dashboard.
-- **📊 Live Stats Dashboard**: The presenter sees real-time viewer count, bandwidth, quality distribution, and chunk request rates.
-- **🤚 Bandwidth Degradation**: Cover your phone → watch the dashboard react as quality downgrades cascade across viewers.
-
-</v-clicks>
-
----
-
-# Segment Size Tuning
-
-The presenter tweaks HLS segment duration **live**, and the audience sees latency change in real-time.
-
-<table>
-<thead><tr><th>Config</th><th>Before</th><th>After</th></tr></thead>
-<tbody>
-<tr><td v-click>Segment size</td><td v-click>6s</td><td v-click>2s</td></tr>
-<tr><td v-click>Buffered chunks</td><td v-click>3</td><td v-click>3</td></tr>
-<tr><td v-click>Latency</td><td v-click>~18s</td><td v-click>~6s</td></tr>
-</tbody>
-</table>
-
-
-<v-click>
-
-> The "aha moment": a single config change dramatically affects the streaming experience.
-
-</v-click>
-
 ---
 layout: demo-break
 title: Audience Participation Demo
 url: /presenter
 ---
+
+---
+
+# My Takeaways
+
+<v-clicks>
+
+1. Video is a **magic trick**: showing pictures fast enough that the brain invents motion.
+2. There is **a lot of engineering** behind our video files: in the capturing devices, in storing them, in playing them back.
+3. **Everyone uses FFmpeg** under the hood for video pipelines.
+4. The **network adds an extra layer of complexity**: jitter, latency, ABR, all in service of keeping the picture moving.
+5. **"Live" is never live**, neither in your biology nor in your browser.
+6. **Browser standards have to please everybody**, and sometimes it's not obvious why things are "limited by design".
+
+</v-clicks>
+
+<style scoped>
+ol { font-size: 0.85em; margin: 0.4em 0; }
+ol li { margin: 0.3em 0; }
+</style>
 
 ---
 layout: url-reference
