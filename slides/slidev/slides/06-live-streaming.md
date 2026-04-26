@@ -22,6 +22,56 @@ HLS chunks are just HTTP responses, so the browser (and CDNs) can cache them. Bu
 
 ---
 
+# VOD vs Live: How the Client Sees Them
+
+Same `.m3u8` format. Opposite temporal contracts.
+
+<div class="grid grid-cols-2 gap-8 vod-live">
+<div>
+
+### VOD: full timeline visible
+
+<v-clicks>
+
+- Manifest is downloaded **once** and ends with `#EXT-X-ENDLIST`.
+- Client knows segments 0 through N up front.
+- Free to fetch in any order, even out of sequence ("seek to 1:30:00 first").
+- Every byte is reachable, forever.
+
+</v-clicks>
+
+</div>
+<div>
+
+### Live: a peephole on the present
+
+<v-clicks>
+
+- Manifest lists only the **current window** (often ~20 s of segments).
+- Client must **re-poll** the manifest periodically to discover new segments.
+- Old segments expire from the manifest, and often from disk.
+- The "future" doesn't exist yet. The encoder is creating it now.
+
+</v-clicks>
+
+</div>
+</div>
+
+<v-click>
+
+> VOD is a complete book. Live is a ticker tape.
+
+</v-click>
+
+<style scoped>
+.vod-live ul { font-size: 0.78em; }
+.vod-live ul li { margin: 0.15em 0; }
+.vod-live h3 { font-size: 0.95em; margin-bottom: 0.3em; }
+blockquote { font-size: 0.9em; margin-top: 0.6em; }
+</style>
+
+---
+
 # Live Streaming
 
 <v-clicks>
@@ -31,6 +81,118 @@ HLS chunks are just HTTP responses, so the browser (and CDNs) can cache them. Bu
 - **Deliver**: HLS chunks generated on-the-fly → viewers pull via `.m3u8` manifest
 
 </v-clicks>
+
+---
+
+# Two Clocks Tug at the Stream
+
+Streaming is a fight between two clocks that wish they were identical.
+
+<v-clicks>
+
+- **Producer clock** *(at the encoder)*: ticks every time a frame is captured. Steady at, say, 30 Hz.
+- **Consumer clock** *(at the browser GPU)*: ticks every time a frame is drawn. Also 30 Hz.
+- The **network** between them is a *time stretcher*. Two packets sent 33 ms apart can arrive 200 ms apart, or 5 ms apart.
+
+</v-clicks>
+
+<v-click>
+
+### The conveyor-belt metaphor
+
+</v-click>
+
+<v-clicks>
+
+- The encoder puts 30 boxes per second onto a belt.
+- The player takes 30 boxes per second off the belt.
+- If the belt's speed is perfectly constant, the buffer never fills or drains.
+- The internet is **not a belt**. It is a series of unreliable couriers, each taking a slightly different amount of time.
+
+</v-clicks>
+
+<v-click>
+
+> The buffer's job is to absorb the difference between the belt the encoder thinks it's on and the one the network actually provides.
+
+</v-click>
+
+<style scoped>
+ul { font-size: 0.82em; margin: 0.3em 0; }
+ul li { margin: 0.1em 0; }
+h3 { font-size: 0.95em; margin: 0.4em 0 0.15em; }
+blockquote { font-size: 0.85em; margin-top: 0.4em; }
+</style>
+
+---
+
+# Latency vs Jitter: The Real Killer
+
+> Latency is **fixed delay**. Jitter is **variable delay**. Continuity dies on jitter, not latency.
+
+<v-click>
+
+<table class="lj-table">
+<thead><tr><th></th><th>Latency</th><th>Jitter</th></tr></thead>
+<tbody>
+<tr><td><b>What it is</b></td><td>How long any one packet takes</td><td>How much packet times <em>vary</em></td></tr>
+<tr><td><b>Example</b></td><td>Every packet: 200 ms</td><td>100, 900, 50, 300 ms ...</td></tr>
+<tr><td><b>Effect on player</b></td><td>Just starts 200 ms later. Smooth.</td><td>"I needed a frame 30 ms ago. Where is it?"</td></tr>
+<tr><td><b>Mitigation</b></td><td>None needed</td><td>Pre-buffer enough seconds to absorb the worst spike</td></tr>
+</tbody>
+</table>
+
+</v-click>
+
+<v-clicks>
+
+- A perfectly slow link (high latency, zero jitter) plays smoothly. It just sits behind reality.
+- A perfectly fast link with bursts (low latency, high jitter) **stutters** unless the buffer is big enough.
+- "Average bandwidth" is a misleading number for live. Worst-case **arrival variance** matters more.
+
+</v-clicks>
+
+<v-click>
+
+> A slow, steady stream beats a fast, bursty one. The buffer is a *shock absorber*, not a battery.
+
+</v-click>
+
+<style scoped>
+.lj-table { font-size: 0.72em; margin-top: 0.3em; }
+.lj-table th, .lj-table td { padding: 0.25em 0.5em; vertical-align: top; }
+ul { font-size: 0.75em; margin: 0.25em 0; }
+ul li { margin: 0.1em 0; }
+blockquote { font-size: 0.82em; margin: 0.3em 0; }
+</style>
+
+---
+clicks: 7
+---
+
+# The Life of One Second of Video
+
+<MermaidReveal :diagram="`
+sequenceDiagram
+    participant Cam as Camera
+    participant Enc as Encoder
+    participant Net as Network
+    participant Buf as Browser Buffer
+    participant GPU as GPU
+    Cam->>Enc: 30 raw frames captured (~33 ms each)
+    Enc->>Enc: Compress to I, P, B frames (50 to 200 ms)
+    Enc->>Net: Send segment over HTTP
+    Net->>Buf: Arrive after 100 to 900 ms (jitter!)
+    Buf->>Buf: Hold a few seconds as a cushion
+    Buf->>GPU: Release at clean 30 Hz
+    GPU->>GPU: Decode and draw
+`" />
+
+> Jitter goes in, smoothness comes out. The buffer is what bridges them.
+
+<style scoped>
+blockquote { font-size: 0.85em; margin-top: 0.5em; text-align: center; }
+</style>
 
 ---
 
@@ -53,6 +215,55 @@ HLS requires **~3 chunks buffered** before playback starts.
 Shorter segments = lower latency, but more HTTP requests and less compression efficiency.
 
 </v-click>
+
+---
+
+# Why "Live" Is 7 to 30 Seconds Behind
+
+"Live" TV is a polite fiction. By the time a goal hits your TV, the stadium has already cheered.
+
+<v-click>
+
+<table class="latency-table">
+<thead><tr><th>Stage</th><th>Cost</th><th>Why</th></tr></thead>
+<tbody>
+<tr><td><b>Encoding</b></td><td>1 to 2 s</td><td>Lookahead for B-frames, motion estimation</td></tr>
+<tr><td><b>Segmentation</b></td><td>~6 s</td><td>HLS player wants 3 segments before play. 2 s × 3 = 6 s.</td></tr>
+<tr><td><b>CDN propagation</b></td><td>1 to 2 s</td><td>Origin to edge hops; cache fill on first request</td></tr>
+<tr><td><b>Player buffer</b></td><td>2 to 10 s</td><td>Headroom for network jitter</td></tr>
+<tr><td><b>Total</b></td><td><b>10 to 30 s</b></td><td>Standard HLS, end to end</td></tr>
+</tbody>
+</table>
+
+</v-click>
+
+<v-click>
+
+### The faster alternatives
+
+</v-click>
+
+<v-clicks>
+
+- **Low-Latency HLS (LL-HLS)**: streams partial segments before the full one is finished. End-to-end ~1 s.
+- **WebRTC**: skips HLS entirely, runs over UDP with no segmentation. ~200 ms. Different protocol, no CDN scale.
+
+</v-clicks>
+
+<v-click>
+
+> HLS's bargain: **pay 7 to 30 s in latency, get infinite scale via plain HTTP CDNs**. For most live, that trade is fine.
+
+</v-click>
+
+<style scoped>
+.latency-table { font-size: 0.75em; margin: 0.3em 0; }
+.latency-table th, .latency-table td { padding: 0.25em 0.5em; vertical-align: top; }
+h3 { font-size: 0.95em; margin: 0.4em 0 0.15em; }
+ul { font-size: 0.78em; margin: 0.25em 0; }
+ul li { margin: 0.1em 0; }
+blockquote { font-size: 0.82em; margin-top: 0.3em; }
+</style>
 
 ---
 clicks: 7
