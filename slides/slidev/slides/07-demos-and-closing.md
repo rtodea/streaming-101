@@ -65,7 +65,7 @@ layout: next-adventure
 
 ---
 layout: cover-image
-image: /images/tv-test-pattern.jpg
+image: /images/smpte-color-bars.svg
 side: right
 ---
 
