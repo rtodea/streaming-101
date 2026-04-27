@@ -562,6 +562,24 @@ blockquote { font-size: 0.85em; margin-top: 0.4em; }
 
 ---
 
+# The Checkerboard Demo
+
+<v-clicks>
+
+- A **static** checkerboard compresses almost perfectly. Temporal compression removes everything.
+- A **rotating** checkerboard defeats temporal compression; every frame is unique.
+- At low bitrates, sharp edges show **blocking artifacts**: the squares smear into gray zones.
+
+</v-clicks>
+
+<v-click>
+
+> This is exactly what happens when your player switches from high to low quality.
+
+</v-click>
+
+---
+
 # Making the `_still` Files with FFmpeg
 
 ```bash {all|1-4|6-9|11-14|all}
@@ -654,21 +672,3 @@ table.sizes code { font-size: 0.95em; }
 p { font-size: 0.78em; }
 blockquote { font-size: 0.7em; margin-top: 0.4em; }
 </style>
-
----
-
-# The Checkerboard Demo
-
-<v-clicks>
-
-- A **static** checkerboard compresses almost perfectly. Temporal compression removes everything.
-- A **rotating** checkerboard defeats temporal compression; every frame is unique.
-- At low bitrates, sharp edges show **blocking artifacts**: the squares smear into gray zones.
-
-</v-clicks>
-
-<v-click>
-
-> This is exactly what happens when your player switches from high to low quality.
-
-</v-click>
