@@ -1,3 +1,41 @@
+# Meet HLS: HTTP Live Streaming
+
+<v-clicks>
+
+- **HLS** = HTTP Live Streaming, Apple's protocol for delivering video over plain HTTP/HTTPS.
+- Shipped with **iPhone OS 3** in **June 2009** so the iPhone could stream over flaky 3G.
+- Standardized as **RFC 8216** (IETF Informational, August 2017) eight years after launch.
+- The trick: chop the video into small files, list them in a playlist, let any **HTTP server or CDN** serve them. No streaming server, no special protocol.
+
+</v-clicks>
+
+<v-click>
+
+### Two file types do all the work
+
+</v-click>
+
+<v-clicks>
+
+- **`.m3u8`** — the playlist. A UTF-8 text file (`.m3u` from the Winamp era + `8` for UTF-8) that lists either quality variants or segment URLs.
+- **`.ts`** — MPEG-2 Transport Stream segment. A few seconds of audio + video. Originally designed for satellite/cable broadcast in the 1990s; HLS reused it because every device already decoded it.
+- **fMP4** — added to HLS in **2016** so it could share segments with MPEG-DASH (the rival ISO/IEC standard from 2012). Same playlist format, different container.
+
+</v-clicks>
+
+<v-click>
+
+> One playlist file, a pile of small video chunks, ordinary HTTP. That is the entire idea. The next 20 slides are details.
+
+</v-click>
+
+<style scoped>
+ul { font-size: 0.78em; margin: 0.2em 0; }
+ul li { margin: 0.15em 0; }
+h3 { font-size: 0.95em; margin: 0.4em 0 0.15em; }
+blockquote { font-size: 0.78em; margin-top: 0.3em; }
+</style>
+
 ---
 clicks: 7
 ---
