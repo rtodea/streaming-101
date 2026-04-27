@@ -1,29 +1,3 @@
-# Why Video Even Works
-
-Video is just still pictures shown fast. Two old ideas explain why your brain experiences "motion."
-
-<v-clicks>
-
-- **Persistence of vision** *(Peter Mark Roget, 1824)*. The same Roget who later compiled the thesaurus. He noticed that the spokes of a wheel, seen through the slats of a fence, appeared continuous. His paper proposed that a retinal image **lingers ~50 ms** after the light is gone.
-- **The Phi phenomenon** *(Max Wertheimer, 1912)*. Two dots flashing in different positions are perceived as one dot **moving**. Motion isn't on the screen. It's **invented by the visual cortex**.
-- **Why 24 fps?** Silent films ran at 16 to 22 fps to save expensive nitrate stock. When sound-on-film arrived in 1927, the industry needed a *consistent* speed for the optical audio track. 24 fps was the cheapest rate that kept dialog intelligible and dropped the choppiness.
-
-</v-clicks>
-
-<v-click>
-
-> Cinema works not because we're seeing motion, but because our brain *invents* motion from a flicker of stills.
-
-</v-click>
-
-<style scoped>
-ul { font-size: 0.85em; }
-ul li { margin: 0.25em 0; }
-blockquote { font-size: 0.9em; }
-</style>
-
----
-
 # Thaumatrope (1825)
 
 <div class="grid grid-cols-2 gap-6 items-center precursor">
@@ -208,7 +182,11 @@ blockquote { font-size: 0.9em; }
 
 # You're Blind Several Times a Minute
 
+<v-click>
+
 Your eyes don't pan smoothly. They jump in **saccades**, 3 to 5 times every second.
+
+</v-click>
 
 <v-clicks>
 
@@ -234,7 +212,11 @@ blockquote { font-size: 0.9em; }
 
 # Blinks Are P-Frames for Your Eyes
 
+<v-click>
+
 You blink 15 to 20 times per minute, ~100 ms each. Roughly **10% of your waking life is spent with your eyes shut.**
+
+</v-click>
 
 <v-clicks>
 
@@ -269,7 +251,11 @@ blockquote { font-size: 0.85em; margin-top: 0.3em; }
 
 # You Live ~100 ms in the Past
 
+<v-click>
+
 Vision has a pipeline. Each stage adds latency.
+
+</v-click>
 
 <v-clicks>
 
@@ -332,7 +318,11 @@ sequenceDiagram
 
 # Your Brain Is Already Predicting
 
+<v-click>
+
 If the brain has a 100 ms lag, how do you catch a ball?
+
+</v-click>
 
 <v-clicks>
 
@@ -406,7 +396,11 @@ At the lowest level: a sequence of **frames**, each frame a grid of **pixels**, 
 
 # YouTube Quality Tiers: What Do They Mean?
 
+<v-click>
+
 The number is the **vertical pixel count**. More pixels = sharper image, but exponentially more data.
+
+</v-click>
 
 <table>
 <thead><tr><th>Label</th><th>Resolution</th><th>Pixels/Frame</th><th>×1080p</th></tr></thead>
@@ -457,7 +451,11 @@ The number is the **vertical pixel count**. More pixels = sharper image, but exp
 
 # Frame Rate: 30 fps vs 60 fps
 
+<v-click>
+
 The **frame rate** multiplies everything. More frames per second = smoother motion, but double the data.
+
+</v-click>
 
 <table>
 <thead><tr><th>Resolution</th><th>30 fps (raw)</th><th>60 fps (raw)</th><th>Difference</th></tr></thead>
