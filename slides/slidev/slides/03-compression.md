@@ -562,32 +562,28 @@ blockquote { font-size: 0.85em; margin-top: 0.4em; }
 
 ---
 
-# Making the Demo Files with FFmpeg
+# Making the `_still` Files with FFmpeg
 
-```bash {all|1-4|6-9|11-14|16-18|all}
+```bash {all|1-4|6-9|11-14|all}
 # 1. Static checkerboard PNG (geq filter draws each square via pixel coords)
 ffmpeg -f lavfi -i "color=white:s=1080x1080" \
   -vf "geq=lum='if(eq(mod(floor(X/135)+floor(Y/135),2),0),255,0)'" \
   -frames:v 1 checkerboard.png
 
-# 2. Rotate it (360 degrees over 10s, defeats temporal compression)
+# 2. Loop the still PNG into a 10s video (no rotation, no motion at all)
 ffmpeg -loop 1 -i checkerboard.png -t 10 \
-  -vf "rotate=2*PI*t/10:fillcolor=white:ow=1080:oh=1080" \
-  -c:v libx264 -pix_fmt yuv420p checkerboard_rotating.mp4
+  -c:v libx264 -pix_fmt yuv420p -r 30 \
+  checkerboard_still.mp4
 
-# 3. Re-encode at four quality tiers (-b:v = target bitrate)
-ffmpeg -i checkerboard_rotating.mp4 -c:v libx264 -b:v 5M   high.mp4
-ffmpeg -i checkerboard_rotating.mp4 -c:v libx264 -b:v 200k low.mp4
-ffmpeg -i checkerboard_rotating.mp4 -c:v libx264 -b:v 50k  potato.mp4
-
-# 4. Stack two clips horizontally for side-by-side viewing
-ffmpeg -i high.mp4 -i potato.mp4 \
-  -filter_complex "[0:v][1:v]hstack=inputs=2" comparison.mp4
+# 3. Re-encode the still clip at three bitrate tiers
+ffmpeg -i checkerboard_still.mp4 -c:v libx264 -b:v 5M   high_still.mp4
+ffmpeg -i checkerboard_still.mp4 -c:v libx264 -b:v 200k low_still.mp4
+ffmpeg -i checkerboard_still.mp4 -c:v libx264 -b:v 50k  potato_still.mp4
 ```
 
 <v-click>
 
-> Same input, four output bitrates. The 100× spread (5 Mbps vs 50 kbps) is what produces the artifacts you'll see on the next slide.
+> Start simple: nothing moves. Every frame is identical to the first, so temporal compression flattens all four files to **under 60 KB**, regardless of the target bitrate.
 
 </v-click>
 
@@ -598,23 +594,27 @@ blockquote { font-size: 0.85em; margin-top: 0.5em; }
 
 ---
 
-# Making the `_still` Files with FFmpeg
+# Making the `_rotating` Files with FFmpeg
 
-```bash {all|1-4|6-9|all}
-# 1. Loop the static PNG into a 10s video (no rotation, no motion at all)
+```bash {all|1-4|6-9|11-13|all}
+# 1. Rotate the PNG (360 degrees over 10s, defeats temporal compression)
 ffmpeg -loop 1 -i checkerboard.png -t 10 \
-  -c:v libx264 -pix_fmt yuv420p -r 30 \
-  checkerboard_still.mp4
+  -vf "rotate=2*PI*t/10:fillcolor=white:ow=1080:oh=1080" \
+  -c:v libx264 -pix_fmt yuv420p checkerboard_rotating.mp4
 
-# 2. Re-encode the still clip at the same three bitrate tiers
-ffmpeg -i checkerboard_still.mp4 -c:v libx264 -b:v 5M   high_still.mp4
-ffmpeg -i checkerboard_still.mp4 -c:v libx264 -b:v 200k low_still.mp4
-ffmpeg -i checkerboard_still.mp4 -c:v libx264 -b:v 50k  potato_still.mp4
+# 2. Re-encode the rotating clip at the same three bitrate tiers
+ffmpeg -i checkerboard_rotating.mp4 -c:v libx264 -b:v 5M   high_rotating.mp4
+ffmpeg -i checkerboard_rotating.mp4 -c:v libx264 -b:v 200k low_rotating.mp4
+ffmpeg -i checkerboard_rotating.mp4 -c:v libx264 -b:v 50k  potato_rotating.mp4
+
+# 3. Stack two clips horizontally for side-by-side viewing
+ffmpeg -i high_rotating.mp4 -i potato_rotating.mp4 \
+  -filter_complex "[0:v][1:v]hstack=inputs=2" comparison.mp4
 ```
 
 <v-click>
 
-> Same source PNG, same encoder flags as the rotating clips. The only thing missing is **motion**, which is why all four still files stay under 60 KB.
+> Now make it hard: every frame is unique. The encoder has nothing to reuse, so the **100× bitrate spread** (5 Mbps vs 50 kbps) translates straight into the visible artifacts on the next slide.
 
 </v-click>
 
@@ -633,17 +633,17 @@ Every clip below is **H.264 / libx264**, profile **High**, level **3.2**, `yuv42
 <thead><tr><th>File</th><th>Source</th><th>Encoder flag</th><th>Bitrate</th><th>Size</th></tr></thead>
 <tbody>
 <tr><td v-click><code>checkerboard_still.mp4</code></td><td v-click>looped PNG</td><td v-click>default (CRF 23)</td><td v-click>16 kbps</td><td v-click>24 KB</td></tr>
-<tr><td v-click><code>checkerboard_rotating.mp4</code></td><td v-click>rotated PNG</td><td v-click>default (CRF 23)</td><td v-click>1.56 Mbps</td><td v-click><b>1.95 MB</b></td></tr>
 <tr><td v-click><code>high_still.mp4</code></td><td v-click>still re-encode</td><td v-click><code>-b:v 5M</code></td><td v-click>23 kbps</td><td v-click>33 KB</td></tr>
-<tr><td v-click><code>high.mp4</code></td><td v-click>rotating re-encode</td><td v-click><code>-b:v 5M</code></td><td v-click>4.47 Mbps</td><td v-click><b>5.60 MB</b></td></tr>
-<tr><td v-click><code>low.mp4</code></td><td v-click>rotating re-encode</td><td v-click><code>-b:v 200k</code></td><td v-click>356 kbps</td><td v-click>169 KB</td></tr>
-<tr><td v-click><code>potato.mp4</code></td><td v-click>rotating re-encode</td><td v-click><code>-b:v 50k</code></td><td v-click>305 kbps</td><td v-click>385 KB</td></tr>
+<tr><td v-click><code>checkerboard_rotating.mp4</code></td><td v-click>rotated PNG</td><td v-click>default (CRF 23)</td><td v-click>1.56 Mbps</td><td v-click><b>1.95 MB</b></td></tr>
+<tr><td v-click><code>high_rotating.mp4</code></td><td v-click>rotating re-encode</td><td v-click><code>-b:v 5M</code></td><td v-click>4.47 Mbps</td><td v-click><b>5.60 MB</b></td></tr>
+<tr><td v-click><code>low_rotating.mp4</code></td><td v-click>rotating re-encode</td><td v-click><code>-b:v 200k</code></td><td v-click>356 kbps</td><td v-click>169 KB</td></tr>
+<tr><td v-click><code>potato_rotating.mp4</code></td><td v-click>rotating re-encode</td><td v-click><code>-b:v 50k</code></td><td v-click>305 kbps</td><td v-click>385 KB</td></tr>
 </tbody>
 </table>
 
 <v-click>
 
-> **Why is `high.mp4` larger than the source?** The source used libx264 defaults (CRF 23 → ~1.56 Mbps). `high.mp4` was forced to a 5 Mbps target, so the encoder spends 3× more bits. Re-encoding upward inflates the file but **cannot recover** information the source already discarded.
+> **Why is `high_rotating.mp4` larger than the source?** The source used libx264 defaults (CRF 23 → ~1.56 Mbps). `high_rotating.mp4` was forced to a 5 Mbps target, so the encoder spends 3× more bits. Re-encoding upward inflates the file but **cannot recover** information the source already discarded.
 
 </v-click>
 
