@@ -112,16 +112,18 @@ sequenceDiagram
 
 </v-clicks>
 
+<div v-click>
 <table>
 <thead><tr><th></th><th>Software (CPU)</th><th>Hardware (GPU)</th></tr></thead>
 <tbody>
-<tr><td v-click><b>Speed</b></td><td v-click>Slower (general-purpose cores)</td><td v-click>Much faster (purpose-built circuits)</td></tr>
-<tr><td v-click><b>Power</b></td><td v-click>High CPU usage, battery drain</td><td v-click>Minimal (dedicated low-power block)</td></tr>
-<tr><td v-click><b>4K60</b></td><td v-click>Struggles on older CPUs</td><td v-click>Effortless on modern GPUs</td></tr>
-<tr><td v-click><b>Codec support</b></td><td v-click>Everything (just compile it)</td><td v-click>Limited to what chip supports</td></tr>
-<tr><td v-click><b>Fallback</b></td><td v-click>Always available</td><td v-click>Falls back to software if unsupported</td></tr>
+<tr v-click><td><b>Speed</b></td><td>Slower (general-purpose cores)</td><td>Much faster (purpose-built circuits)</td></tr>
+<tr v-click><td><b>Power</b></td><td>High CPU usage, battery drain</td><td>Minimal (dedicated low-power block)</td></tr>
+<tr v-click><td><b>4K60</b></td><td>Struggles on older CPUs</td><td>Effortless on modern GPUs</td></tr>
+<tr v-click><td><b>Codec support</b></td><td>Everything (just compile it)</td><td>Limited to what chip supports</td></tr>
+<tr v-click><td><b>Fallback</b></td><td>Always available</td><td>Falls back to software if unsupported</td></tr>
 </tbody>
 </table>
+</div>
 
 
 <v-click>
@@ -167,19 +169,21 @@ sequenceDiagram
 
 # Who Owns What: Browser vs OS vs Hardware
 
+<div v-click>
 <table>
 <thead><tr><th>Responsibility</th><th>Who handles it</th></tr></thead>
 <tbody>
-<tr><td v-click>Container parsing (MP4, WebM)</td><td v-click><b>Browser</b>, C++ media stack</td></tr>
-<tr><td v-click>Codec decoding (H.264, AV1)</td><td v-click><b>Browser → GPU</b>, hardware if available, else CPU</td></tr>
-<tr><td v-click>Color space conversion (YUV→RGB)</td><td v-click><b>GPU</b>, shader or fixed-function</td></tr>
-<tr><td v-click>Color management (ICC profiles)</td><td v-click><b>OS</b>, color profiles per display</td></tr>
-<tr><td v-click>HDR tone mapping</td><td v-click><b>OS + GPU driver</b> (Windows HDR / macOS EDR)</td></tr>
-<tr><td v-click>Frame presentation (vsync, tearing)</td><td v-click><b>OS compositor</b> (DWM on Win, Quartz on Mac)</td></tr>
-<tr><td v-click>DRM decryption (Widevine, FairPlay)</td><td v-click><b>Browser CDM</b>, sandboxed C++ module</td></tr>
-<tr><td v-click>Audio output & sync</td><td v-click><b>Browser → OS</b> via Web Audio / platform APIs</td></tr>
+<tr v-click><td>Container parsing (MP4, WebM)</td><td><b>Browser</b>, C++ media stack</td></tr>
+<tr v-click><td>Codec decoding (H.264, AV1)</td><td><b>Browser → GPU</b>, hardware if available, else CPU</td></tr>
+<tr v-click><td>Color space conversion (YUV→RGB)</td><td><b>GPU</b>, shader or fixed-function</td></tr>
+<tr v-click><td>Color management (ICC profiles)</td><td><b>OS</b>, color profiles per display</td></tr>
+<tr v-click><td>HDR tone mapping</td><td><b>OS + GPU driver</b> (Windows HDR / macOS EDR)</td></tr>
+<tr v-click><td>Frame presentation (vsync, tearing)</td><td><b>OS compositor</b> (DWM on Win, Quartz on Mac)</td></tr>
+<tr v-click><td>DRM decryption (Widevine, FairPlay)</td><td><b>Browser CDM</b>, sandboxed C++ module</td></tr>
+<tr v-click><td>Audio output & sync</td><td><b>Browser → OS</b> via Web Audio / platform APIs</td></tr>
 </tbody>
 </table>
+</div>
 
 
 <v-click>

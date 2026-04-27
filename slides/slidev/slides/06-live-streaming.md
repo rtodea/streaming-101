@@ -2,16 +2,18 @@
 
 HLS chunks are just HTTP responses, so the browser (and CDNs) can cache them. But the caching strategy is **opposite** for VOD and live.
 
+<div v-click>
 <table>
 <thead><tr><th></th><th>VOD</th><th>Live</th></tr></thead>
 <tbody>
-<tr><td v-click><b>Chunks (.ts)</b></td><td v-click>Immutable, cache forever</td><td v-click>Immutable, cache but short-lived on disk</td></tr>
-<tr><td v-click><b>Manifest (.m3u8)</b></td><td v-click>Static, cache aggressively</td><td v-click>Changes every segment, <b>must not cache</b></td></tr>
-<tr><td v-click><b>Cache-Control</b></td><td v-click><code>max-age=31536000</code></td><td v-click><code>no-cache</code> or <code>max-age=1</code></td></tr>
-<tr><td v-click><b>Seeking</b></td><td v-click>Any chunk instantly (cached)</td><td v-click>Only recent window (old chunks expire)</td></tr>
-<tr><td v-click><b>Replay</b></td><td v-click>Free, served from cache</td><td v-click>Impossible unless DVR window configured</td></tr>
+<tr v-click><td><b>Chunks (.ts)</b></td><td>Immutable, cache forever</td><td>Immutable, cache but short-lived on disk</td></tr>
+<tr v-click><td><b>Manifest (.m3u8)</b></td><td>Static, cache aggressively</td><td>Changes every segment, <b>must not cache</b></td></tr>
+<tr v-click><td><b>Cache-Control</b></td><td><code>max-age=31536000</code></td><td><code>no-cache</code> or <code>max-age=1</code></td></tr>
+<tr v-click><td><b>Seeking</b></td><td>Any chunk instantly (cached)</td><td>Only recent window (old chunks expire)</td></tr>
+<tr v-click><td><b>Replay</b></td><td>Free, served from cache</td><td>Impossible unless DVR window configured</td></tr>
 </tbody>
 </table>
+</div>
 
 
 <v-click>
@@ -148,15 +150,17 @@ blockquote { font-size: 0.85em; margin-top: 0.4em; }
 
 > Latency is **fixed delay**. Jitter is **variable delay**. Continuity dies on jitter, not latency.
 
+<div v-click>
 <table class="lj-table">
 <thead><tr><th></th><th>Latency</th><th>Jitter</th></tr></thead>
 <tbody>
-<tr><td v-click><b>What it is</b></td><td v-click>How long any one packet takes</td><td v-click>How much packet times <em>vary</em></td></tr>
-<tr><td v-click><b>Example</b></td><td v-click>Every packet: 200 ms</td><td v-click>100, 900, 50, 300 ms ...</td></tr>
-<tr><td v-click><b>Effect on player</b></td><td v-click>Just starts 200 ms later. Smooth.</td><td v-click>"I needed a frame 30 ms ago. Where is it?"</td></tr>
-<tr><td v-click><b>Mitigation</b></td><td v-click>None needed</td><td v-click>Pre-buffer enough seconds to absorb the worst spike</td></tr>
+<tr v-click><td><b>What it is</b></td><td>How long any one packet takes</td><td>How much packet times <em>vary</em></td></tr>
+<tr v-click><td><b>Example</b></td><td>Every packet: 200 ms</td><td>100, 900, 50, 300 ms ...</td></tr>
+<tr v-click><td><b>Effect on player</b></td><td>Just starts 200 ms later. Smooth.</td><td>"I needed a frame 30 ms ago. Where is it?"</td></tr>
+<tr v-click><td><b>Mitigation</b></td><td>None needed</td><td>Pre-buffer enough seconds to absorb the worst spike</td></tr>
 </tbody>
 </table>
+</div>
 
 <v-clicks>
 
@@ -214,14 +218,16 @@ blockquote { font-size: 0.85em; margin-top: 0.5em; text-align: center; }
 
 HLS requires **~3 chunks buffered** before playback starts.
 
+<div v-click>
 <table>
 <thead><tr><th>Segment Size</th><th>Chunks Buffered</th><th>Latency</th></tr></thead>
 <tbody>
-<tr><td v-click>6 seconds</td><td v-click>3</td><td v-click><b>~18s</b></td></tr>
-<tr><td v-click>2 seconds</td><td v-click>3</td><td v-click><b>~6s</b></td></tr>
-<tr><td v-click>1 second</td><td v-click>3</td><td v-click><b>~3s</b></td></tr>
+<tr v-click><td>6 seconds</td><td>3</td><td><b>~18s</b></td></tr>
+<tr v-click><td>2 seconds</td><td>3</td><td><b>~6s</b></td></tr>
+<tr v-click><td>1 second</td><td>3</td><td><b>~3s</b></td></tr>
 </tbody>
 </table>
+</div>
 
 
 <v-click>
@@ -236,16 +242,18 @@ Shorter segments = lower latency, but more HTTP requests and less compression ef
 
 "Live" TV is a polite fiction. By the time a goal hits your TV, the stadium has already cheered.
 
+<div v-click>
 <table class="latency-table">
 <thead><tr><th>Stage</th><th>Cost</th><th>Why</th></tr></thead>
 <tbody>
-<tr><td v-click><b>Encoding</b></td><td v-click>1 to 2 s</td><td v-click>Lookahead for B-frames, motion estimation</td></tr>
-<tr><td v-click><b>Segmentation</b></td><td v-click>~6 s</td><td v-click>HLS player wants 3 segments before play. 2 s × 3 = 6 s.</td></tr>
-<tr><td v-click><b>CDN propagation</b></td><td v-click>1 to 2 s</td><td v-click>Origin to edge hops; cache fill on first request</td></tr>
-<tr><td v-click><b>Player buffer</b></td><td v-click>2 to 10 s</td><td v-click>Headroom for network jitter</td></tr>
-<tr><td v-click><b>Total</b></td><td v-click><b>10 to 30 s</b></td><td v-click>Standard HLS, end to end</td></tr>
+<tr v-click><td><b>Encoding</b></td><td>1 to 2 s</td><td>Lookahead for B-frames, motion estimation</td></tr>
+<tr v-click><td><b>Segmentation</b></td><td>~6 s</td><td>HLS player wants 3 segments before play. 2 s × 3 = 6 s.</td></tr>
+<tr v-click><td><b>CDN propagation</b></td><td>1 to 2 s</td><td>Origin to edge hops; cache fill on first request</td></tr>
+<tr v-click><td><b>Player buffer</b></td><td>2 to 10 s</td><td>Headroom for network jitter</td></tr>
+<tr v-click><td><b>Total</b></td><td><b>10 to 30 s</b></td><td>Standard HLS, end to end</td></tr>
 </tbody>
 </table>
+</div>
 
 <v-click>
 
@@ -324,16 +332,18 @@ Net effect: at any moment, only the last **~20 seconds** of the stream exists. A
 
 `#EXT-X-PLAYLIST-TYPE` tells the player what kind of manifest this is.
 
+<div v-click>
 <table>
 <thead><tr><th></th><th>VOD</th><th>EVENT</th><th>LIVE <em>(no tag)</em></th></tr></thead>
 <tbody>
-<tr><td v-click><b>Segments can be removed?</b></td><td v-click>No</td><td v-click>No</td><td v-click>Yes</td></tr>
-<tr><td v-click><b>Playlist grows?</b></td><td v-click>No (fixed)</td><td v-click>Yes (append)</td><td v-click>Sliding window</td></tr>
-<tr><td v-click><b>Player can scrub back?</b></td><td v-click>Full timeline</td><td v-click>Full timeline</td><td v-click>Only current window</td></tr>
-<tr><td v-click><b>Ends with <code>#EXT-X-ENDLIST</code>?</b></td><td v-click>Yes</td><td v-click>When done</td><td v-click>Never</td></tr>
-<tr><td v-click><b>FFmpeg flag</b></td><td v-click><code>-hls_playlist_type vod</code></td><td v-click><code>-hls_playlist_type event</code></td><td v-click>default</td></tr>
+<tr v-click><td><b>Segments can be removed?</b></td><td>No</td><td>No</td><td>Yes</td></tr>
+<tr v-click><td><b>Playlist grows?</b></td><td>No (fixed)</td><td>Yes (append)</td><td>Sliding window</td></tr>
+<tr v-click><td><b>Player can scrub back?</b></td><td>Full timeline</td><td>Full timeline</td><td>Only current window</td></tr>
+<tr v-click><td><b>Ends with <code>#EXT-X-ENDLIST</code>?</b></td><td>Yes</td><td>When done</td><td>Never</td></tr>
+<tr v-click><td><b>FFmpeg flag</b></td><td><code>-hls_playlist_type vod</code></td><td><code>-hls_playlist_type event</code></td><td>default</td></tr>
 </tbody>
 </table>
+</div>
 
 
 <v-click>

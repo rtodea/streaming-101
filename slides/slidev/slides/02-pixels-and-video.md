@@ -2,8 +2,10 @@
 
 <div class="grid grid-cols-2 gap-6 items-center precursor">
 <div>
-  <img v-click src="/images/thaumatrope.gif" alt="Animated thaumatrope" />
-  <p class="caption">Thaumatropio cane e uccelli, 1825. Wikimedia Commons.</p>
+  <div v-click>
+    <img src="/images/thaumatrope.gif" alt="Animated thaumatrope" />
+    <p class="caption">Thaumatropio cane e uccelli, 1825. Wikimedia Commons.</p>
+  </div>
 </div>
 <div>
 
@@ -32,8 +34,10 @@
 
 <div class="grid grid-cols-2 gap-6 items-center precursor">
 <div>
-  <img v-click src="/images/phenakistoscope.gif" alt="Animated phenakistoscope disc" />
-  <p class="caption">Phenakistoscope disc, c. 1833. Wikimedia Commons.</p>
+  <div v-click>
+    <img src="/images/phenakistoscope.gif" alt="Animated phenakistoscope disc" />
+    <p class="caption">Phenakistoscope disc, c. 1833. Wikimedia Commons.</p>
+  </div>
 </div>
 <div>
 
@@ -62,8 +66,10 @@
 
 <div class="grid grid-cols-2 gap-6 items-center precursor">
 <div>
-  <img v-click src="/images/zoetrope.gif" alt="Computer-generated Muybridge zoetrope animation" />
-  <p class="caption">Muybridge horse zoetrope simulation. Wikimedia Commons.</p>
+  <div v-click>
+    <img src="/images/zoetrope.gif" alt="Computer-generated Muybridge zoetrope animation" />
+    <p class="caption">Muybridge horse zoetrope simulation. Wikimedia Commons.</p>
+  </div>
 </div>
 <div>
 
@@ -92,8 +98,10 @@
 
 <div class="grid grid-cols-2 gap-6 items-center precursor">
 <div>
-  <img v-click src="/images/praxinoscope.jpg" alt="Original Reynaud praxinoscope" />
-  <p class="caption">Reynaud praxinoscope (CnAM 16554). Wikimedia Commons.</p>
+  <div v-click>
+    <img src="/images/praxinoscope.jpg" alt="Original Reynaud praxinoscope" />
+    <p class="caption">Reynaud praxinoscope (CnAM 16554). Wikimedia Commons.</p>
+  </div>
 </div>
 <div>
 
@@ -121,8 +129,10 @@
 
 <div class="grid grid-cols-2 gap-6 items-center phi">
 <div>
-  <Youtube id="-zbzt7Cb2e4" :width="480" :height="270" />
-  <p class="caption">Demo: <a href="https://www.youtube.com/watch?v=-zbzt7Cb2e4" target="_blank">youtube.com/watch?v=-zbzt7Cb2e4</a></p>
+  <div v-click>
+    <Youtube id="-zbzt7Cb2e4" :width="480" :height="270" />
+    <p class="caption">Demo: <a href="https://www.youtube.com/watch?v=-zbzt7Cb2e4" target="_blank">youtube.com/watch?v=-zbzt7Cb2e4</a></p>
+  </div>
 </div>
 <div>
 
@@ -152,8 +162,10 @@
 
 <div class="grid grid-cols-2 gap-6 items-center holo-fan">
 <div>
-  <Youtube id="fXqMqn2h9r8" :width="480" :height="270" />
-  <p class="caption">POV LED fan demo. <a href="https://www.youtube.com/watch?v=fXqMqn2h9r8" target="_blank">youtube.com/watch?v=fXqMqn2h9r8</a></p>
+  <div v-click>
+    <Youtube id="fXqMqn2h9r8" :width="480" :height="270" />
+    <p class="caption">POV LED fan demo. <a href="https://www.youtube.com/watch?v=fXqMqn2h9r8" target="_blank">youtube.com/watch?v=fXqMqn2h9r8</a></p>
+  </div>
 </div>
 <div>
 
@@ -182,11 +194,7 @@
 
 # You're Blind Several Times a Minute
 
-<v-click>
-
 Your eyes don't pan smoothly. They jump in **saccades**, 3 to 5 times every second.
-
-</v-click>
 
 <v-clicks>
 
@@ -212,11 +220,7 @@ blockquote { font-size: 0.9em; }
 
 # Blinks Are P-Frames for Your Eyes
 
-<v-click>
-
 You blink 15 to 20 times per minute, ~100 ms each. Roughly **10% of your waking life is spent with your eyes shut.**
-
-</v-click>
 
 <v-clicks>
 
@@ -225,14 +229,16 @@ You blink 15 to 20 times per minute, ~100 ms each. Roughly **10% of your waking 
 
 </v-clicks>
 
+<div v-click>
 <table>
 <thead><tr><th>Codec trick</th><th>Brain trick</th></tr></thead>
 <tbody>
-<tr><td v-click><b>I-frame</b>: full picture, decodable alone</td><td v-click>A fresh look on saccade landing</td></tr>
-<tr><td v-click><b>P-frame</b>: store only what changed</td><td v-click>Reuse iconic memory, patch the delta</td></tr>
-<tr><td v-click><b>Buffer</b>: smooth out network jitter</td><td v-click>Smooth out blinks and saccades</td></tr>
+<tr v-click><td><b>I-frame</b>: full picture, decodable alone</td><td>A fresh look on saccade landing</td></tr>
+<tr v-click><td><b>P-frame</b>: store only what changed</td><td>Reuse iconic memory, patch the delta</td></tr>
+<tr v-click><td><b>Buffer</b>: smooth out network jitter</td><td>Smooth out blinks and saccades</td></tr>
 </tbody>
 </table>
+</div>
 
 <v-click>
 
@@ -251,11 +257,7 @@ blockquote { font-size: 0.85em; margin-top: 0.3em; }
 
 # You Live ~100 ms in the Past
 
-<v-click>
-
 Vision has a pipeline. Each stage adds latency.
-
-</v-click>
 
 <v-clicks>
 
@@ -318,11 +320,7 @@ sequenceDiagram
 
 # Your Brain Is Already Predicting
 
-<v-click>
-
 If the brain has a 100 ms lag, how do you catch a ball?
-
-</v-click>
 
 <v-clicks>
 
@@ -364,16 +362,18 @@ At the lowest level: a sequence of **frames**, each frame a grid of **pixels**, 
 
 </v-click>
 
+<div v-click>
 <table>
 <thead><tr><th>Level</th><th>What it is</th><th>Size</th></tr></thead>
 <tbody>
-<tr><td v-click><b>Byte</b></td><td v-click>8 bits (0 or 1), 0–255</td><td v-click>1 byte</td></tr>
-<tr><td v-click><b>Pixel</b></td><td v-click>3 bytes (R, G, B)</td><td v-click>3 bytes</td></tr>
-<tr><td v-click><b>Frame</b></td><td v-click>1920 × 1080 pixels</td><td v-click><b>~6 MB</b></td></tr>
-<tr><td v-click><b>1 second</b></td><td v-click>30 frames</td><td v-click><b>~180 MB/s</b></td></tr>
-<tr><td v-click><b>1 minute</b></td><td v-click>60 seconds</td><td v-click><b>~10.8 GB</b></td></tr>
+<tr v-click><td><b>Byte</b></td><td>8 bits (0 or 1), 0–255</td><td>1 byte</td></tr>
+<tr v-click><td><b>Pixel</b></td><td>3 bytes (R, G, B)</td><td>3 bytes</td></tr>
+<tr v-click><td><b>Frame</b></td><td>1920 × 1080 pixels</td><td><b>~6 MB</b></td></tr>
+<tr v-click><td><b>1 second</b></td><td>30 frames</td><td><b>~180 MB/s</b></td></tr>
+<tr v-click><td><b>1 minute</b></td><td>60 seconds</td><td><b>~10.8 GB</b></td></tr>
 </tbody>
 </table>
+</div>
 
 <v-click>
 
@@ -396,23 +396,21 @@ At the lowest level: a sequence of **frames**, each frame a grid of **pixels**, 
 
 # YouTube Quality Tiers: What Do They Mean?
 
-<v-click>
-
 The number is the **vertical pixel count**. More pixels = sharper image, but exponentially more data.
 
-</v-click>
-
+<div v-click>
 <table>
 <thead><tr><th>Label</th><th>Resolution</th><th>Pixels/Frame</th><th>×1080p</th></tr></thead>
 <tbody>
-<tr><td v-click>360p</td><td v-click>640 × 360</td><td v-click>230,400 ≈ 230K</td><td v-click>0.11×</td></tr>
-<tr><td v-click>480p (SD)</td><td v-click>854 × 480</td><td v-click>409,920 ≈ 410K</td><td v-click>0.20×</td></tr>
-<tr><td v-click>720p (HD)</td><td v-click>1280 × 720</td><td v-click>921,600 ≈ 922K</td><td v-click>0.44×</td></tr>
-<tr><td v-click>1080p (Full HD)</td><td v-click>1920 × 1080</td><td v-click>2,073,600 ≈ 2.07M</td><td v-click>1×</td></tr>
-<tr><td v-click>1440p (2K)</td><td v-click>2560 × 1440</td><td v-click>3,686,400 ≈ 3.69M</td><td v-click>1.78×</td></tr>
-<tr><td v-click>2160p (4K)</td><td v-click>3840 × 2160</td><td v-click>8,294,400 ≈ 8.29M</td><td v-click>4×</td></tr>
+<tr v-click><td>360p</td><td>640 × 360</td><td>230,400 ≈ 230K</td><td>0.11×</td></tr>
+<tr v-click><td>480p (SD)</td><td>854 × 480</td><td>409,920 ≈ 410K</td><td>0.20×</td></tr>
+<tr v-click><td>720p (HD)</td><td>1280 × 720</td><td>921,600 ≈ 922K</td><td>0.44×</td></tr>
+<tr v-click><td>1080p (Full HD)</td><td>1920 × 1080</td><td>2,073,600 ≈ 2.07M</td><td>1×</td></tr>
+<tr v-click><td>1440p (2K)</td><td>2560 × 1440</td><td>3,686,400 ≈ 3.69M</td><td>1.78×</td></tr>
+<tr v-click><td>2160p (4K)</td><td>3840 × 2160</td><td>8,294,400 ≈ 8.29M</td><td>4×</td></tr>
 </tbody>
 </table>
+</div>
 
 <v-click>
 
@@ -451,20 +449,18 @@ The number is the **vertical pixel count**. More pixels = sharper image, but exp
 
 # Frame Rate: 30 fps vs 60 fps
 
-<v-click>
-
 The **frame rate** multiplies everything. More frames per second = smoother motion, but double the data.
 
-</v-click>
-
+<div v-click>
 <table>
 <thead><tr><th>Resolution</th><th>30 fps (raw)</th><th>60 fps (raw)</th><th>Difference</th></tr></thead>
 <tbody>
-<tr><td v-click>720p</td><td v-click>82,944,000 ≈ 79 MB/s</td><td v-click>165,888,000 ≈ 158 MB/s</td><td v-click>2×</td></tr>
-<tr><td v-click>1080p</td><td v-click>186,624,000 ≈ 178 MB/s</td><td v-click>373,248,000 ≈ 356 MB/s</td><td v-click>2×</td></tr>
-<tr><td v-click>4K</td><td v-click>746,496,000 ≈ 712 MB/s</td><td v-click>1,492,992,000 ≈ 1.4 GB/s</td><td v-click>2×</td></tr>
+<tr v-click><td>720p</td><td>82,944,000 ≈ 79 MB/s</td><td>165,888,000 ≈ 158 MB/s</td><td>2×</td></tr>
+<tr v-click><td>1080p</td><td>186,624,000 ≈ 178 MB/s</td><td>373,248,000 ≈ 356 MB/s</td><td>2×</td></tr>
+<tr v-click><td>4K</td><td>746,496,000 ≈ 712 MB/s</td><td>1,492,992,000 ≈ 1.4 GB/s</td><td>2×</td></tr>
 </tbody>
 </table>
+</div>
 
 <v-clicks>
 

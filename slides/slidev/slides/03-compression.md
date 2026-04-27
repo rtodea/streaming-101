@@ -10,15 +10,17 @@ $$R_{\text{raw}} = 1920 \times 1080 \times 3 \times 30 \approx 178 \text{ MB/s} 
 
 </v-click>
 
+<div v-click>
 <table>
 <thead><tr><th>Codec</th><th>Compression</th><th>1080p30 Bitrate</th><th>1 hour</th></tr></thead>
 <tbody>
-<tr><td v-click>Raw</td><td v-click>1:1</td><td v-click>1.42 Gbps</td><td v-click>625 GB</td></tr>
-<tr><td v-click>H.264</td><td v-click>~50:1</td><td v-click>~28 Mbps</td><td v-click>~12.5 GB</td></tr>
-<tr><td v-click>H.265</td><td v-click>~100:1</td><td v-click>~14 Mbps</td><td v-click>~6.25 GB</td></tr>
-<tr><td v-click>AV1</td><td v-click>~130:1</td><td v-click>~11 Mbps</td><td v-click>~4.8 GB</td></tr>
+<tr v-click><td>Raw</td><td>1:1</td><td>1.42 Gbps</td><td>625 GB</td></tr>
+<tr v-click><td>H.264</td><td>~50:1</td><td>~28 Mbps</td><td>~12.5 GB</td></tr>
+<tr v-click><td>H.265</td><td>~100:1</td><td>~14 Mbps</td><td>~6.25 GB</td></tr>
+<tr v-click><td>AV1</td><td>~130:1</td><td>~11 Mbps</td><td>~4.8 GB</td></tr>
 </tbody>
 </table>
+</div>
 
 
 ---
@@ -439,15 +441,17 @@ Quality follows a **logarithmic** curve with bitrate:
 
 </v-clicks>
 
+<div v-click>
 <table>
 <thead><tr><th>Connection</th><th>Bandwidth</th><th>Max Quality</th></tr></thead>
 <tbody>
-<tr><td v-click>3G Mobile</td><td v-click>~2 Mbps</td><td v-click>480p</td></tr>
-<tr><td v-click>4G Mobile</td><td v-click>~20 Mbps</td><td v-click>1080p</td></tr>
-<tr><td v-click>Home Wi-Fi</td><td v-click>~50 Mbps</td><td v-click>4K</td></tr>
-<tr><td v-click>Covered phone 📱🤚</td><td v-click>&lt;1 Mbps</td><td v-click>Buffering</td></tr>
+<tr v-click><td>3G Mobile</td><td>~2 Mbps</td><td>480p</td></tr>
+<tr v-click><td>4G Mobile</td><td>~20 Mbps</td><td>1080p</td></tr>
+<tr v-click><td>Home Wi-Fi</td><td>~50 Mbps</td><td>4K</td></tr>
+<tr v-click><td>Covered phone 📱🤚</td><td>&lt;1 Mbps</td><td>Buffering</td></tr>
 </tbody>
 </table>
+</div>
 
 
 ---
@@ -647,20 +651,22 @@ blockquote { font-size: 0.85em; margin-top: 0.5em; }
 
 Every clip below is **H.264 / libx264**, profile **High**, level **3.2**, `yuv420p`, **30 fps**, **1080×1080**, **10 s**. Only the encoder flags change.
 
+<div v-click>
 <table class="sizes">
 <thead><tr><th>File</th><th>Source</th><th>Encoder flag</th><th>Bitrate</th><th>Size</th></tr></thead>
 <tbody>
-<tr><td v-click><code>checkerboard.png</code></td><td v-click><code>lavfi</code> + <code>geq</code></td><td v-click>PNG (lossless)</td><td v-click>n/a</td><td v-click>26 KB</td></tr>
-<tr><td v-click><code>checkerboard_still.mp4</code></td><td v-click>looped PNG</td><td v-click>default (CRF 23)</td><td v-click>16 kbps</td><td v-click>24 KB</td></tr>
-<tr><td v-click><code>checkerboard_rotating.mp4</code></td><td v-click>rotated PNG</td><td v-click>default (CRF 23)</td><td v-click>1.56 Mbps</td><td v-click><b>1.95 MB</b></td></tr>
-<tr><td v-click><code>high_still.mp4</code></td><td v-click>still re-encode</td><td v-click><code>-b:v 5M</code></td><td v-click>23 kbps</td><td v-click>33 KB</td></tr>
-<tr><td v-click><code>high_rotating.mp4</code></td><td v-click>rotating re-encode</td><td v-click><code>-b:v 5M</code></td><td v-click>4.47 Mbps</td><td v-click><b>5.60 MB</b></td></tr>
-<tr><td v-click><code>low_still.mp4</code></td><td v-click>still re-encode</td><td v-click><code>-b:v 200k</code></td><td v-click>42 kbps</td><td v-click>57 KB</td></tr>
-<tr><td v-click><code>low_rotating.mp4</code></td><td v-click>rotating re-encode</td><td v-click><code>-b:v 200k</code></td><td v-click>356 kbps</td><td v-click>169 KB</td></tr>
-<tr><td v-click><code>potato_still.mp4</code></td><td v-click>still re-encode</td><td v-click><code>-b:v 50k</code></td><td v-click>34 kbps</td><td v-click>46 KB</td></tr>
-<tr><td v-click><code>potato_rotating.mp4</code></td><td v-click>rotating re-encode</td><td v-click><code>-b:v 50k</code></td><td v-click>305 kbps</td><td v-click>385 KB</td></tr>
+<tr v-click><td><code>checkerboard.png</code></td><td><code>lavfi</code> + <code>geq</code></td><td>PNG (lossless)</td><td>n/a</td><td>26 KB</td></tr>
+<tr v-click><td><code>checkerboard_still.mp4</code></td><td>looped PNG</td><td>default (CRF 23)</td><td>16 kbps</td><td>24 KB</td></tr>
+<tr v-click><td><code>checkerboard_rotating.mp4</code></td><td>rotated PNG</td><td>default (CRF 23)</td><td>1.56 Mbps</td><td><b>1.95 MB</b></td></tr>
+<tr v-click><td><code>high_still.mp4</code></td><td>still re-encode</td><td><code>-b:v 5M</code></td><td>23 kbps</td><td>33 KB</td></tr>
+<tr v-click><td><code>high_rotating.mp4</code></td><td>rotating re-encode</td><td><code>-b:v 5M</code></td><td>4.47 Mbps</td><td><b>5.60 MB</b></td></tr>
+<tr v-click><td><code>low_still.mp4</code></td><td>still re-encode</td><td><code>-b:v 200k</code></td><td>42 kbps</td><td>57 KB</td></tr>
+<tr v-click><td><code>low_rotating.mp4</code></td><td>rotating re-encode</td><td><code>-b:v 200k</code></td><td>356 kbps</td><td>169 KB</td></tr>
+<tr v-click><td><code>potato_still.mp4</code></td><td>still re-encode</td><td><code>-b:v 50k</code></td><td>34 kbps</td><td>46 KB</td></tr>
+<tr v-click><td><code>potato_rotating.mp4</code></td><td>rotating re-encode</td><td><code>-b:v 50k</code></td><td>305 kbps</td><td>385 KB</td></tr>
 </tbody>
 </table>
+</div>
 
 <v-click>
 
