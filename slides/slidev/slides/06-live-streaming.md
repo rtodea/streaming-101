@@ -2,6 +2,8 @@
 
 HLS chunks are just HTTP responses, so the browser (and CDNs) can cache them. But the caching strategy is **opposite** for VOD and live.
 
+<div :style="{ visibility: $clicks >= 1 ? 'visible' : 'hidden' }">
+
 <table>
 <thead><tr><th></th><th>VOD</th><th>Live</th></tr></thead>
 <tbody>
@@ -12,6 +14,8 @@ HLS chunks are just HTTP responses, so the browser (and CDNs) can cache them. Bu
 <tr><td v-click><b>Replay</b></td><td v-click>Free, served from cache</td><td v-click>Impossible unless DVR window configured</td></tr>
 </tbody>
 </table>
+
+</div>
 
 
 <v-click>
@@ -148,6 +152,8 @@ blockquote { font-size: 0.85em; margin-top: 0.4em; }
 
 > Latency is **fixed delay**. Jitter is **variable delay**. Continuity dies on jitter, not latency.
 
+<div :style="{ visibility: $clicks >= 1 ? 'visible' : 'hidden' }">
+
 <table class="lj-table">
 <thead><tr><th></th><th>Latency</th><th>Jitter</th></tr></thead>
 <tbody>
@@ -157,6 +163,8 @@ blockquote { font-size: 0.85em; margin-top: 0.4em; }
 <tr><td v-click><b>Mitigation</b></td><td v-click>None needed</td><td v-click>Pre-buffer enough seconds to absorb the worst spike</td></tr>
 </tbody>
 </table>
+
+</div>
 
 <v-clicks>
 
@@ -214,6 +222,8 @@ blockquote { font-size: 0.85em; margin-top: 0.5em; text-align: center; }
 
 HLS requires **~3 chunks buffered** before playback starts.
 
+<div :style="{ visibility: $clicks >= 1 ? 'visible' : 'hidden' }">
+
 <table>
 <thead><tr><th>Segment Size</th><th>Chunks Buffered</th><th>Latency</th></tr></thead>
 <tbody>
@@ -222,6 +232,8 @@ HLS requires **~3 chunks buffered** before playback starts.
 <tr><td v-click>1 second</td><td v-click>3</td><td v-click><b>~3s</b></td></tr>
 </tbody>
 </table>
+
+</div>
 
 
 <v-click>
@@ -236,6 +248,8 @@ Shorter segments = lower latency, but more HTTP requests and less compression ef
 
 "Live" TV is a polite fiction. By the time a goal hits your TV, the stadium has already cheered.
 
+<div :style="{ visibility: $clicks >= 1 ? 'visible' : 'hidden' }">
+
 <table class="latency-table">
 <thead><tr><th>Stage</th><th>Cost</th><th>Why</th></tr></thead>
 <tbody>
@@ -246,6 +260,8 @@ Shorter segments = lower latency, but more HTTP requests and less compression ef
 <tr><td v-click><b>Total</b></td><td v-click><b>10 to 30 s</b></td><td v-click>Standard HLS, end to end</td></tr>
 </tbody>
 </table>
+
+</div>
 
 <v-click>
 
@@ -324,6 +340,8 @@ Net effect: at any moment, only the last **~20 seconds** of the stream exists. A
 
 `#EXT-X-PLAYLIST-TYPE` tells the player what kind of manifest this is.
 
+<div :style="{ visibility: $clicks >= 1 ? 'visible' : 'hidden' }">
+
 <table>
 <thead><tr><th></th><th>VOD</th><th>EVENT</th><th>LIVE <em>(no tag)</em></th></tr></thead>
 <tbody>
@@ -334,6 +352,8 @@ Net effect: at any moment, only the last **~20 seconds** of the stream exists. A
 <tr><td v-click><b>FFmpeg flag</b></td><td v-click><code>-hls_playlist_type vod</code></td><td v-click><code>-hls_playlist_type event</code></td><td v-click>default</td></tr>
 </tbody>
 </table>
+
+</div>
 
 
 <v-click>

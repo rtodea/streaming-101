@@ -10,6 +10,8 @@ $$R_{\text{raw}} = 1920 \times 1080 \times 3 \times 30 \approx 178 \text{ MB/s} 
 
 </v-click>
 
+<div :style="{ visibility: $clicks >= 2 ? 'visible' : 'hidden' }">
+
 <table>
 <thead><tr><th>Codec</th><th>Compression</th><th>1080p30 Bitrate</th><th>1 hour</th></tr></thead>
 <tbody>
@@ -19,6 +21,8 @@ $$R_{\text{raw}} = 1920 \times 1080 \times 3 \times 30 \approx 178 \text{ MB/s} 
 <tr><td v-click>AV1</td><td v-click>~130:1</td><td v-click>~11 Mbps</td><td v-click>~4.8 GB</td></tr>
 </tbody>
 </table>
+
+</div>
 
 
 ---
@@ -439,6 +443,8 @@ Quality follows a **logarithmic** curve with bitrate:
 
 </v-clicks>
 
+<div :style="{ visibility: $clicks >= 4 ? 'visible' : 'hidden' }">
+
 <table>
 <thead><tr><th>Connection</th><th>Bandwidth</th><th>Max Quality</th></tr></thead>
 <tbody>
@@ -448,6 +454,8 @@ Quality follows a **logarithmic** curve with bitrate:
 <tr><td v-click>Covered phone 📱🤚</td><td v-click>&lt;1 Mbps</td><td v-click>Buffering</td></tr>
 </tbody>
 </table>
+
+</div>
 
 
 ---
@@ -647,6 +655,8 @@ blockquote { font-size: 0.85em; margin-top: 0.5em; }
 
 Every clip below is **H.264 / libx264**, profile **High**, level **3.2**, `yuv420p`, **30 fps**, **1080×1080**, **10 s**. Only the encoder flags change.
 
+<div :style="{ visibility: $clicks >= 1 ? 'visible' : 'hidden' }">
+
 <table class="sizes">
 <thead><tr><th>File</th><th>Source</th><th>Encoder flag</th><th>Bitrate</th><th>Size</th></tr></thead>
 <tbody>
@@ -661,6 +671,8 @@ Every clip below is **H.264 / libx264**, profile **High**, level **3.2**, `yuv42
 <tr><td v-click><code>potato_rotating.mp4</code></td><td v-click>rotating re-encode</td><td v-click><code>-b:v 50k</code></td><td v-click>305 kbps</td><td v-click>385 KB</td></tr>
 </tbody>
 </table>
+
+</div>
 
 <v-click>
 

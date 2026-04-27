@@ -364,6 +364,8 @@ At the lowest level: a sequence of **frames**, each frame a grid of **pixels**, 
 
 </v-click>
 
+<div :style="{ visibility: $clicks >= 2 ? 'visible' : 'hidden' }">
+
 <table>
 <thead><tr><th>Level</th><th>What it is</th><th>Size</th></tr></thead>
 <tbody>
@@ -374,6 +376,8 @@ At the lowest level: a sequence of **frames**, each frame a grid of **pixels**, 
 <tr><td v-click><b>1 minute</b></td><td v-click>60 seconds</td><td v-click><b>~10.8 GB</b></td></tr>
 </tbody>
 </table>
+
+</div>
 
 <v-click>
 
@@ -398,6 +402,8 @@ At the lowest level: a sequence of **frames**, each frame a grid of **pixels**, 
 
 The number is the **vertical pixel count**. More pixels = sharper image, but exponentially more data.
 
+<div :style="{ visibility: $clicks >= 1 ? 'visible' : 'hidden' }">
+
 <table>
 <thead><tr><th>Label</th><th>Resolution</th><th>Pixels/Frame</th><th>×1080p</th></tr></thead>
 <tbody>
@@ -409,6 +415,8 @@ The number is the **vertical pixel count**. More pixels = sharper image, but exp
 <tr><td v-click>2160p (4K)</td><td v-click>3840 × 2160</td><td v-click>8,294,400 ≈ 8.29M</td><td v-click>4×</td></tr>
 </tbody>
 </table>
+
+</div>
 
 <v-click>
 
@@ -449,6 +457,8 @@ The number is the **vertical pixel count**. More pixels = sharper image, but exp
 
 The **frame rate** multiplies everything. More frames per second = smoother motion, but double the data.
 
+<div :style="{ visibility: $clicks >= 1 ? 'visible' : 'hidden' }">
+
 <table>
 <thead><tr><th>Resolution</th><th>30 fps (raw)</th><th>60 fps (raw)</th><th>Difference</th></tr></thead>
 <tbody>
@@ -457,6 +467,8 @@ The **frame rate** multiplies everything. More frames per second = smoother moti
 <tr><td v-click>4K</td><td v-click>746,496,000 ≈ 712 MB/s</td><td v-click>1,492,992,000 ≈ 1.4 GB/s</td><td v-click>2×</td></tr>
 </tbody>
 </table>
+
+</div>
 
 <v-clicks>
 
