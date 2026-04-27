@@ -229,6 +229,8 @@ You blink 15 to 20 times per minute, ~100 ms each. Roughly **10% of your waking 
 
 </v-clicks>
 
+<div :style="{ visibility: $clicks >= 3 ? 'visible' : 'hidden' }">
+
 <table>
 <thead><tr><th>Codec trick</th><th>Brain trick</th></tr></thead>
 <tbody>
@@ -237,6 +239,8 @@ You blink 15 to 20 times per minute, ~100 ms each. Roughly **10% of your waking 
 <tr><td v-click><b>Buffer</b>: smooth out network jitter</td><td v-click>Smooth out blinks and saccades</td></tr>
 </tbody>
 </table>
+
+</div>
 
 <v-click>
 
