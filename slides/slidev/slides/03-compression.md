@@ -598,6 +598,38 @@ blockquote { font-size: 0.85em; margin-top: 0.5em; }
 
 ---
 
+# Same Codec, Wildly Different Sizes
+
+Every clip below is **H.264 / libx264**, profile **High**, level **3.2**, `yuv420p`, **30 fps**, **1080×1080**, **10 s**. Only the encoder flags change.
+
+<table class="sizes">
+<thead><tr><th>File</th><th>Source</th><th>Encoder flag</th><th>Bitrate</th><th>Size</th></tr></thead>
+<tbody>
+<tr><td v-click><code>checkerboard_still.mp4</code></td><td v-click>looped PNG</td><td v-click>default (CRF 23)</td><td v-click>16 kbps</td><td v-click>24 KB</td></tr>
+<tr><td v-click><code>checkerboard_rotating.mp4</code></td><td v-click>rotated PNG</td><td v-click>default (CRF 23)</td><td v-click>1.56 Mbps</td><td v-click><b>1.95 MB</b></td></tr>
+<tr><td v-click><code>high_still.mp4</code></td><td v-click>still re-encode</td><td v-click><code>-b:v 5M</code></td><td v-click>23 kbps</td><td v-click>33 KB</td></tr>
+<tr><td v-click><code>high.mp4</code></td><td v-click>rotating re-encode</td><td v-click><code>-b:v 5M</code></td><td v-click>4.47 Mbps</td><td v-click><b>5.60 MB</b></td></tr>
+<tr><td v-click><code>low.mp4</code></td><td v-click>rotating re-encode</td><td v-click><code>-b:v 200k</code></td><td v-click>356 kbps</td><td v-click>169 KB</td></tr>
+<tr><td v-click><code>potato.mp4</code></td><td v-click>rotating re-encode</td><td v-click><code>-b:v 50k</code></td><td v-click>305 kbps</td><td v-click>385 KB</td></tr>
+</tbody>
+</table>
+
+<v-click>
+
+> **Why is `high.mp4` larger than the source?** The source used libx264 defaults (CRF 23 → ~1.56 Mbps). `high.mp4` was forced to a 5 Mbps target, so the encoder spends 3× more bits. Re-encoding upward inflates the file but **cannot recover** information the source already discarded.
+
+</v-click>
+
+<style scoped>
+table.sizes { font-size: 0.55em; margin-top: 0.4em; }
+table.sizes th, table.sizes td { padding: 0.18em 0.5em; }
+table.sizes code { font-size: 0.95em; }
+p { font-size: 0.78em; }
+blockquote { font-size: 0.7em; margin-top: 0.4em; }
+</style>
+
+---
+
 # The Checkerboard Demo
 
 <v-clicks>
