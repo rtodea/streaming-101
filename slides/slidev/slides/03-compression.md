@@ -650,6 +650,7 @@ Every clip below is **H.264 / libx264**, profile **High**, level **3.2**, `yuv42
 <table class="sizes">
 <thead><tr><th>File</th><th>Source</th><th>Encoder flag</th><th>Bitrate</th><th>Size</th></tr></thead>
 <tbody>
+<tr><td v-click><code>checkerboard.png</code></td><td v-click><code>lavfi</code> + <code>geq</code></td><td v-click>PNG (lossless)</td><td v-click>n/a</td><td v-click>26 KB</td></tr>
 <tr><td v-click><code>checkerboard_still.mp4</code></td><td v-click>looped PNG</td><td v-click>default (CRF 23)</td><td v-click>16 kbps</td><td v-click>24 KB</td></tr>
 <tr><td v-click><code>checkerboard_rotating.mp4</code></td><td v-click>rotated PNG</td><td v-click>default (CRF 23)</td><td v-click>1.56 Mbps</td><td v-click><b>1.95 MB</b></td></tr>
 <tr><td v-click><code>high_still.mp4</code></td><td v-click>still re-encode</td><td v-click><code>-b:v 5M</code></td><td v-click>23 kbps</td><td v-click>33 KB</td></tr>
