@@ -598,6 +598,33 @@ blockquote { font-size: 0.85em; margin-top: 0.5em; }
 
 ---
 
+# Making the `_still` Files with FFmpeg
+
+```bash {all|1-4|6-9|all}
+# 1. Loop the static PNG into a 10s video (no rotation, no motion at all)
+ffmpeg -loop 1 -i checkerboard.png -t 10 \
+  -c:v libx264 -pix_fmt yuv420p -r 30 \
+  checkerboard_still.mp4
+
+# 2. Re-encode the still clip at the same three bitrate tiers
+ffmpeg -i checkerboard_still.mp4 -c:v libx264 -b:v 5M   high_still.mp4
+ffmpeg -i checkerboard_still.mp4 -c:v libx264 -b:v 200k low_still.mp4
+ffmpeg -i checkerboard_still.mp4 -c:v libx264 -b:v 50k  potato_still.mp4
+```
+
+<v-click>
+
+> Same source PNG, same encoder flags as the rotating clips. The only thing missing is **motion**, which is why all four still files stay under 60 KB.
+
+</v-click>
+
+<style scoped>
+pre { font-size: 0.6em; }
+blockquote { font-size: 0.85em; margin-top: 0.5em; }
+</style>
+
+---
+
 # Same Codec, Wildly Different Sizes
 
 Every clip below is **H.264 / libx264**, profile **High**, level **3.2**, `yuv420p`, **30 fps**, **1080×1080**, **10 s**. Only the encoder flags change.
