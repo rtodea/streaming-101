@@ -1,51 +1,3 @@
-# What Is a Video, Really?
-
-<div class="grid grid-cols-2 gap-6 items-center">
-<div>
-
-<img src="/images/streaming-101-moving-pictures.png" alt="Filmstrip showing a ball bouncing frame by frame" class="filmstrip" />
-
-</div>
-<div>
-
-At the lowest level: a sequence of **frames**, each frame a grid of **pixels**, each pixel a set of **bytes**.
-
-<v-click>
-
-### Pixel → Frame → Video
-
-</v-click>
-
-<table>
-<thead><tr><th>Level</th><th>What it is</th><th>Size</th></tr></thead>
-<tbody>
-<tr><td v-click><b>Byte</b></td><td v-click>8 bits (0 or 1), 0–255</td><td v-click>1 byte</td></tr>
-<tr><td v-click><b>Pixel</b></td><td v-click>3 bytes (R, G, B)</td><td v-click>3 bytes</td></tr>
-<tr><td v-click><b>Frame</b></td><td v-click>1920 × 1080 pixels</td><td v-click><b>~6 MB</b></td></tr>
-<tr><td v-click><b>1 second</b></td><td v-click>30 frames</td><td v-click><b>~180 MB/s</b></td></tr>
-<tr><td v-click><b>1 minute</b></td><td v-click>60 seconds</td><td v-click><b>~10.8 GB</b></td></tr>
-</tbody>
-</table>
-
-<v-click>
-
-> Nobody streams raw video. This is why compression exists.
-
-</v-click>
-
-</div>
-</div>
-
-<style scoped>
-.filmstrip {
-  width: 100%;
-  height: auto;
-  border-radius: 0.5rem;
-}
-</style>
-
----
-
 # Why Video Even Works
 
 Video is just still pictures shown fast. Two old ideas explain why your brain experiences "motion."
@@ -226,8 +178,8 @@ blockquote { font-size: 0.9em; }
 
 <div class="grid grid-cols-2 gap-6 items-center holo-fan">
 <div>
-  <Youtube id="bhiM5opoj-E" :width="480" :height="270" />
-  <p class="caption">POV LED fan demo. <a href="https://www.youtube.com/watch?v=bhiM5opoj-E" target="_blank">youtube.com/watch?v=bhiM5opoj-E</a></p>
+  <Youtube id="fXqMqn2h9r8" :width="480" :height="270" />
+  <p class="caption">POV LED fan demo. <a href="https://www.youtube.com/watch?v=fXqMqn2h9r8" target="_blank">youtube.com/watch?v=fXqMqn2h9r8</a></p>
 </div>
 <div>
 
@@ -400,6 +352,54 @@ If the brain has a 100 ms lag, how do you catch a ball?
 ul { font-size: 0.88em; }
 ul li { margin: 0.25em 0; }
 blockquote { font-size: 0.9em; }
+</style>
+
+---
+
+# How Big Is a Video?
+
+<div class="grid grid-cols-2 gap-6 items-center">
+<div>
+
+<img src="/images/streaming-101-moving-pictures.png" alt="Filmstrip showing a ball bouncing frame by frame" class="filmstrip" />
+
+</div>
+<div>
+
+At the lowest level: a sequence of **frames**, each frame a grid of **pixels**, each pixel a set of **bytes**.
+
+<v-click>
+
+### Pixel → Frame → Video
+
+</v-click>
+
+<table>
+<thead><tr><th>Level</th><th>What it is</th><th>Size</th></tr></thead>
+<tbody>
+<tr><td v-click><b>Byte</b></td><td v-click>8 bits (0 or 1), 0–255</td><td v-click>1 byte</td></tr>
+<tr><td v-click><b>Pixel</b></td><td v-click>3 bytes (R, G, B)</td><td v-click>3 bytes</td></tr>
+<tr><td v-click><b>Frame</b></td><td v-click>1920 × 1080 pixels</td><td v-click><b>~6 MB</b></td></tr>
+<tr><td v-click><b>1 second</b></td><td v-click>30 frames</td><td v-click><b>~180 MB/s</b></td></tr>
+<tr><td v-click><b>1 minute</b></td><td v-click>60 seconds</td><td v-click><b>~10.8 GB</b></td></tr>
+</tbody>
+</table>
+
+<v-click>
+
+> Nobody streams raw video. This is why compression exists.
+
+</v-click>
+
+</div>
+</div>
+
+<style scoped>
+.filmstrip {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+}
 </style>
 
 ---
