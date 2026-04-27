@@ -661,7 +661,13 @@ Every clip below is **H.264 / libx264**, profile **High**, level **3.2**, `yuv42
 
 <v-click>
 
-> **Why is `high_rotating.mp4` larger than the source?** The source used libx264 defaults (CRF 23 → ~1.56 Mbps). `high_rotating.mp4` was forced to a 5 Mbps target, so the encoder spends 3× more bits. Re-encoding upward inflates the file but **cannot recover** information the source already discarded.
+> **What is CRF 23?** **CRF** = *Constant Rate Factor*, libx264's quality-based mode. The encoder targets a **perceived quality level** (0 = lossless, 51 = unwatchable, 23 = the default sane choice; 18 is "visually lossless"). File size depends on **how complex the content is**: a static frame at CRF 23 is tiny, a rotating checkerboard at the same CRF blows up to 1.56 Mbps.
+
+</v-click>
+
+<v-click>
+
+> **Why is `high_rotating.mp4` larger than the source?** The source used CRF 23 → ~1.56 Mbps. `high_rotating.mp4` was forced to a 5 Mbps target, so the encoder spends 3× more bits. Re-encoding upward inflates the file but **cannot recover** information the source already discarded.
 
 </v-click>
 
@@ -670,5 +676,5 @@ table.sizes { font-size: 0.55em; margin-top: 0.4em; }
 table.sizes th, table.sizes td { padding: 0.18em 0.5em; }
 table.sizes code { font-size: 0.95em; }
 p { font-size: 0.78em; }
-blockquote { font-size: 0.7em; margin-top: 0.4em; }
+blockquote { font-size: 0.65em; margin-top: 0.3em; }
 </style>
