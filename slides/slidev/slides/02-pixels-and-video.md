@@ -286,7 +286,7 @@ Vision has a pipeline. Each stage adds latency.
 
 <v-click>
 
-> "Real-time" is a lie. Even your own eyes lag ~100 ms behind reality.
+> "Real-time" is an illusion. Even your own eyes lag ~100 ms behind reality.
 
 </v-click>
 
