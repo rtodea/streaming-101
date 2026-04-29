@@ -366,6 +366,8 @@ Net effect: at any moment, only the last **~20 seconds** of the stream exists. A
 
 # DVR: Three Flags Flipped
 
+**DVR** = *Digital Video Recorder*. Borrowed from late-90s set-top boxes like TiVo, where a hard drive let you pause, rewind and scrub a broadcast. In HLS, "DVR" means a live stream where the server keeps a long enough backlog of segments that the player can scrub back into the past instead of being stuck at the live edge.
+
 ```ts {all|2-3|2-3|5|all}
 // Before: sliding window, ~20s of history
 '-hls_list_size', '5',
@@ -382,6 +384,11 @@ Net effect: at any moment, only the last **~20 seconds** of the stream exists. A
 - When stdin closes, FFmpeg writes `#EXT-X-ENDLIST` → playlist is now a complete VOD
 
 </v-clicks>
+
+<style scoped>
+p { font-size: 0.78em; }
+ul { font-size: 0.85em; }
+</style>
 
 ---
 
