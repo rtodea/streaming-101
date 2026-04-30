@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "slidev",
     "build": "slidev build --base /slides/ --out dist",
-    "export": "slidev export"
+    "export": "slidev export --per-slide --wait 2000 --wait-until load --output ../streaming-101.pdf"
   },
   "dependencies": {
     "@slidev/cli": "^52.0.0",
