@@ -13,7 +13,7 @@ const props = defineProps({
 })
 
 const container = ref(null)
-const { clicks } = useNav()
+const { clicks, isPrintMode } = useNav()
 
 // Parse diagram into header (type + participants) and interaction lines.
 // Only sequenceDiagram is split into reveal steps. Other diagram types
@@ -72,7 +72,11 @@ let renderCounter = 0
 async function renderAtStep() {
   if (!container.value) return
 
-  const currentClicks = clicks.value ?? 0
+  // In print/export mode, always render the full diagram. The export
+  // navigates to ?print=true and never simulates clicks, so the click
+  // counter stays at 0 and we'd otherwise capture only the header.
+  const isPrint = isPrintMode?.value ?? false
+  const currentClicks = isPrint ? totalSteps.value : (clicks.value ?? 0)
   const visibleSteps = Math.min(Math.max(currentClicks, 0), totalSteps.value)
 
   mermaid.initialize({
