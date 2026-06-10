@@ -1,0 +1,176 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: hls-data
+  namespace: streaming-101
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  resources:
+    requests:
+      storage: 20Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server
+  namespace: streaming-101
+spec:
+  replicas: 1
+  # RWO PVC + in-memory WS/FFmpeg state: never run two servers side by side.
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: server
+  template:
+    metadata:
+      labels:
+        app: server
+    spec:
+      containers:
+        - name: server
+          # Placeholder tag: the live tag is set in kustomization.yaml (images: newTag).
+          image: registry.tadeo.ro/streaming-101-server:overridden-by-kustomize
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PORT
+              value: "3000"
+            - name: HLS_OUTPUT_DIR
+              value: /data/hls
+            - name: HLS_SEGMENT_DURATION
+              value: "4"
+            # NOTE: timjs.tadeo.ro sits behind Cloudflare's proxy (orange cloud),
+            # which caps request bodies at 100MB on the free plan. The app-side
+            # limit below is moot beyond that; keep demo uploads under 100MB.
+            - name: MAX_UPLOAD_SIZE
+              value: "524288000"
+            - name: SLIDES_DIR
+              value: /slides/slidev/dist
+          volumeMounts:
+            - name: hls-data
+              mountPath: /data/hls
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 250m
+              memory: 256Mi
+            limits:
+              # ffmpeg transcodes 3 renditions per upload; no cpu limit on
+              # purpose (16-core box, let it burst), but cap memory.
+              memory: 2Gi
+      volumes:
+        - name: hls-data
+          persistentVolumeClaim:
+            claimName: hls-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: server
+  namespace: streaming-101
+spec:
+  selector:
+    app: server
+  ports:
+    - port: 3000
+      targetPort: 3000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client
+  namespace: streaming-101
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client
+  template:
+    metadata:
+      labels:
+        app: client
+    spec:
+      containers:
+        - name: client
+          image: registry.tadeo.ro/streaming-101-client:overridden-by-kustomize
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 2
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              memory: 64Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: client
+  namespace: streaming-101
+spec:
+  selector:
+    app: client
+  ports:
+    - port: 80
+      targetPort: 80
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: tadeo-ro-wildcard
+  namespace: streaming-101
+spec:
+  secretName: tadeo-ro-wildcard-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: "*.tadeo.ro"
+  dnsNames:
+    - "tadeo.ro"
+    - "*.tadeo.ro"
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: streaming-101
+  namespace: streaming-101
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    # Backend paths — exactly what vite.config.js proxies in dev.
+    # Traefik picks the longest matching rule first, so this wins over the
+    # catch-all below for /api, /hls, /slides and /ws (incl. WS upgrades).
+    - match: Host(`timjs.tadeo.ro`) && (PathPrefix(`/api`) || PathPrefix(`/hls`) || PathPrefix(`/slides`) || PathPrefix(`/ws`))
+      kind: Rule
+      services:
+        - name: server
+          port: 3000
+    # Everything else: the static React app.
+    - match: Host(`timjs.tadeo.ro`)
+      kind: Rule
+      services:
+        - name: client
+          port: 80
+  tls:
+    secretName: tadeo-ro-wildcard-tls

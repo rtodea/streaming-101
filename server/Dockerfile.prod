@@ -1,0 +1,39 @@
+# Production image. Build context is the REPO ROOT (not server/) because the
+# slide deck is baked in: slides/slidev/dist is gitignored, so it has to be
+# built here rather than COPYed from the checkout.
+#
+#   docker build -f server/Dockerfile.prod .
+
+FROM node:20-alpine AS slides
+# Slidev's export feature pulls in playwright; we only need `slidev build`,
+# so skip the (large, slow) browser download.
+ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+WORKDIR /build
+COPY slides/slidev/package.json slides/slidev/package-lock.json ./
+RUN npm ci
+COPY slides/slidev/ ./
+# package.json build script already passes --base /slides/ to match the
+# server's ServeStaticModule serveRoot.
+RUN npm run build
+
+FROM node:20-bookworm-slim
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends ffmpeg && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY server/package.json server/package-lock.json ./
+RUN npm ci
+
+COPY server/ .
+
+RUN npm run build
+
+COPY --from=slides /build/dist /slides/slidev/dist
+ENV SLIDES_DIR=/slides/slidev/dist
+
+EXPOSE 3000
+
+CMD ["node", "dist/main.js"]

@@ -1,0 +1,67 @@
+name: build
+on:
+  push:
+    branches: [master]
+    # Image Updater bumps k8s/kustomization.yaml whenever a new image lands.
+    # Excluding k8s/** from the trigger prevents a build -> bump -> build loop.
+    paths-ignore:
+      - 'k8s/**'
+      - '**/*.md'
+  workflow_dispatch:
+
+# Single in-flight build per ref; later commits cancel earlier in-flight runs
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    # Matches the runner scale set name in
+    # tadeo-microcosmos:apps/infrastructure/arc-runners-streaming-101.yaml
+    runs-on: streaming-101
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: short SHA + master both as tags
+        id: meta
+        run: |
+          echo "sha=${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
+          echo "long=${GITHUB_SHA}"   >> "$GITHUB_OUTPUT"
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        with:
+          registry: registry.tadeo.ro
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: build and push client
+        uses: docker/build-push-action@v5
+        with:
+          context: ./client
+          file: ./client/Dockerfile.prod
+          platforms: linux/arm64
+          push: true
+          tags: |
+            registry.tadeo.ro/streaming-101-client:${{ steps.meta.outputs.sha }}
+            registry.tadeo.ro/streaming-101-client:${{ steps.meta.outputs.long }}
+            registry.tadeo.ro/streaming-101-client:master
+          cache-from: type=registry,ref=registry.tadeo.ro/streaming-101-client:buildcache
+          cache-to:   type=registry,ref=registry.tadeo.ro/streaming-101-client:buildcache,mode=max
+
+      - name: build and push server
+        uses: docker/build-push-action@v5
+        with:
+          # Repo-root context: the server image bakes in the slidev build
+          # (slides/slidev/dist is gitignored, so CI builds it).
+          context: .
+          file: ./server/Dockerfile.prod
+          platforms: linux/arm64
+          push: true
+          tags: |
+            registry.tadeo.ro/streaming-101-server:${{ steps.meta.outputs.sha }}
+            registry.tadeo.ro/streaming-101-server:${{ steps.meta.outputs.long }}
+            registry.tadeo.ro/streaming-101-server:master
+          cache-from: type=registry,ref=registry.tadeo.ro/streaming-101-server:buildcache
+          cache-to:   type=registry,ref=registry.tadeo.ro/streaming-101-server:buildcache,mode=max
