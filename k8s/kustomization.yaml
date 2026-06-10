@@ -11,4 +11,4 @@ images:
     newTag: 17dc704
   - name: registry.tadeo.ro/streaming-101-server
     newName: registry.tadeo.ro/streaming-101-server
-    newTag: bootstrap
+    newTag: 17dc704
