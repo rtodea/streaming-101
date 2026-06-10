@@ -8,7 +8,7 @@ resources:
 images:
   - name: registry.tadeo.ro/streaming-101-client
     newName: registry.tadeo.ro/streaming-101-client
-    newTag: bootstrap
+    newTag: 17dc704
   - name: registry.tadeo.ro/streaming-101-server
     newName: registry.tadeo.ro/streaming-101-server
     newTag: bootstrap
